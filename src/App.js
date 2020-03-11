@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import CustomRoute from './components/CustomRoute'
+import Home from './views/Home'
+import MainLayout from './layouts/Main'
 
-function App() {
+function App () {
+  useEffect(() => {
+    document.title = 'MakanDo'
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <Switch>
+        <CustomRoute
+          exact
+          path='/'
+          component={Home}
+          layout={MainLayout}
+        />
+      </Switch>
+    </Router>
+  )
 }
 
-export default App;
+export default App
