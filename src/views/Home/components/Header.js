@@ -32,7 +32,7 @@ const Header = (props) => {
     }
   ]
   return (
-    <Carousel indicators={0} className={classes.carousel}>
+    <Carousel indicators={0} autoPlay={1} className={classes.carousel}>
       {
         items.map((item, i) => (
           <Item item={item} key={i} />
