@@ -5,7 +5,7 @@ function MainLayout (props) {
   const { children } = props
   return (
     <>
-      <Topbar/>
+      <Topbar />
       {children}
     </>
   )

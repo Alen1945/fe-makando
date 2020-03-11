@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { Grid, TextField, Card, CardHeader, Button, CardMedia, CardActions } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import logo from '../../assets/logo.png'
@@ -28,17 +29,17 @@ function SignUp (props) {
                 fullWidth
                 size='large'
                 variant='contained'
-                color='primary'
+                color='secondary'
               >
                 <strong>Registrasi</strong>
               </Button>
             </form>
           </CardMedia>
           <CardActions>
-            <Button size='medium' color='primary'>
+            <Button size='medium' color='primary'to='/login' component={Link}>
               Login
             </Button>
-        </CardActions>
+          </CardActions>
         </Card>
       </Grid>
     </Grid>

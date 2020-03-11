@@ -6,6 +6,7 @@ import MinimalLayout from './layouts/Minimal'
 import Home from './views/Home'
 import SignIn from './views/SignIn'
 import SignUp from './views/SignUp'
+import ShowItems from './views/ShowItems'
 function App () {
   useEffect(() => {
     document.title = 'MakanDo'
@@ -30,6 +31,12 @@ function App () {
           path='/signup'
           component={SignUp}
           layout={MinimalLayout}
+        />
+        <CustomRoute
+          exact
+          path='/items'
+          component={ShowItems}
+          layout={MainLayout}
         />
       </Switch>
     </Router>

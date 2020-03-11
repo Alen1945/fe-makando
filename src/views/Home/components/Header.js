@@ -1,23 +1,24 @@
 import React from 'react'
 import Carousel from 'react-material-ui-carousel'
-import { makeStyles } from "@material-ui/styles"
+import { makeStyles } from '@material-ui/styles'
 import { Paper } from '@material-ui/core'
 import img1 from '../assets/makan1.jpg'
 import img2 from '../assets/makan2.jpg'
 
 const useStyles = makeStyles(() => ({
-  imageContainer:{
-    width:'100%',
-    height:'85vh',
-    overflow:'hidden'
+  carousel: { marginBottom: '50px' },
+  imageContainer: {
+    width: '100%',
+    height: '75vh',
+    overflow: 'hidden'
   },
   image: {
     width: '100%',
     height: 'auto',
-    position:'center center'
+    position: 'center center'
   },
-  carousel: {
-    marginBottom: '50px'
+  itemDescription: {
+    position: 'absolute'
   }
 }))
 
@@ -46,6 +47,9 @@ function Item (props) {
   return (
     <Paper elevation={3} className={classes.imageContainer}>
       <img src={props.item.img} className={classes.image} />
+      <div className={classes.itemDescription}>
+
+      </div>
     </Paper>
   )
 }

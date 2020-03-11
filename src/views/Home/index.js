@@ -7,7 +7,7 @@ export default function Home (props) {
   return (
     <>
       <Header />
-      <Container>
+      <Container maxWidth='lg'>
         <Grid container spacing={3} justify='center'>
           {
             [1, 2, 3, 4, 5, 6].map((v, i) => (

@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { Grid, TextField, Card, CardHeader, Button, CardMedia, CardActions } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import logo from '../../assets/logo.png'
@@ -37,7 +38,7 @@ function SignIn (props) {
             <Button size='small' color='primary'>
               Forget Passowrd?
             </Button>
-            <Button size='small' color='primary'>
+            <Button size='small' color='primary' to='/signup' component={Link}>
               SignUp
             </Button>
         </CardActions>
