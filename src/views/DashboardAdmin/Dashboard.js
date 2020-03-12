@@ -1,11 +1,11 @@
 import React from 'react'
 import Container from '@material-ui/core/Container'
 import { Grid, Card, CardContent, Typography, Avatar } from '@material-ui/core'
-import {Store, Fastfood, MonetizationOn} from '@material-ui/icons'
+import { Store, Fastfood, MonetizationOn, PeopleAlt } from '@material-ui/icons'
 import {makeStyles} from '@material-ui/styles'
 
 const useStyles = makeStyles({
-  avatar:{
+  avatar: {
     backgroundColor:'red',
     height:'56',
     width: '56'
@@ -35,7 +35,7 @@ export default function Dashboard (props) {
                   <Typography
                     variant='caption'
                   >
-                  Today
+                  For Today
                   </Typography>
                 </Grid>
                 <Grid item>
@@ -66,7 +66,7 @@ export default function Dashboard (props) {
                   <Typography
                     variant='caption'
                   >
-                  Today
+                  Until Today
                   </Typography>
                 </Grid>
                 <Grid item>
@@ -97,12 +97,43 @@ export default function Dashboard (props) {
                   <Typography
                     variant='caption'
                   >
-                  Today
+                  Until Today
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Avatar className={classes.avatar}>
                     <Store />
+                  </Avatar>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item>
+          <Card>
+            <CardContent>
+              <Grid
+                container
+                justify='space-between'
+              >
+                <Grid item>
+                  <Typography
+                    color='textSecondary'
+                    gutterBottom
+                    variant='body2'
+                  >
+                    Total Users
+                  </Typography>
+                  <Typography variant='h4'>25 Users</Typography>
+                  <Typography
+                    variant='caption'
+                  >
+                  Until Today
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Avatar className={classes.avatar}>
+                    <PeopleAlt />
                   </Avatar>
                 </Grid>
               </Grid>

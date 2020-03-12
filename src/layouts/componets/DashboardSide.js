@@ -1,7 +1,8 @@
 import React from 'react'
 import { Drawer, Grid, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
-import { MoveToInbox, Mail } from '@material-ui/icons'
-import {makeStyles} from '@material-ui/styles'
+import { Category, Dashboard, PeopleAlt, Store, Fastfood, Input } from '@material-ui/icons'
+import { Link } from 'react-router-dom'
+import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles({
   sideNav: {
@@ -18,28 +19,28 @@ export default function DashboardSide (props) {
     <Drawer open={props.open} onClose={handleClose}>
       <Grid justify='center' maxWidht='xl' container className={closses.sideNav}>
         <List>
-          <ListItem button>
-            <ListItemIcon><MoveToInbox /></ListItemIcon>
+          <ListItem button to='/admin' component={Link}>
+            <ListItemIcon><Dashboard /></ListItemIcon>
             <ListItemText primary='Dashboard' />
           </ListItem>
-          <ListItem button>
-            <ListItemIcon><MoveToInbox /></ListItemIcon>
+          <ListItem button to='/admin/users' component={Link}>
+            <ListItemIcon><PeopleAlt /></ListItemIcon>
             <ListItemText primary='Users' />
           </ListItem>
-          <ListItem button>
-            <ListItemIcon><MoveToInbox /></ListItemIcon>
+          <ListItem button to='/admin/categories' component={Link}>
+            <ListItemIcon><Category /></ListItemIcon>
             <ListItemText primary='Categories' />
           </ListItem>
-          <ListItem button>
-            <ListItemIcon><MoveToInbox /></ListItemIcon>
+          <ListItem button to='/admin/restaurants' component={Link}>
+            <ListItemIcon><Store /></ListItemIcon>
             <ListItemText primary='Restaurants' />
           </ListItem>
-          <ListItem button>
-            <ListItemIcon><MoveToInbox /></ListItemIcon>
+          <ListItem button to='/admin/items' component={Link}>
+            <ListItemIcon><Fastfood /></ListItemIcon>
             <ListItemText primary='Items' />
           </ListItem>
-          <ListItem button>
-            <ListItemIcon><MoveToInbox /></ListItemIcon>
+          <ListItem button to='/logout' component={Link}>
+            <ListItemIcon><Input /></ListItemIcon>
             <ListItemText primary='Logout' />
           </ListItem>
         </List>
