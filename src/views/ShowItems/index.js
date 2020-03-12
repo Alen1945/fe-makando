@@ -42,12 +42,12 @@ function ShowItems (props) {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleClickOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
   return (
     <>
       <div className={classes.listCategories}>
@@ -64,16 +64,16 @@ function ShowItems (props) {
         <Container>
           <Grid container justify='center' spacing={8}>
             {
-              [1,2,3,4,5,6,7,8].map((v,i) => (
-                <Grid item key={i} sm={3} xs={4}>
+              [1, 2, 3, 4, 5, 6, 7, 8].map((v,i) => (
+                <Grid item key={i} md={3} sm={4} xs={6} >
                   <Card>
                     <CardActionArea>
                       <CardMedia
                         component='img'
-                        alt='Contemplative Reptile'
+                        alt='Seblak Enak'
                         height='200'
                         image={image}
-                        title='Contemplative Reptile'
+                        title='Seblak Enak'
                         className={classes.Media}
                       />
                     </CardActionArea>
@@ -81,13 +81,13 @@ function ShowItems (props) {
                       <Typography gutterBottom variant='h5' component='h2'>
                         Seblak
                       </Typography>
-                      <p>Price: $500-</p>
+                      <p>Price: $5000.--</p>
                     </CardContent>
                     <CardActions>
-                      <Button size='small' color='primary' onClick={handleClickOpen}>
+                      <Button size='small' color='secondary' onClick={handleClickOpen}>
                         ADD To Cart
                       </Button>
-                      <Button size='small' color='primary'>
+                      <Button size='small' color='secondary'>
                         Show Reviews
                       </Button>
                     </CardActions>
