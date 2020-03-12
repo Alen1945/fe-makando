@@ -21,7 +21,7 @@ export default function CheckoutDetails (props) {
           <CardActions>
             <div style={{flexGrow:1}} />
             <Button size='small' variant='outlined' color='secondary' onClick={handleClick(0)}>Back</Button>
-            <Button size='small' variant='outlined' color='secondary' onClick={handleClick(2)}>Checkout</Button>
+            <Button size='small' variant='contained' color='secondary' onClick={handleClick(2)}>Checkout</Button>
             <div style={{flexGrow:1}} />
           </CardActions>
         </Card>

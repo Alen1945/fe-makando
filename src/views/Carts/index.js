@@ -10,13 +10,9 @@ function getStepContent (page, setActiveStep) {
     case 1:
       return (<CheckoutDetails setActiveStep={setActiveStep} />)
     case 2:
-      setTimeout(() => {
-        setActiveStep(3)
-        console.log('alen')
-      }, 3000)
       return (<CheckoutDone setActiveStep={setActiveStep} status={0} />)
     case 3:
-      return (<CheckoutDone status={1} />)
+      return (<CheckoutDone setActiveStep={setActiveStep} status={1} />)
     default:
       return 'Unknown Page'
   }

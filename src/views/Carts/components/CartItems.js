@@ -7,7 +7,7 @@ export default function CartItems (props) {
   }
   return (
     <>
-      <Grid container justify='center' compoenent={Container}>
+      <Grid container justify='center' component={Container}>
         <Grid item sm={10} md={8}>
           <TableContainer>
             <Table>
@@ -35,10 +35,10 @@ export default function CartItems (props) {
           </TableContainer>
         </Grid>
       </Grid>
-      <Grid container justify='center' compoenent={Container} style={{marginTop:20}}>
+      <Grid container justify='center' component={Container} style={{marginTop:20}}>
         <Button
           color='secondary'
-          variant='outlined'
+          variant='contained'
           onClick={handleClick}
         >
           Details Checkout
