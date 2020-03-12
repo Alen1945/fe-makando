@@ -7,6 +7,7 @@ import Home from './views/Home'
 import SignIn from './views/SignIn'
 import SignUp from './views/SignUp'
 import ShowItems from './views/ShowItems'
+import ShowCarts from './views/Carts'
 function App () {
   useEffect(() => {
     document.title = 'MakanDo'
@@ -36,6 +37,12 @@ function App () {
           exact
           path='/items'
           component={ShowItems}
+          layout={MainLayout}
+        />
+        <CustomRoute
+          exact
+          path='/carts'
+          component={ShowCarts}
           layout={MainLayout}
         />
       </Switch>
