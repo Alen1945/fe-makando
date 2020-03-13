@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { Grid, Card, CardHeader, Button, CardMedia, TextField, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import logo from '../../../assets/logo.png'
@@ -7,7 +6,7 @@ import * as Yup from 'yup'
 import { Formik, Form } from 'formik'
 import getData from '../../../helpers/getData'
 import CustomTextField from '../../../components/CustomTextField'
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
 const useStyles = makeStyles({
   content: {
     marginTop: '80px'
@@ -17,8 +16,8 @@ const useStyles = makeStyles({
   }
 })
 
-const initialCodeVerify = {code_verify: ''}
-const msgRequired ='This is Required'
+const initialCodeVerify = { code_verify: '' }
+const msgRequired = 'This is Required'
 const validationSchemaCode = Yup.object({
   code_verify: Yup.string().required(msgRequired)
 })
@@ -41,7 +40,7 @@ function FormVerify (props) {
                   if (response.data.success) {
                     form.setSubmitting(false)
                     form.resetForm()
-                    setTimeout(history.push('/login'), (6*1000))
+                    setTimeout(history.push('/login'), (6 * 1000))
                   }
                   props.setMsg({ display: 1, success: response.data.success, message: response.data.msg })
                 } catch (e) {
