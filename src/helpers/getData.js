@@ -1,12 +1,13 @@
 import axios from 'axios'
 
-async function getData (dataUrl, dataForm) {
-  try {
-    console.log(dataForm)
+function getData (dataUrl, dataForm) {
+  return new Promise((resolve, reject) => {
     const url = process.env.REACT_APP_API_URL + dataUrl
-    return await axios.get(url, dataForm)
-  } catch (e) {
-    console.log(e)
-  }
+    axios.get(url, dataForm).then(result => {
+      resolve(result)
+    }).catch((e) => {
+      reject(e)
+    })
+  })
 }
 export default getData

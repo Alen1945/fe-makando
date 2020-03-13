@@ -1,12 +1,13 @@
 import axios from 'axios'
 
-async function submitData (dataUrl, dataForm) {
-  try {
-    console.log(dataForm)
+function submitData (dataUrl, dataForm) {
+  return new Promise((resolve, reject) => {
     const url = process.env.REACT_APP_API_URL + dataUrl
-    return await axios.post(url, dataForm)
-  } catch (e) {
-    console.log(e)
-  }
+    axios.post(url, dataForm).then(result => {
+      resolve(result)
+    }).catch((e) => {
+      reject(e)
+    })
+  })
 }
 export default submitData
