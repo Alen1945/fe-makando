@@ -9,6 +9,7 @@ import logo from '../../assets/logo.png'
 const useStyles = makeStyles(() => ({
   appBar: {
     backgroundColor: 'white',
+    boxShadow:'0px 1px 8px #999'
   },
   ButtonCategories: {
     margin: 2,
@@ -27,7 +28,7 @@ const useStyles = makeStyles(() => ({
 }))
 function Topbar (props) {
   const classes = useStyles()
-  const [toolbarExpand, setToolbarExpand] = React.useState(true)
+  const [toolbarExpand, setToolbarExpand] = React.useState(false)
   const expandedIcon = () => {
     if (toolbarExpand) {
       return (<Close />)
@@ -40,8 +41,8 @@ function Topbar (props) {
   }
   return (
     <>
-      <AppBar className={classes.appBar} position='sticky'>
-        <Container>
+      <AppBar className={classes.appBar} position='sticky' elevation={0}>
+        <Container maxWidth='lg' elevation={0}>
           <Toolbar style={{position:'relative'}}>
             <div className={classes.flexGrow} />
             <Link to='/' component={RouterLink}>
