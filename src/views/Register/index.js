@@ -12,8 +12,8 @@ function Register (props) {
   }
   return (
     <>
-      <Snackbar open={msg.display} autoHideDuration={(1000*5*60)} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={msg.success ? 'success' : 'error'}>
+      <Snackbar open={msg.display} autoHideDuration={(1000*5*60)} anchorOrigin={{vertical:'top', horizontal:'center'}} onClose={handleClose}>
+        <Alert onClose={handleClose} variant='filled' elevation={6} severity={msg.success ? 'success' : 'error'}>
           {msg.message}
         </Alert>
       </Snackbar>

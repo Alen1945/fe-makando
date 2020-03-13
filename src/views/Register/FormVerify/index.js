@@ -41,7 +41,7 @@ function FormVerify (props) {
                   if (response.data.success) {
                     form.setSubmitting(false)
                     form.resetForm()
-                    history.push('/login')
+                    setTimeout(history.push('/login'), (6*1000))
                   }
                   props.setMsg({ display: 1, success: response.data.success, message: response.data.msg })
                 } catch (e) {
