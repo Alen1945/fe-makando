@@ -9,6 +9,7 @@ const CustomTextField = (props) => {
         <CustomComponent
           {...resultProps}
           onChange={field.onChange}
+          value={field.value[resultProps.name]}
           error={form.touched[resultProps.name] && Boolean(form.errors[resultProps.name])}
           helperText={form.touched[resultProps.name]?form.errors[resultProps.name]:''}
         >

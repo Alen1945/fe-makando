@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     padding: '20px'
   }
 })
-function SignIn (props) {
+function Login (props) {
   const classes = useStyles()
   return (
     <Grid container component='main' maxWidth='xs' justify='center' className={classes.content}>
@@ -38,7 +38,7 @@ function SignIn (props) {
             <Button size='small' color='primary'>
               Forget Passowrd?
             </Button>
-            <Button size='small' color='primary' to='/signup' component={Link}>
+            <Button size='small' color='primary' to='/register' component={Link}>
               SignUp
             </Button>
         </CardActions>
@@ -47,4 +47,4 @@ function SignIn (props) {
     </Grid>
   )
 }
-export default SignIn
+export default Login

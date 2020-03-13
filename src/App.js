@@ -5,8 +5,8 @@ import MainLayout from './layouts/Main'
 import MinimalLayout from './layouts/Minimal'
 import Dashboard from './layouts/Dashboard'
 import Home from './views/Home'
-import SignIn from './views/SignIn'
-import SignUp from './views/SignUp'
+import Login from './views/Login'
+import Register from './views/Register'
 import ShowItems from './views/ShowItems'
 import ShowCarts from './views/Carts'
 import DashboardAdmin from './views/DashboardAdmin'
@@ -27,14 +27,14 @@ function App () {
           exact
           path='/login'
           title='Login'
-          component={SignIn}
+          component={Login}
           layout={MinimalLayout}
         />
         <GuestRoute
           exact
-          path='/registras'
+          path='/register'
           title='Registrasi'
-          component={SignUp}
+          component={Register}
           layout={MinimalLayout}
         />
         <GuestRoute
