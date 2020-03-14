@@ -7,6 +7,7 @@ import MinimalLayout from './layouts/Minimal'
 import Dashboard from './layouts/Dashboard'
 import Home from './views/Home'
 import Login from './views/Login'
+import Logout from './views/Logout'
 import Register from './views/Register'
 import ShowItems from './views/ShowItems'
 import DetailItem from './views/ShowItems/DetailItem'
@@ -22,6 +23,13 @@ class App extends React.Component {
     this.state = {
       isLogin: 0
     }
+    this.setIsLogin = this.setIsLogin.bind(this)
+  }
+
+  setIsLogin (setTO) {
+    this.setState({
+      isLogin: setTO
+    })
   }
 
   componentDidMount () {
@@ -51,6 +59,16 @@ class App extends React.Component {
             component={Login}
             layout={MinimalLayout}
             isLogin={this.state.isLogin}
+            setIsLogin={this.setIsLogin}
+          />
+          <GuestRoute
+            exact
+            path='/logout'
+            title='Logout'
+            component={Logout}
+            layout={MinimalLayout}
+            isLogin={this.state.isLogin}
+            setIsLogin={this.setIsLogin}
           />
           <GuestRoute
             exact

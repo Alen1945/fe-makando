@@ -2,11 +2,11 @@ import React from 'react'
 import DashboardNav from './componets/DashboardNav'
 
 function MainLayout (props) {
-  const { children } = props
+  const { children, isLogin } = props
   return (
     <>
-      <DashboardNav />
-      <div style={{marginTop:50}}>
+      <DashboardNav isLogin={isLogin} />
+      <div style={{ marginTop: 50 }}>
         {children}
       </div>
     </>

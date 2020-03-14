@@ -46,7 +46,7 @@ function DashboardNav (props) {
           <Toolbar style={{position:'relative'}}>
             <div className={classes.flexGrow} />
             <Link to='/' component={RouterLink}>
-              <img src={logo} />
+              <img alt='logo' src={logo} />
             </Link>
             <div className={classes.flexGrow} />
             <IconButton onClick={handleExpand} className={clsx(classes.ButtonCategories, classes.expandPanelIcon)}>{expandedIcon()}</IconButton>

@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 
 function CustomRoute (props) {
   document.title = props.title
-  const { layout: Layout, component: Component, isLogin, ...anotherProps } = props
+  const { layout: Layout, component: Component, isLogin, setIsLogin, ...anotherProps } = props
   if (cookie.get('tokenm4k4nd0')) {
     const role = jwt.decode(cookie.get('tokenm4k4nd0')).role
     if (role && role === 3) {
@@ -13,8 +13,8 @@ function CustomRoute (props) {
         <RouterLink
           {...anotherProps}
           render={(matchProps) => (
-            <Layout>
-              <Component {...matchProps} isLogin={isLogin} />
+            <Layout isLogin={isLogin}>
+              <Component {...matchProps} isLogin={isLogin} setIsLogin={setIsLogin} />
             </Layout>
           )}
         />
