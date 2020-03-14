@@ -9,6 +9,7 @@ import Home from './views/Home'
 import Login from './views/Login'
 import Register from './views/Register'
 import ShowItems from './views/ShowItems'
+import DetailItem from './views/ShowItems/DetailItem'
 import ShowCarts from './views/Carts'
 import DashboardAdmin from './views/DashboardAdmin'
 import Page404 from './views/Page404'
@@ -24,7 +25,6 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    console.log(cookie.get('tokenm4k4nd0'))
     if (cookie.get('tokenm4k4nd0')) {
       this.setState({
         isLogin: 1
@@ -65,6 +65,14 @@ class App extends React.Component {
             path='/items'
             title='Items'
             component={ShowItems}
+            layout={MainLayout}
+            isLogin={this.state.isLogin}
+          />
+          <GuestRoute
+            exact
+            path='/items/:id'
+            title='Items'
+            component={DetailItem}
             layout={MainLayout}
             isLogin={this.state.isLogin}
           />
