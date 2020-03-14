@@ -13,6 +13,7 @@ import * as Yup from 'yup'
 import CustomTextField from '../../components/CustomTextField'
 import TabPanel from '../../components/TabPanel'
 import RelatedItem from './components/RelatedItem'
+import LayoutItemReview from './components/ReviewItems'
 const useStyles = makeStyles({
   avatar: {
     height: '250px',
@@ -28,7 +29,7 @@ export default function DetailsItem (props) {
 
   React.useEffect(() => {
     getDetailItem(props.match.params.id)
-  },[props.match.params.id])
+  }, [props.match.params.id])
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -49,9 +50,7 @@ export default function DetailsItem (props) {
       const dataReview = await getData('/reviews/items/' + props.match.params.id)
       console.log(dataReview.data.data)
       if (dataReview.data.success) {
-        if (!dataReview.data.data) {
-          setReviewItem(dataReview.data.data)
-        }
+        setReviewItem(dataReview.data.data)
       }
     } catch (e) {
       console.log(e)
@@ -129,10 +128,8 @@ export default function DetailsItem (props) {
           </Grid>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Grid align='center' sytle={{marginTop: '10px'}}>
-            {reviewItem ? <>data</> : <Typography variant='h6' color='textSecondary'>Has Not Review For This Item</Typography>
-              
-            }
+          <Grid align='center' justify='center' sytle={{ marginTop: '10px' }}>
+            {reviewItem ? <LayoutItemReview dataReview={reviewItem} />: <Typography variant='h6' color='textSecondary'>Has Not Review For This Item</Typography>}
           </Grid>
         </TabPanel>
       </Grid>

@@ -2,11 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {
   CardContent, Card, CardMedia, Avatar,
-  Box, CardActions,
+  Grid, CardActions,
   Typography, Button
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import {AddShoppingCart} from '@material-ui/icons'
 
 const useStyles = makeStyles({
   avatar: {
@@ -28,13 +27,12 @@ export default function RelatedItem (props) {
           Rp. {parseFloat(props.price).toFixed(2)}
         </Typography>
       </CardContent>
-      <CardActions style={{marginTop:'-15px'}}>
-        <Button size='small' color='secondary' variant='contained' width='100%'>
-          <AddShoppingCart />
-        </Button>
-        <Button size='small' color='primary' variant='outlined' width='100%' to={`/items/${props._id}`} component={Link}>
-          Details
-        </Button>
+      <CardActions style={{ marginTop: '-15px'}}>
+        <Grid container justify='center'>
+          <Button size='small' color='primary' variant='outlined' to={`/items/${props._id}`} component={Link}>
+            Details
+          </Button>
+        </Grid>
       </CardActions>
     </Card>
   )
