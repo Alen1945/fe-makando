@@ -38,9 +38,10 @@ function FormVerify (props) {
                 try {
                   const response = await getData(`/verify?code=${values.code_verify}`, values)
                   if (response.data.success) {
+                    props.setMsg({ display: 1, success: response.data.success, message: response.data.msg })
                     form.setSubmitting(false)
                     form.resetForm()
-                    setTimeout(history.push('/login'), (6 * 1000))
+                    setTimeout(history.push('/login'), (400 * 1000))
                   }
                   props.setMsg({ display: 1, success: response.data.success, message: response.data.msg })
                 } catch (e) {
