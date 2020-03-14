@@ -5,6 +5,13 @@ export default function CheckoutDetails (props) {
   const handleClick = (step) => (e) => {
     props.setActiveStep(step)
   }
+  console.log('ads')
+  console.log(props)
+  const [detailCheckout, setDetailCheckout] = React.useState({})
+  React.useEffect(() => {
+    setDetailCheckout(props.data.data)
+    console.log(detailCheckout)
+  },[props])
   return (
     <Grid container justify='center' component={Container}>
       <Grid item sm={10} md={8}>
@@ -12,10 +19,10 @@ export default function CheckoutDetails (props) {
           <CardContent>
             <Typography variant='h5' align='center' style={{marginBottom:'10px'}}>Details Purchase</Typography>
             <Typography align='center'>
-              Total Price: $1000
+              Total Price: { detailCheckout.totalPrice }
             </Typography>
             <Typography align='center'>
-              Total Type Items: 10
+              Total Type Items: { detailCheckout.totalTypeItems }
             </Typography>
           </CardContent>
           <CardActions>

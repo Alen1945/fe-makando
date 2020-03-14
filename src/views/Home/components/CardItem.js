@@ -37,9 +37,6 @@ export default function CardItem (props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size='small' color='secondary' variant='contained' width='100%'>
-          <AddShoppingCartIcon />
-        </Button>
         <Button size='small' color='primary' variant='outlined' width='100%' to={`/items/${props.detailItem._id}`} component={Link}>
           Details
         </Button>

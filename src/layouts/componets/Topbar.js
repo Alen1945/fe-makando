@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
 }))
 function Topbar (props) {
   const classes = useStyles()
-  const {isLogin} = props
+  const { isLogin } = props
   const [toolbarExpand, setToolbarExpand] = React.useState(false)
   const expandedIcon = () => {
     if (toolbarExpand) {
@@ -55,15 +55,15 @@ function Topbar (props) {
             <div />
             <ExpansionPanelDetails>
               <div className={classes.flexGrow} />
-              <IconButton color='error'>
-                <Badge badgeContent={4} color='error'>
+              <IconButton color='error' to='/carts' component={RouterLink}>
+                <Badge color='error'>
                   <ShoppingCart className={classes.ButtonCustom} />
                 </Badge>
               </IconButton>
               {
                 isLogin ? (
                   <>
-                    <Button size='small' variant='outlined' color='primary' to='/login' component={RouterLink} sizeSmall>Profile</Button>
+                    <Button size='small' variant='outlined' color='primary' to='/profile' component={RouterLink} sizeSmall>Profile</Button>
                     <IconButton className={classes.ButtonCustom} to='/logout' component={RouterLink}>
                       <Input />
                     </IconButton>
