@@ -4,7 +4,7 @@ import { Form } from 'formik'
 import CustomTextField from '../../../components/CustomTextField'
 
 function FormRegister (props) {
-  const {progres} = props
+  const { progres } = props
   return (
     <Form>
       <CustomTextField

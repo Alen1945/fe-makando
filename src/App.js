@@ -8,6 +8,7 @@ import MinimalLayout from './layouts/Minimal'
 import Dashboard from './layouts/Dashboard'
 import Home from './views/Home'
 import Login from './views/Login'
+import Profile from './views/Profile'
 import Logout from './views/Logout'
 import Register from './views/Register'
 import ShowItems from './views/ShowItems'
@@ -100,6 +101,14 @@ class App extends React.Component {
             path='/carts'
             title='Cart'
             component={ShowCarts}
+            layout={MainLayout}
+            isLogin={this.state.isLogin}
+          />
+          <UserRoute
+            exact
+            path='/profile'
+            title='Profile'
+            component={Profile}
             layout={MainLayout}
             isLogin={this.state.isLogin}
           />
