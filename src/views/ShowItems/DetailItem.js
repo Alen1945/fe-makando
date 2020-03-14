@@ -12,7 +12,6 @@ import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import CustomTextField from '../../components/CustomTextField'
 import submitData from '../../helpers/submitData'
-import { useHistory } from 'react-router-dom'
 import TabPanel from '../../components/TabPanel'
 import RelatedItem from './components/RelatedItem'
 import LayoutItemReview from './components/ReviewItems'
@@ -24,7 +23,6 @@ const useStyles = makeStyles({
 })
 
 export default function DetailsItem (props) {
-  const history = useHistory()
   const classes = useStyles()
   const [dataItem, setDataItem] = React.useState([])
   const [value, setValue] = React.useState(0)

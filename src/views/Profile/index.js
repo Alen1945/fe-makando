@@ -10,7 +10,6 @@ import {Work} from '@material-ui/icons'
 import CustomTextField from '../../components/CustomTextField'
 import {Formik, Form } from 'formik'
 import submitData from '../../helpers/submitData'
-import { useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
 import { makeStyles } from '@material-ui/styles'
 import getData from '../../helpers/getData'
@@ -46,7 +45,6 @@ const useStyles = makeStyles({
   }
 })
 export default function Profile (props) {
-  const history = useHistory()
   const classes = useStyles()
   const [userData, setUserData] = React.useState({})
   const [userReview, setUserReviews] = React.useState([])
