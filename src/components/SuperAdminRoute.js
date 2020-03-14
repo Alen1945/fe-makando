@@ -1,18 +1,29 @@
 import React from 'react'
-import { Route as RouterLink } from 'react-router-dom'
+import { Route as RouterLink, Redirect } from 'react-router-dom'
+import cookie from 'js-cookie'
+import jwt from 'jsonwebtoken'
+
 function CustomRoute (props) {
   document.title = props.title
-  const { layout: Layout, component: Component, ...anotherProps } = props
-  return (
-    <RouterLink
-      {...anotherProps}
-      render={(matchProps) => (
-        <Layout>
-          <Component {...matchProps} />
-        </Layout>
-      )}
-    />
-  )
+  const { layout: Layout, component: Component, isLogin, ...anotherProps } = props
+  if (cookie.get('tokenm4k4nd0')) {
+    const role = jwt.decode(cookie.get('tokenm4k4nd0')).role
+    if (role && role === 3) {
+      return (
+        <RouterLink
+          {...anotherProps}
+          render={(matchProps) => (
+            <Layout>
+              <Component {...matchProps} isLogin={isLogin} />
+            </Layout>
+          )}
+        />
+      )
+    } else {
+      return <Redirect to='/403?' />
+    }
+  }
+  return <Redirect to='/login' />
 }
 
 export default CustomRoute
