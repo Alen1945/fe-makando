@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import GuestRoute from './components/GuestRoute'
+import SuperAdminRoute from './components/SuperAdminRoute'
 import UserRoute from './components/UsersRoute'
 import MainLayout from './layouts/Main'
 import MinimalLayout from './layouts/Minimal'
@@ -102,7 +103,7 @@ class App extends React.Component {
             layout={MainLayout}
             isLogin={this.state.isLogin}
           />
-          <GuestRoute
+          <SuperAdminRoute
             exact
             path='/admin'
             title='DashBoard'
@@ -110,7 +111,7 @@ class App extends React.Component {
             layout={Dashboard}
             isLogin={this.state.isLogin}
           />
-          <GuestRoute
+          <SuperAdminRoute
             exact
             path='/admin/:page'
             title='DashBoard'

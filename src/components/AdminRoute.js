@@ -3,7 +3,7 @@ import { Route as RouterLink, Redirect } from 'react-router-dom'
 import cookie from 'js-cookie'
 import jwt from 'jsonwebtoken'
 
-function CustomRoute (props) {
+function AdminRoute (props) {
   document.title = props.title
   const { layout: Layout, component: Component, isLogin, setIsLogin, ...anotherProps } = props
   if (cookie.get('tokenm4k4nd0')) {
@@ -26,4 +26,4 @@ function CustomRoute (props) {
   return <Redirect to='/login' />
 }
 
-export default CustomRoute
+export default AdminRoute
