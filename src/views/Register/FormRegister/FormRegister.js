@@ -1,9 +1,10 @@
 import React from 'react'
-import { Button, TextField } from '@material-ui/core'
+import { Button, TextField, CircularProgress, Grid } from '@material-ui/core'
 import { Form } from 'formik'
 import CustomTextField from '../../../components/CustomTextField'
 
 function FormRegister (props) {
+  const {progres} = props
   return (
     <Form>
       <CustomTextField
@@ -24,11 +25,14 @@ function FormRegister (props) {
       />
       <Button
         type='submit'
-        fullWidth
         size='large'
-        variant='contained'
+        fullWidth
+        variant='outlined'
         color='secondary'
       >
+        <Grid component='span' hidden={progres === 0} >
+          <CircularProgress size={25} color='primary' />&nbsp;&nbsp;&nbsp;
+        </Grid>
         <strong>Registrasi</strong>
       </Button>
     </Form>

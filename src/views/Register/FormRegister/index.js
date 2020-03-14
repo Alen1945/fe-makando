@@ -30,6 +30,7 @@ const validationFormRegistrasi = Yup.object({
 })
 
 function LayoutRegister (props) {
+  const [progres, setProgres] = React.useState(0)
   const classes = useStyles()
   return (
     <Grid container component='main' maxWidth='xs' justify='center' className={classes.content}>
@@ -42,6 +43,7 @@ function LayoutRegister (props) {
               validationSchema={validationFormRegistrasi}
               onSubmit={async (values, form) => {
                 try {
+                  setProgres(1)
                   const response = await submitData('/register', values)
                   if (response.data.success) {
                     form.setSubmitting(false)
@@ -50,12 +52,13 @@ function LayoutRegister (props) {
                   }
                   props.setMsg({ display: 1, success: response.data.success, message: response.data.msg })
                 } catch (e) {
+                  setProgres(0)
                   console.log(e)
                   props.setMsg({ display: 1, success: e.response.data.success, message: e.response.data.msg })
                 }
               }}
             >
-              <FormRegister />
+              <FormRegister progres={progres}/>
             </Formik>
           </CardMedia>
           <CardActions style={{marginTop:'30px'}}>
