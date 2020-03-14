@@ -50,7 +50,7 @@ function Login (props) {
                   try {
                     const response = await submitData('/login', values)
                     if (response && response.data.success) {
-                      Cookies.set('tokenm4k4nd0', response.data.data.token)
+                      Cookies.set('tokenm4k4nd0', response.data.data.token, { expires: (1 / 24) })
                       history.push('/')
                     }
                     setMsg({ display: 1, success: response.data.success, message: response.data.msg })
