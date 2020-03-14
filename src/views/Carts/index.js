@@ -8,13 +8,13 @@ import getData from '../../helpers/getData'
 function getStepContent (page, setActiveStep, data) {
   switch (page) {
     case 0:
-      return (<CartItems setActiveStep={setActiveStep} data={data}/>)
+      return (<CartItems setActiveStep={setActiveStep} data={data} style={{marginBotton:'40px'}}/>)
     case 1:
-      return (<CheckoutDetails setActiveStep={setActiveStep} data={data}/>)
+      return (<CheckoutDetails setActiveStep={setActiveStep} data={data} style={{marginBotton:'40px'}} />)
     case 2:
-      return (<CheckoutDone setActiveStep={setActiveStep} status={0} />)
+      return (<CheckoutDone setActiveStep={setActiveStep} status={0}  style={{marginBotton:'40px'}} />)
     case 3:
-      return (<CheckoutDone setActiveStep={setActiveStep} status={1} />)
+      return (<CheckoutDone setActiveStep={setActiveStep} status={1}  style={{marginBotton:'40px'}} />)
     default:
       return 'Unknown Page'
   }
