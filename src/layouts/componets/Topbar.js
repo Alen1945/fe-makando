@@ -15,7 +15,6 @@ const useStyles = makeStyles(() => ({
     margin: 2,
     color: '#222',
     fontWeight: 800
-
   },
   expandPanelIcon: {
     postion:'absolute',
@@ -63,11 +62,16 @@ function Topbar (props) {
               </IconButton>
               {
                 isLogin ? (
-                  <IconButton className={classes.ButtonCustom} to='/logout' component={RouterLink}>
-                    <Input />
-                  </IconButton>
+                  <>
+                    <Button size='small' variant='outlined' color='primary' to='/login' component={RouterLink} sizeSmall>Profile</Button>
+                    <IconButton className={classes.ButtonCustom} to='/logout' component={RouterLink}>
+                      <Input />
+                    </IconButton>
+                  </>
                 ) : (
-                  <Button>Login</Button>
+                  <>
+                    <Button size='small' variant='outlined' color='primary' to='/login' component={RouterLink} sizeSmall>Login</Button>
+                  </>
                 )
               }
             </ExpansionPanelDetails>
