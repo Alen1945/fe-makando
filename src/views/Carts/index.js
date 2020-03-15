@@ -32,7 +32,7 @@ function ShowCarts (props) {
   }
   React.useEffect(() => {
     getCartData()
-  }, [])
+  }, [activeStep])
   return (
     <>
       <div style={{ margin: '50px 0', paddingBottom: '10px', borderBottom: '0.2px solid #ccc' }}>
