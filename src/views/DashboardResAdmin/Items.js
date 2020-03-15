@@ -88,8 +88,6 @@ export default function Items (props) {
         </ExpansionPanel>
       </Grid>
       <ListItem />
-      <div style={{position:'relative'}}>
-      </div>
     </>
   )
 }
