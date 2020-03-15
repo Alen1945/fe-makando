@@ -2,10 +2,12 @@ import React from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import GuestRoute from './components/GuestRoute'
 import SuperAdminRoute from './components/SuperAdminRoute'
+import AdminRoute from './components/AdminRoute'
 import UserRoute from './components/UsersRoute'
 import MainLayout from './layouts/Main'
 import MinimalLayout from './layouts/Minimal'
 import Dashboard from './layouts/Dashboard'
+import DashboardRes from './layouts/DashboardRes'
 import Home from './views/Home'
 import Login from './views/Login'
 import Profile from './views/Profile'
@@ -15,6 +17,7 @@ import ShowItems from './views/ShowItems'
 import DetailItem from './views/ShowItems/DetailItem'
 import ShowCarts from './views/Carts'
 import DashboardAdmin from './views/DashboardAdmin'
+import DashboardResAdmin from './views/DashboardResAdmin'
 import Page404 from './views/Page404'
 import Page403 from './views/Page403'
 import cookie from 'js-cookie'
@@ -112,6 +115,7 @@ class App extends React.Component {
             layout={MainLayout}
             isLogin={this.state.isLogin}
           />
+          {/* START SUPER ADMIN */}
           <SuperAdminRoute
             exact
             path='/admin'
@@ -128,6 +132,26 @@ class App extends React.Component {
             layout={Dashboard}
             isLogin={this.state.isLogin}
           />
+          {/* END SUPER ADMIN */}
+          
+          {/* START Admin Restaurant */}
+          <AdminRoute
+            exact
+            path='/restaurant/admin'
+            title='DashBoard'
+            component={DashboardResAdmin}
+            layout={DashboardRes}
+            isLogin={this.state.isLogin}
+          />
+          <AdminRoute
+            exact
+            path='/restaurant/admin/:page'
+            title='DashBoard'
+            component={DashboardResAdmin}
+            layout={DashboardRes}
+            isLogin={this.state.isLogin}
+          />
+          {/* END Admin Restaurant */}
           <GuestRoute
             title='403 Forbidden'
             exact

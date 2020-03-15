@@ -200,11 +200,18 @@ export default function Profile (props) {
                 See Cart
               </Button>
               {
-                (userData.is_admin || userData.is_superadmin) ? (
-                  <Button size='small' color='secondary' variant='contained' to='/admin' component={Link} style={{margin:'2px'}}>
-                    Dashboard Admin
+                userData.is_admin ? (
+                  <Button size='small' color='secondary' variant='contained' to='/restaurant/admin' component={Link} style={{margin:'2px'}}>
+                    Dashboard Admin Restaurant
                   </Button>
-                ):''
+                ) : ''
+              }
+              {
+                userData.is_superadmin ? (
+                  <Button size='small' color='secondary' variant='contained' to='/admin' component={Link} style={{margin:'2px'}}>
+                    Dashboard Super Admin
+                  </Button>
+                ) : ''
               }
             </Grid>
             <List>
