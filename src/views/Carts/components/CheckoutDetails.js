@@ -1,12 +1,8 @@
 import React from 'react'
-import { Container, Grid, Typography, Card, CardContent, CardActions, Button, Snackbar} from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
+import { Container, Grid, Typography, Card, CardContent, CardActions, Button} from '@material-ui/core'
 import getData from '../../../helpers/getData'
 export default function CheckoutDetails (props) {
-  const [msg, setMsg] = React.useState({ display: 0, success: false, message: '' })
-  const handleClose = () => {
-    setMsg({ display: 0 })
-  }
+  const {setMsg} = props
   const handleClick = (step) => (e) => {
     props.setActiveStep(step)
   }
@@ -29,11 +25,6 @@ export default function CheckoutDetails (props) {
   },[props])
   return (
     <>
-      <Snackbar open={msg.display} autoHideDuration={1000 * 5 * 60} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={handleClose}>
-        <Alert onClose={handleClose} variant='filled' elevation={6} severity={msg.success ? 'success' : 'error'}>
-          {msg.message}
-        </Alert>
-      </Snackbar>
       <Grid container justify='center' component={Container}>
         <Grid item sm={10} md={8}>
           <Card>

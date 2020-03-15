@@ -4,11 +4,25 @@ import {Edit, Delete, Check} from '@material-ui/icons'
 import {Formik, Form} from 'formik'
 import * as Yup from 'yup'
 import CustomTextField from '../../../components/CustomTextField'
+import deleteData from '../../../helpers/deleteData'
+
 export default function CartItems (props) {
+  const {setMsg} = props
   const handleClick = (e) => {
     props.setActiveStep(1)
   }
   const [itemCart, setItemCart] = React.useState([])
+  const deleteCart = async (id) => {
+    try {
+      const response = await deleteData(`/carts/${id}`)
+      if (response.data.success) {
+        setMsg({ display: 1, success: response.data.success, message: response.data.msg })
+      }
+    } catch (e) {
+      console.log(e.response)
+      // setMsg({ display: 1, success: e.response.data.success, message: e.response.data.msg })
+    }
+  }
   React.useEffect(() => {
     setItemCart(props.data.data ? props.data.data.itemInCart : [])
     console.log(itemCart)
@@ -32,7 +46,7 @@ export default function CartItems (props) {
                 {itemCart.map((cart,i) => (
                   <TableRow key={cart._id}>
                     <TableCell component='th' scope='row'>
-                      <IconButton><Edit/></IconButton>&nbsp;&nbsp;<IconButton><Delete/></IconButton>
+                      <IconButton><Edit/></IconButton>&nbsp;&nbsp;<IconButton onClick={()=>deleteCart(cart._id)}><Delete/></IconButton>
                     </TableCell>
                     <TableCell align='right'> <Avatar alt={cart.name_item} src={(process.env.REACT_APP_API_URL + '/' + cart.images)} style={{height:'50px',width:'50px'}} /></TableCell>
                     <TableCell align='right'>{cart.name_item}</TableCell>
