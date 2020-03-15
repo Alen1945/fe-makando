@@ -8,13 +8,14 @@ import submitData from '../../helpers/submitData'
 
 const initialFormItem = { id_restaurant: '', id_category: '', name: '', quantity: 0, price: 0, description: '', images: null }
 const msgRequired = 'This is Required'
-const validationFormItem = Yup.object().shape({
+const validationFormItem = Yup.object({
   id_restaurant: Yup.number().required(msgRequired),
   id_category: Yup.number().required(msgRequired),
   name: Yup.string().required(msgRequired),
   quantity: Yup.number().required(msgRequired),
   price: Yup.number().required(msgRequired),
-  description: Yup.string()
+  description: Yup.string(),
+  images: Yup.mixed().required()
 })
 
 export default function Items (props) {
