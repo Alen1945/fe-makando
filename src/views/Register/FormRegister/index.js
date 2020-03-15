@@ -51,6 +51,7 @@ function LayoutRegister (props) {
                     props.setSuccessRegister(1)
                   }
                   props.setMsg({ display: 1, success: response.data.success, message: response.data.msg })
+                  setProgres(0)
                 } catch (e) {
                   setProgres(0)
                   console.log(e)

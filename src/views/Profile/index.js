@@ -196,9 +196,16 @@ export default function Profile (props) {
               Special Application
             </Typography>
             <Grid container justify='center'>
-              <Button size='small' color='secondary' variant='contained' width='100%' to='/carts' component={Link}>
+              <Button size='small' color='secondary' variant='contained' to='/carts' component={Link} style={{margin:'2px'}}>
                 See Cart
               </Button>
+              {
+                (userData.is_admin || userData.is_superadmin) ? (
+                  <Button size='small' color='secondary' variant='contained' to='/admin' component={Link} style={{margin:'2px'}}>
+                    Dashboard Admin
+                  </Button>
+                ):''
+              }
             </Grid>
             <List>
               <ExpansionPanelSummary onClick={() => {setStatusEdit({ profile: !statusEdit.profile })}}>
