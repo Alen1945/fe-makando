@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Card, CardHeader, CardContent, CardActions, MenuItem, Button, TextField, Input } from '@material-ui/core'
-import { Form } from 'formik'
+import { Form, Field } from 'formik'
 import CustomTextField from '../../../components/CustomTextField'
 import getData from '../../../helpers/getData'
 
@@ -92,15 +92,17 @@ export default function FormItem (props) {
                   fullWidth label='Description' margin='dense' name='description' type='text' variant='outlined'
                 />
               </Grid>
-              {/* <Grid item md={4} xs={6}>
-                <CustomTextField
-                  component={Input}
-                  fullWidth label='Images' margin='dense' name='images' type='file'
-                  onChange={(event) => {
-                    return props.setFieldValue('file', event.currentTarget.files[0])
-                  }}
+              <Grid item md={4} xs={6}>
+                <Field
+                  component={({ field, form, ...props }) => (
+                    <TextField
+                      fullWidth label='Images' margin='dense' name='images' type='file' onChange={(event) => {
+                        form.setFieldValue('images', event.currentTarget.files[0])
+                      }}
+                    />
+                  )}
                 />
-              </Grid> */}
+              </Grid>
             </Grid>
           </Grid>
         </CardContent>

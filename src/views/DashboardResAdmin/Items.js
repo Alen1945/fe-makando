@@ -14,8 +14,7 @@ const validationFormItem = Yup.object().shape({
   name: Yup.string().required(msgRequired),
   quantity: Yup.number().required(msgRequired),
   price: Yup.number().required(msgRequired),
-  description: Yup.string(),
-  images: Yup.mixed()
+  description: Yup.string()
 })
 
 export default function Items (props) {
@@ -40,7 +39,11 @@ export default function Items (props) {
         }
         onSubmit={async (values, form) => {
           try {
-            const response = await submitData('/items', values)
+            const formData = new FormData()
+            Object.keys(values).forEach(v => {
+              formData.append(v, values[v])
+            })
+            const response = await submitData('/items', formData)
             if (response.data.success) {
               setMsg({ display: 1, success: response.data.success, message: response.data.msg })
               form.setSubmitting(false)
@@ -48,7 +51,7 @@ export default function Items (props) {
             }
             setMsg({ display: 1, success: response.data.success, message: response.data.msg })
           } catch (e) {
-            console.log(e.response)
+            console.log(e)
             setMsg({ display: 1, success: e.response.data.success, message: e.response.data.msg })
           }
         }}
