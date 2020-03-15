@@ -13,8 +13,8 @@ export default function Home (props) {
   const getDataItems = async (numData) => {
     try {
       const dataItems = await getData('/browse-items?sort[_id]=1&limit='+numData)
-      if (dataItems.data.success && dataItems.data.data) {
-        setItem(dataItems.data.data)
+      if (dataItems.data.success && dataItems.data.dataItems) {
+        setItem(dataItems.data.dataItems)
       }
     } catch (e) {
       console.log(e)

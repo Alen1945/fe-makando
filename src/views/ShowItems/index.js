@@ -1,15 +1,18 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
 import { Card, CardMedia, 
   Dialog,DialogContentText,
   DialogContent, DialogTitle,
   DialogActions, CardContent,
   CardActionArea, CardActions,
-  Typography, Button, Grid,
+  Typography, Button, Grid, Avatar,
   Container, TextField} from '@material-ui/core'
+import { Pagination } from '@material-ui/lab'
+import { AddShoppingCart } from '@material-ui/icons'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
-import image from '../Home/assets/makan2.jpg'
+import getData from '../../helpers/getData'
 const useStyles = makeStyles({
   listCategories: {
     borderBottom: '1px solid #ccc',
@@ -28,19 +31,21 @@ const useStyles = makeStyles({
   listItems:{
     minHeight:'200px'
   },
-  Media: {
-    borderRadius:'50%',
-    maxWidth:'200px',
-    maxHeight: '200px',
-    margin:'0 auto'
+  avatar: {
+    height: '100px',
+    width: '100px'
   }
 })
+
 function ShowItems (props) {
   const classes = useStyles()
-  const [open, setOpen] = React.useState(false);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const [open, setOpen] = React.useState(false)
+  const [activeCategory, setActiveCategory]= React.useState(0)
+  const [dataItems, setData] = React.useState({})
+  const [dataCategory, setDataCategory] = React.useState([])
+  const [page, setPage] = React.useState(1)
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -48,54 +53,92 @@ function ShowItems (props) {
   const handleClose = () => {
     setOpen(false)
   }
+  const handleChange = (event, value) => {
+    setPage(value);
+  }
+  const getCategory = async () => {
+    try {
+      const response = await getData('/browse-categories')
+      console.log(response)
+      setDataCategory(response.data.data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  const getItems = async (page,category) => {
+    try {
+      const condition = `limit=1&sort[created_at]=1&page=${page}`
+      let url = `/browse-items?${condition}`
+      if (category) {
+        console.log(category)
+        url = `/browse-categories/${category}?${condition}`
+      }
+      const response = await getData(url)
+      console.log(response.data)
+      setData(response.data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  React.useEffect(() => {
+    getCategory()
+    getItems(page, activeCategory)
+  }, [activeCategory, page])
   return (
     <>
       <div className={classes.listCategories}>
         <Container>
           <Grid container className={classes.grid}>
-            <Button variant='contained' color='secondary' className={classes.buttonCategories}> Show All </Button>
-            <Button variant='outlined' color='secondary' className={classes.buttonCategories}> Meat </Button>
-            <Button variant='outlined' color='secondary' className={classes.buttonCategories}> Spicy </Button>
-            <Button variant='outlined' color='secondary' className={classes.buttonCategories}> Veg </Button>
+            <Button size='small' variant={activeCategory == 0 ? 'contained' : 'outlined'} onClick={() =>{ setActiveCategory(0) ; setPage(1) }} color='secondary' className={classes.buttonCategories}> Show All </Button>
+            {
+              dataCategory.length >0 && dataCategory.map((cat) => (
+                <Button key={cat._id} size='small' variant={activeCategory == cat._id ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(`${cat._id}`)  ; setPage(1) }} color='secondary' className={classes.buttonCategories}> {cat.name} </Button>
+              ))
+            }
           </Grid>
         </Container>
       </div>
       <div className={classes.listItems}>
         <Container>
-          <Grid container justify='center' spacing={8}>
+          <Grid container justify='center' spacing={2}>
             {
-              [1, 2, 3, 4, 5, 6, 7, 8].map((v,i) => (
-                <Grid item key={i} md={3} sm={4} xs={6} >
-                  <Card>
-                    <CardActionArea>
-                      <CardMedia
-                        component='img'
-                        alt='Seblak Enak'
-                        height='200'
-                        image={image}
-                        title='Seblak Enak'
-                        className={classes.Media}
-                      />
-                    </CardActionArea>
+              dataItems.dataItems ? dataItems.dataItems.map((item) => (
+                <Grid item key={item._id} md={2} sm={4} xs={6} >
+                  <Card align='center' style={{padding:'10px'}}>
+                    <Avatar alt={item.name} src={process.env.REACT_APP_API_URL+'/'+item.images} className={classes.avatar} />
                     <CardContent>
-                      <Typography gutterBottom variant='h5' component='h2'>
-                        Seblak
+                      <Typography gutterBottom variant='subtite1' color='primary'>
+                        {item.name}
                       </Typography>
-                      <p>Price: $5000.--</p>
+                      <Typography gutterBottom variant='h6'>
+                        Rp. {parseFloat(item.price).toFixed(2)}
+                      </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size='small' color='secondary' onClick={handleClickOpen}>
-                        ADD To Cart
-                      </Button>
-                      <Button size='small' color='secondary'>
-                        Show Reviews
+                      {/* <Button size='small' color='secondary' variant='contained'>
+                        <AddShoppingCart />
+                      </Button> */}
+                      <Button size='small' color='primary' variant='contained' to={`/items/${item._id}`} component={Link}>
+                      Details
                       </Button>
                     </CardActions>
                   </Card>
                 </Grid>
-              ))
+              )) : (
+                <Typography gutterBottom variant='subtite1' color='primary'>
+                    Item Not Found
+                </Typography>
+              )
             }
           </Grid>
+          {dataItems.pagination && console.log(dataItems.pagination)}
+          {
+            dataItems.pagination && dataItems.pagination.totalPages > 1 && (
+              <Grid container justify='center' style={{marginTop:'50px'}}>
+                <Pagination page={page} onChange={handleChange} count={dataItems.pagination.totalPages} color='secondary' />
+              </Grid>
+            )
+          }
           <Dialog
             fullScreen={fullScreen}
             open={open}

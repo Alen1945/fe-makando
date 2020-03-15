@@ -116,7 +116,6 @@ export default function Profile (props) {
                 initialValues={{nominal_topup:0}}
                 validationSchema={Yup.object({nominal_topup:Yup.number().required()})}
                 onSubmit={async (values,form) => {
-                  console.log(values)
                   setStatusEdit({balance:true})
                   try {
                     const response = await submitData('/topup', values)
