@@ -8,7 +8,7 @@ function AdminRoute (props) {
   const { layout: Layout, component: Component, isLogin, setIsLogin, ...anotherProps } = props
   if (cookie.get('tokenm4k4nd0')) {
     const role = jwt.decode(cookie.get('tokenm4k4nd0')).role
-    if (role && role === 3) {
+    if (role && (role === 2 || role === 3)) {
       return (
         <RouterLink
           {...anotherProps}
