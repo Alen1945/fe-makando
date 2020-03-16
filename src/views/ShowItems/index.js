@@ -67,7 +67,7 @@ function ShowItems (props) {
   }
   const getItems = async (page,category) => {
     try {
-      const condition = `limit=1&sort[created_at]=1&page=${page}`
+      const condition = `limit=5&sort[created_at]=1&page=${page}`
       let url = `/browse-items?${condition}`
       if (category) {
         console.log(category)

@@ -36,10 +36,18 @@ export default function Items (props) {
   const classes=useStyles()
   const [msg, setMsg] = React.useState({ display: 0, success: false, message: '' })
   const handleClose = () => {
-    setMsg({ display: 0 })
+    setMsg({ display: 0, success: false, message: '' })
+  }
+  var showMessage = (dataMsg) => {
+    setMsg({ display: 1, success: dataMsg.success, message: dataMsg.msg })
   }
   return (
     <>
+      <Snackbar open={msg.display} autoHideDuration={1000 * 5 * 60} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} onClose={handleClose}>
+        <Alert variant='filled' elevation={6} severity={msg.success ? 'success' : 'error'}>
+          {msg.message}
+        </Alert>
+      </Snackbar>
       <Grid>
         <ExpansionPanel>
           <ExpansionPanelSummary
@@ -49,11 +57,6 @@ export default function Items (props) {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Paper elevation={5}>
-              <Snackbar open={msg.display} autoHideDuration={1000 * 5 * 60} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} onClose={handleClose}>
-                <Alert onClose={handleClose} variant='filled' elevation={6} severity={msg.success ? 'success' : 'error'}>
-                  {msg.message}
-                </Alert>
-              </Snackbar>
               <Formik
                 initialValues={initialFormItem}
                 validationSchema={validationFormItem}
@@ -70,14 +73,14 @@ export default function Items (props) {
                     })
                     const response = await submitData('/items', formData)
                     if (response.data.success) {
-                      setMsg({ display: 1, success: response.data.success, message: response.data.msg })
+                      showMessage(response.data)
                       form.setSubmitting(false)
                       form.resetForm()
                     }
-                    setMsg({ display: 1, success: response.data.success, message: response.data.msg })
+                    showMessage(response.data)
                   } catch (e) {
                     console.log(e)
-                    setMsg({ display: 1, success: e.response.data.success, message: e.response.data.msg })
+                    showMessage(e.response.data)
                   }
                 }}
               >
@@ -87,7 +90,7 @@ export default function Items (props) {
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Grid>
-      <ListItem />
+      <ListItem showMessage={showMessage} />
     </>
   )
 }

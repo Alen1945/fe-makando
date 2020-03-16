@@ -1,7 +1,8 @@
 import React from 'react'
 import Carousel from 'react-material-ui-carousel'
+import {Link} from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
-import { Paper, Typography } from '@material-ui/core'
+import { Paper,Grid, Typography, Button } from '@material-ui/core'
 import img1 from '../assets/makan1.jpg'
 import img2 from '../assets/makan2.jpg'
 
@@ -19,14 +20,17 @@ const useStyles = makeStyles(() => ({
   },
   itemDescription: {
     position: 'absolute',
-    top:'50%',
+    backgroundColor:'rgba(0, 0, 0, 0.4)',
+    padding:'20px',
+    borderRadius:'10px',
+    textAlign:'center',
+    bottom:0,
+    top:0,
+    left:0,
+    right:0,
     fontWeight:800,
     padding:'20px',
-    left:'50%',
-    color: 'white',
-    borderLeft:'10px solid white',
-    borderBottom:'10px solid white',
-    backgroundColor:'rgba(0,0,0,.7)'
+    color: 'white'
   }
 }))
 
@@ -41,7 +45,7 @@ const Header = (props) => {
     }
   ]
   return (
-    <Carousel indicators={0} autoPlay={1} className={classes.carousel}>
+    <Carousel indicators={0} autoPlay={1} animation='slide' className={classes.carousel}>
       {
         items.map((item, i) => (
           <Item item={item} key={i} />
@@ -55,9 +59,13 @@ function Item (props) {
   return (
     <Paper elevation={0} className={classes.imageContainer}>
       <img src={props.item.img} className={classes.image} />
-      <div className={classes.itemDescription}>
-        <Typography variant='h2'>MakanDo</Typography>
-      </div>
+      <Grid container alignItems='center' justify='center' className={classes.itemDescription}>
+        <Grid>
+          <Typography variant='h2'><span style={{color:'yellow', fontWeight:600}}>Makan</span>Do</Typography>
+          <Typography variant='h5' style={{margin:'10px'}}>Food Delivery And Order</Typography>
+          <Button color='secondary' variant='contained' to='/items' component={Link}>Show Items</Button>
+        </Grid>
+      </Grid>
     </Paper>
   )
 }

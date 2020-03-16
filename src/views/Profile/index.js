@@ -237,26 +237,24 @@ export default function Profile (props) {
                   </ListItem>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={ classes.expanded }>
-                  {
-                    userReview.map((review)=>(
-                      <Card key={review._id} style={{margin:'5px'}}>
-                        <CardContent>
-                          <Typography variant='body1' component='h2'>
-                            Review on <strong>{review.name}</strong>
-                          </Typography>
-                          <Typography color='textSecondary' varianat='p' gutterBottom>
-                            at {new Date(review.created_at).toDateString()}
-                          </Typography>
-                          <Typography className={classes.pos} component='p' color='textSecondary'>
-                            Rating {review.rating}
-                          </Typography>
-                          <Typography variant='body2' component='p'>
-                            {review.review}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    ))
-                  }
+                  {userReview && userReview.map((review)=>(
+                    <Card key={review._id} style={{margin:'5px'}}>
+                      <CardContent>
+                        <Typography variant='body1' component='h2'>
+                          Review on <strong>{review.name}</strong>
+                        </Typography>
+                        <Typography color='textSecondary' varianat='p' gutterBottom>
+                          at {new Date(review.created_at).toDateString()}
+                        </Typography>
+                        <Typography className={classes.pos} component='p' color='textSecondary'>
+                          Rating {review.rating}
+                        </Typography>
+                        <Typography variant='body2' component='p'>
+                          {review.review}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </ExpansionPanelDetails>
               </ExpansionPanel>
             </List>

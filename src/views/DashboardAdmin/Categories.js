@@ -5,6 +5,7 @@ import FormCategories from './components/FormCategories'
 import { Snackbar } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import submitData from '../../helpers/submitData'
+import ListCategories from './components/ListCategories'
 const initialFormItem = { name: ''}
 const msgRequired ='This is Required'
 const validationFormItem = Yup.object({
@@ -47,6 +48,7 @@ export default function Categories (props) {
       >
         <FormCategories />
       </Formik>
+      <ListCategories a={'a'} setMsg={setMsg}/>
     </>
   )
 }

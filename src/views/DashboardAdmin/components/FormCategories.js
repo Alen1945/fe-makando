@@ -9,13 +9,11 @@ export default function FormCategories (props) {
         <CardHeader title='Adding Categories' titleTypographyProps={{ variant: 'h5', align: 'center' }} />
         <CardContent>
           <Grid container justify='center'>
-            <Grid container sm={8} item spacing={2}>
-              <Grid item md={4} xs={6}>
-                <CustomTextField
-                  component={TextField}
-                  fullWidth label='Name' margin='dense' name='name' type='text' required variant='outlined'
-                />
-              </Grid>
+            <Grid item md={4} xs={6}>
+              <CustomTextField
+                component={TextField}
+                fullWidth label='Name' margin='dense' name='name' type='text' required variant='outlined'
+              />
             </Grid>
           </Grid>
         </CardContent>

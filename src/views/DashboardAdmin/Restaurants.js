@@ -10,7 +10,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import ListRestarants from './components/ListItem'
+import ListRestarants from './components/ListRestaurants'
 const initialFormItem = { id_owner: '', name: '', logo: null, address: '', description: ''}
 const msgRequired = 'This is Required'
 const validationFormItem = Yup.object({
@@ -28,6 +28,11 @@ export default function Items (props) {
   }
   return (
     <>
+      <Snackbar open={msg.display} autoHideDuration={1000 * 5 * 60} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} onClose={handleClose}>
+        <Alert onClose={handleClose} variant='filled' elevation={6} severity={msg.success ? 'success' : 'error'}>
+          {msg.message}
+        </Alert>
+      </Snackbar>
       <Grid>
         <ExpansionPanel>
           <ExpansionPanelSummary
@@ -37,11 +42,6 @@ export default function Items (props) {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Paper elevation={5}>
-              <Snackbar open={msg.display} autoHideDuration={1000 * 5 * 60} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} onClose={handleClose}>
-                <Alert onClose={handleClose} variant='filled' elevation={6} severity={msg.success ? 'success' : 'error'}>
-                  {msg.message}
-                </Alert>
-              </Snackbar>
               <Formik
                 initialValues={initialFormItem}
                 validationSchema={validationFormItem}
@@ -75,7 +75,7 @@ export default function Items (props) {
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Grid>
-      <ListRestarants/>
+      <ListRestarants setMsg={setMsg} msg={msg}/>
     </>
   )
 }

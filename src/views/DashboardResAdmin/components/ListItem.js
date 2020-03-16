@@ -2,8 +2,10 @@ import React from 'react'
 import { Container, Grid, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, Avatar, IconButton ,Button, TextField } from '@material-ui/core'
 import getData from '../../../helpers/getData'
 import {Edit, Delete} from '@material-ui/icons'
+import deleteData from '../../../helpers/deleteData'
 
 export default function ListItem (props) {
+  console.log(props)
   const [Items, setItems] = React.useState([])
   const [restaurant, setRestaurant] = React.useState([])
   const getItems = async () => {
@@ -25,10 +27,21 @@ export default function ListItem (props) {
       console.log(e)
     }
   }
+  const deleteItem = async (id) => {
+    try {
+      const response = await deleteData(`/items/${id}`)
+      console.log(response)
+      props.showMessage(response.data)
+    } catch (e) {
+      console.log(e)
+      console.log(e.response)
+      props.showMessage(e.response.data)
+    }
+  }
   React.useEffect(() => {
     getrestaurant()
     getItems()
-  },[props])
+  }, [props])
   return (
     <>
       <Grid container justify='center' component={Container}>
@@ -47,11 +60,10 @@ export default function ListItem (props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {console.log(restaurant)}
-                {Items.length > 0 && restaurant.length >0 && Items.filter(v => restaurant.includes(v.id_restaurant)).map((item) => (
+                {Items && Items.length > 0 && restaurant.length >0 && Items.filter(v => restaurant.includes(v.id_restaurant)).map((item) => (
                   <TableRow key={item._id}>
                     <TableCell component='th' scope='row'>
-                      <IconButton><Edit/></IconButton>&nbsp;&nbsp;<IconButton><Delete/></IconButton>
+                      <IconButton><Edit/></IconButton>&nbsp;&nbsp;<IconButton onClick={()=>deleteItem(item._id)}><Delete/></IconButton>
                     </TableCell>
                     <TableCell align='right'> <Avatar alt={item.name_item} src={(process.env.REACT_APP_API_URL + '/' + item.images)} style={{height:'50px',width:'50px'}} /></TableCell>
                     <TableCell align='right'>{item.name}</TableCell>
