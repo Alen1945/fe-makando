@@ -1,16 +1,25 @@
 import React from 'react'
-import { Container, Grid, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, Avatar, IconButton ,Button, TextField } from '@material-ui/core'
+import {
+  Container, Grid, Table, TableContainer, TableHead, TableRow,
+  TableBody, TableCell, Avatar, IconButton ,Button, TextField
+} from '@material-ui/core'
+import { Pagination } from '@material-ui/lab'
 import getData from '../../../helpers/getData'
 import {Edit, Delete} from '@material-ui/icons'
 import deleteData from '../../../helpers/deleteData'
 
 export default function ListItem (props) {
   const [categories, setCategories] = React.useState([])
+  const [page, setPage] = React.useState(1)
+
+  const handleChange = (event, value) => {
+    setPage(value);
+  }
   const getCategories = async () => {
     try {
-      const response = await getData('/browse-categories?limit=100000')
+      const response = await getData('/browse-categories?sort[name]&page='+page)
       console.log(response)
-      setCategories(response.data.data)
+      setCategories(response.data)
     } catch (e) {
       console.log(e)
     }
@@ -25,32 +34,39 @@ export default function ListItem (props) {
   }
   React.useEffect(() => {
     getCategories()
-  }, [props])
+  }, [props, page])
   return (
     <>
       <Grid container justify='center' component={Container}>
-        <Grid item sm={10} md={8}>
+        <Grid item sm={4} md={3}>
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Action</TableCell>
-                  <TableCell align='right'>Name</TableCell>
+                  <TableCell align='center'>Action</TableCell>
+                  <TableCell align='center'>Name</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {categories && categories.length > 0 && categories.map((item) => (
+                {categories.data && categories.data.length > 0 && categories.data.map((item) => (
                   <TableRow key={item._id}>
-                    <TableCell component='th' scope='row'>
+                    <TableCell align='center' component='th' scope='row'>
                       <IconButton><Edit/></IconButton>&nbsp;&nbsp;<IconButton onClick={()=>deleteCategories(item._id)}><Delete/></IconButton>
-                    </TableCell>
-                    <TableCell align='right'>{item.name}</TableCell>
+                    </TableCell >
+                    <TableCell align='center'>{item.name}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
         </Grid>
+        {
+          categories.pagination && categories.pagination.totalPages > 1 && (
+            <Grid container justify='center' style={{marginTop:'50px'}}>
+              <Pagination page={page} onChange={handleChange} count={categories.pagination.totalPages} color='secondary' />
+            </Grid>
+          )
+        }
       </Grid>
     </>
   )
