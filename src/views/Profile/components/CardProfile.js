@@ -36,11 +36,11 @@ export default function CardProfile (props) {
   const classes = useStyles()
   return (
     <Paper className={classes.paper} elevation={3}>
-      <IconButton onClick={() => { setStatusEdit({ profile: !statusEdit.profile })}}><Edit /></IconButton>
+      <IconButton onClick={() => { setStatusEdit({ profile: !statusEdit.profile })}}><Edit style={{backgroundColor:'#f50057',padding:'10px',color:'white'}}/></IconButton>
       <Grid container justify='center' style={{position:'relative'}}>
         <Avatar alt={userData.username} src={userPic?userPic:`${process.env.REACT_APP_API_URL}/${userData.picture}`} className={classes.avatar} />
         <Box className={classes.iconEditPic} hidden={!statusEdit.profile}>
-          <IconButton component='label' for='userProfileField' style={{backgroundColor:'#333'}}><Image style={{height:'60px',width:'60px',color:'white',}}/></IconButton>
+          <IconButton component='label' for='userProfileField' style={{backgroundColor:'#888'}}><Image style={{height:'60px',width:'60px',color:'white',}}/></IconButton>
         </Box>
       </Grid>
       <Typography gutterBottom variant='h6' color='textSecondary' align='center' style={{ marginTop: '15px' }}>

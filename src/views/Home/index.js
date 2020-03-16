@@ -27,7 +27,7 @@ export default function Home (props) {
         <Grid container spacing={2} justify='center'>
           {
             items.map((v, i) => (
-              <Grid item key={v._id} md={2} sm={3} xs={6}>
+              <Grid item key={v._id} md={2} sm={3} xs={6} alignItems='stretch'>
                 <CardItem detailItem={v} />
               </Grid>
             ))
