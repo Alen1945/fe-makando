@@ -44,12 +44,12 @@ function DashboardNav (props) {
       <AppBar className={classes.appBar} style={{zIndex:'9999'}} position='sticky'>
         <Container>
           <Toolbar style={{position:'relative'}}>
+          <IconButton onClick={handleExpand} className={clsx(classes.ButtonCategories, classes.expandPanelIcon)}>{expandedIcon()}</IconButton>
             <div className={classes.flexGrow} />
             <Link to='/' component={RouterLink}>
               <img alt='logo' src={logo} />
             </Link>
             <div className={classes.flexGrow} />
-            <IconButton onClick={handleExpand} className={clsx(classes.ButtonCategories, classes.expandPanelIcon)}>{expandedIcon()}</IconButton>
           </Toolbar>
         </Container>
       </AppBar>
