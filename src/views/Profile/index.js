@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import {
   Grid, Container, Avatar, Typography, Button,
   List, ListItem, ListItemAvatar, ListItemText, ExpansionPanel, ExpansionPanelSummary,
-  ExpansionPanelDetails, Card, CardContent, Snackbar, MenuItem
+  ExpansionPanelDetails, Card, CardContent, Snackbar
 } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import { Work } from '@material-ui/icons'
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 export default function Profile (props) {
   const classes = useStyles()
   const [userData, setUserData] = React.useState({})
-  const [userPic,setUserPic] = React.useState('')
+  const [userPic, setUserPic] = React.useState('')
   const [userReview, setUserReviews] = React.useState([])
   const [expanded, setExpanded] = React.useState('')
   const [msg, setMsg] = React.useState({ display: 0, success: false, message: '' })
@@ -78,23 +78,23 @@ export default function Profile (props) {
             <CardEditProfile setUserPic={setUserPic} userData={userData} setUserData={setUserData} statusEdit={statusEdit} setStatusEdit={setStatusEdit} setMsg={setMsg} />
           </Grid>
           <Grid item sm={6} md={6} elevation={3}>
-            <Typography gutterBottom variant='h6' color='textPrimary' align='center' style={{marginTop:'30px', marginBottom:'20px'}}>
+            <Typography gutterBottom variant='h6' color='textPrimary' align='center' style={{ marginTop: '30px', marginBottom: '20px' }}>
               Special Application
             </Typography>
             <Grid container justify='center'>
-              <Button size='small' color='secondary' variant='contained' to='/carts' component={Link} style={{margin:'2px'}}>
+              <Button size='small' color='secondary' variant='contained' to='/carts' component={Link} style={{ margin: '2px' }}>
                 See Cart
               </Button>
               {
                 userData.is_admin ? (
-                  <Button size='small' color='secondary' variant='contained' to='/restaurant/admin' component={Link} style={{margin:'2px'}}>
+                  <Button size='small' color='secondary' variant='contained' to='/restaurant/admin' component={Link} style={{ margin: '2px' }}>
                     Dashboard Admin Restaurant
                   </Button>
                 ) : ''
               }
               {
                 userData.is_superadmin ? (
-                  <Button size='small' color='secondary' variant='contained' to='/admin' component={Link} style={{margin:'2px'}}>
+                  <Button size='small' color='secondary' variant='contained' to='/admin' component={Link} style={{ margin: '2px' }}>
                     Dashboard Super Admin
                   </Button>
                 ) : ''
@@ -109,12 +109,12 @@ export default function Profile (props) {
                         <Work />
                       </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary='Recently Review Item'/>
+                    <ListItemText primary='Recently Review Item' />
                   </ListItem>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails className={ classes.expanded }>
-                  {userReview && userReview.map((review)=>(
-                    <Card key={review._id} style={{margin:'5px'}}>
+                <ExpansionPanelDetails className={classes.expanded}>
+                  {userReview && userReview.map((review) => (
+                    <Card key={review._id} style={{ margin: '5px' }}>
                       <CardContent>
                         <Typography variant='body1' component='h2'>
                           Review on <strong>{review.name}</strong>

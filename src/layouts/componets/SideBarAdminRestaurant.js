@@ -1,13 +1,13 @@
 import React from 'react'
 import { Drawer, Grid, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
-import { Category, Dashboard, PeopleAlt, Store, Fastfood, Input, AccountCircle } from '@material-ui/icons'
+import { Dashboard, PeopleAlt, Fastfood, Input, AccountCircle } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles({
   sideNav: {
-    width:'270px',
-    paddingTop:'80px'
+    width: '270px',
+    paddingTop: '80px'
   }
 })
 export default function DashboardSide (props) {

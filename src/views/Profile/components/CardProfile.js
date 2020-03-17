@@ -9,7 +9,7 @@ import submitData from '../../../helpers/submitData'
 import CustomTextField from '../../../components/CustomTextField'
 const useStyles = makeStyles({
   paper: {
-    padding: '20px',
+    padding: '20px'
   },
   avatar: {
     height: '140px',
@@ -23,12 +23,12 @@ const useStyles = makeStyles({
     lineHeight: '50px',
     borderRadius: '15px'
   },
-  iconEditPic:{
-    position:'absolute',
-    top:'16%',
-    bottom:'16%',
-    left:'41%',
-    right:'41%'
+  iconEditPic: {
+    position: 'absolute',
+    top: '16%',
+    bottom: '16%',
+    left: '41%',
+    right: '41%'
   }
 })
 export default function CardProfile (props) {
@@ -36,11 +36,11 @@ export default function CardProfile (props) {
   const classes = useStyles()
   return (
     <Paper className={classes.paper} elevation={3}>
-      <IconButton onClick={() => { setStatusEdit({ profile: !statusEdit.profile })}}><Edit style={{backgroundColor:'#f50057',padding:'10px',color:'white'}}/></IconButton>
-      <Grid container justify='center' style={{position:'relative'}}>
-        <Avatar alt={userData.username} src={userPic?userPic:`${process.env.REACT_APP_API_URL}/${userData.picture}`} className={classes.avatar} />
+      <Button onClick={() => { setStatusEdit({ profile: !statusEdit.profile }) }}><Edit style={{ backgroundColor: '#f50057', padding: '10px', color: 'white' }} /></Button>
+      <Grid container justify='center' style={{ position: 'relative' }}>
+        <Avatar alt={userData.username} src={userPic ? userPic : `${process.env.REACT_APP_API_URL}/${userData.picture}`} className={classes.avatar} />
         <Box className={classes.iconEditPic} hidden={!statusEdit.profile}>
-          <IconButton component='label' for='userProfileField' style={{backgroundColor:'#888'}}><Image style={{height:'60px',width:'60px',color:'white',}}/></IconButton>
+          <IconButton component='label' for='userProfileField' style={{ backgroundColor: '#888' }}><Image style={{ height: '60px', width: '60px', color: 'white' }} /></IconButton>
         </Box>
       </Grid>
       <Typography gutterBottom variant='h6' color='textSecondary' align='center' style={{ marginTop: '15px' }}>
