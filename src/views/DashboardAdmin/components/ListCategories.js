@@ -9,11 +9,16 @@ import { Edit, Delete } from '@material-ui/icons'
 import deleteData from '../../../helpers/deleteData'
 
 export default function ListItem (props) {
+  const { handleOpenFormUpdate, setInitialValueUpdate } = props
   const [categories, setCategories] = React.useState([])
   const [page, setPage] = React.useState(1)
 
   const handleChange = (event, value) => {
     setPage(value)
+  }
+  const handeClickUpdate = async (id) => {
+    await getCategory(id)
+    handleOpenFormUpdate()
   }
   const getCategories = async () => {
     try {
@@ -22,6 +27,15 @@ export default function ListItem (props) {
       setCategories(response.data)
     } catch (e) {
       console.log(e)
+    }
+  }
+  const getCategory = async (id) => {
+    try {
+      const response = await getData(`/browse-categories/${id}`)
+      setInitialValueUpdate({id: response.data._id, name: response.data.name })
+    } catch (e) {
+      console.log(e)
+      console.log(e.response)
     }
   }
   const deleteCategories = async (id) => {
@@ -38,7 +52,7 @@ export default function ListItem (props) {
   return (
     <>
       <Grid container justify='center' component={Container}>
-        <Grid item sm={4} md={3}>
+        <Grid item sm={8} md={6}>
           <TableContainer>
             <Table>
               <TableHead>
@@ -51,7 +65,7 @@ export default function ListItem (props) {
                 {categories.data && categories.data.length > 0 && categories.data.map((item) => (
                   <TableRow key={item._id}>
                     <TableCell align='center' component='th' scope='row'>
-                      <IconButton><Edit /></IconButton>&nbsp;&nbsp;
+                      <IconButton onClick={() => handeClickUpdate(item._id)}><Edit /></IconButton>&nbsp;&nbsp;
                       <IconButton onClick={() => deleteCategories(item._id)}><Delete /></IconButton>
                     </TableCell>
                     <TableCell align='center'>{item.name}</TableCell>
