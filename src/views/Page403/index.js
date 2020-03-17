@@ -1,6 +1,5 @@
 import React from 'react'
 import { Container, Grid, Typography } from '@material-ui/core'
-import { Redirect } from 'react-router-dom'
 
 export default function Page403 (props) {
   return (

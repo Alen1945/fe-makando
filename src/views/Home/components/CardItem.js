@@ -1,10 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card'
-import CardActionArea from '@material-ui/core/CardActionArea'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
@@ -26,8 +24,8 @@ export default function CardItem (props) {
     setElevation(1)
   }
   return (
-    <Card align='center' style={{padding:'10px'}} elevation={elevation} onMouseEnter={handleHover} onMouseLeave={handleLeave}>
-      <Avatar alt={props.detailItem.name} src={process.env.REACT_APP_API_URL+'/'+props.detailItem.images} className={classes.avatar} />
+    <Card align='center' style={{ padding: '10px' }} elevation={elevation} onMouseEnter={handleHover} onMouseLeave={handleLeave}>
+      <Avatar alt={props.detailItem.name} src={process.env.REACT_APP_API_URL + '/' + props.detailItem.images} className={classes.avatar} />
       <CardContent>
         <Typography gutterBottom variant='subtite1' color='primary'>
           {props.detailItem.name}

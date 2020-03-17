@@ -1,17 +1,11 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
-import { Card, CardMedia, 
-  Dialog,DialogContentText,
-  DialogContent, DialogTitle,
-  DialogActions, CardContent,
-  CardActionArea, CardActions,
-  Typography, Button, Grid, Avatar,
-  Container, TextField} from '@material-ui/core'
+import {
+  Card, CardContent, CardActions,
+  Typography, Button, Grid, Avatar, Container
+} from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
-import { AddShoppingCart } from '@material-ui/icons'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useTheme } from '@material-ui/core/styles'
 import getData from '../../helpers/getData'
 const useStyles = makeStyles({
   listCategories: {
@@ -19,17 +13,17 @@ const useStyles = makeStyles({
     minHeight: '100px',
     marginBottom: '50px'
   },
-  buttonCategories:{
+  buttonCategories: {
     marginLeft: '10px',
     width: '120px',
-    fontWeight:600
+    fontWeight: 600
   },
   grid: {
     height: '100%',
-    padding:'50px'
+    padding: '50px'
   },
-  listItems:{
-    minHeight:'200px'
+  listItems: {
+    minHeight: '200px'
   },
   avatar: {
     height: '100px',
@@ -39,22 +33,12 @@ const useStyles = makeStyles({
 
 function ShowItems (props) {
   const classes = useStyles()
-  const [open, setOpen] = React.useState(false)
-  const [activeCategory, setActiveCategory]= React.useState(0)
+  const [activeCategory, setActiveCategory] = React.useState(0)
   const [dataItems, setData] = React.useState({})
   const [dataCategory, setDataCategory] = React.useState([])
   const [page, setPage] = React.useState(1)
-  const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
   const handleChange = (event, value) => {
-    setPage(value);
+    setPage(value)
   }
   const getCategory = async () => {
     try {
@@ -65,7 +49,7 @@ function ShowItems (props) {
       console.log(e)
     }
   }
-  const getItems = async (page,category) => {
+  const getItems = async (page, category) => {
     try {
       const condition = `limit=5&sort[created_at]=1&page=${page}`
       let url = `/browse-items?${condition}`
@@ -89,10 +73,10 @@ function ShowItems (props) {
       <div className={classes.listCategories}>
         <Container>
           <Grid container className={classes.grid}>
-            <Button size='small' variant={activeCategory == 0 ? 'contained' : 'outlined'} onClick={() =>{ setActiveCategory(0) ; setPage(1) }} color='secondary' className={classes.buttonCategories}> Show All </Button>
+            <Button size='small' variant={parseInt(activeCategory) === 0 ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(0); setPage(1) }} color='secondary' className={classes.buttonCategories}> Show All </Button>
             {
-              dataCategory.length >0 && dataCategory.map((cat) => (
-                <Button key={cat._id} size='small' variant={activeCategory == cat._id ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(`${cat._id}`)  ; setPage(1) }} color='secondary' className={classes.buttonCategories}> {cat.name} </Button>
+              dataCategory.length > 0 && dataCategory.map((cat) => (
+                <Button key={cat._id} size='small' variant={parseInt(activeCategory) === parseInt(cat._id) ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(`${cat._id}`); setPage(1) }} color='secondary' className={classes.buttonCategories}> {cat.name} </Button>
               ))
             }
           </Grid>
@@ -103,9 +87,9 @@ function ShowItems (props) {
           <Grid container justify='center' spacing={2}>
             {
               dataItems.dataItems ? dataItems.dataItems.map((item) => (
-                <Grid item key={item._id} md={2} sm={4} xs={6} >
-                  <Card align='center' style={{padding:'10px'}}>
-                    <Avatar alt={item.name} src={process.env.REACT_APP_API_URL+'/'+item.images} className={classes.avatar} />
+                <Grid item key={item._id} md={2} sm={4} xs={6}>
+                  <Card align='center' style={{ padding: '10px' }}>
+                    <Avatar alt={item.name} src={process.env.REACT_APP_API_URL + '/' + item.images} className={classes.avatar} />
                     <CardContent>
                       <Typography gutterBottom variant='subtite1' color='primary'>
                         {item.name}
@@ -134,12 +118,12 @@ function ShowItems (props) {
           {dataItems.pagination && console.log(dataItems.pagination)}
           {
             dataItems.pagination && dataItems.pagination.totalPages > 1 && (
-              <Grid container justify='center' style={{marginTop:'50px'}}>
+              <Grid container justify='center' style={{ marginTop: '50px' }}>
                 <Pagination page={page} onChange={handleChange} count={dataItems.pagination.totalPages} color='secondary' />
               </Grid>
             )
           }
-          <Dialog
+          {/* <Dialog
             fullScreen={fullScreen}
             open={open}
             onClose={handleClose}
@@ -156,7 +140,7 @@ function ShowItems (props) {
                 Submit
               </Button>
             </DialogActions>
-          </Dialog>
+          </Dialog> */}
         </Container>
       </div>
     </>

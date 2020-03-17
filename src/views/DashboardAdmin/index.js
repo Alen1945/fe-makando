@@ -4,7 +4,7 @@ import Dashboard from './Dashboard'
 import User from './User'
 import Categories from './Categories'
 import Restaurants from './Restaurants'
-import { Restaurant } from '@material-ui/icons'
+
 const listPage = {
   dashboard: Dashboard,
   users: User,
@@ -18,7 +18,7 @@ export default function DashboardAdmin (props) {
     if (listPage[showPage]) {
       Page = listPage[showPage]
     } else {
-      return (<Redirect to='/404'/>)
+      return (<Redirect to='/404' />)
     }
   }
   return (<Page />)

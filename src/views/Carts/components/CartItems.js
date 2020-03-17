@@ -1,13 +1,17 @@
 import React from 'react'
-import { Container, Grid, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, Avatar, IconButton ,Button, TextField } from '@material-ui/core'
-import {Edit, Delete, Check} from '@material-ui/icons'
-import {Formik, Form} from 'formik'
+import {
+  Container, Grid, Table, TableContainer, TableHead,
+  TableRow, TableBody, TableCell, Avatar, IconButton,
+  Button, TextField
+} from '@material-ui/core'
+import { Edit, Delete, Check } from '@material-ui/icons'
+import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import CustomTextField from '../../../components/CustomTextField'
 import deleteData from '../../../helpers/deleteData'
 
 export default function CartItems (props) {
-  const {setMsg} = props
+  const { setMsg } = props
   const handleClick = (e) => {
     props.setActiveStep(1)
   }
@@ -25,8 +29,7 @@ export default function CartItems (props) {
   }
   React.useEffect(() => {
     setItemCart(props.data.data ? props.data.data.itemInCart : [])
-    console.log(itemCart)
-  },[props])
+  }, [props])
   return (
     <>
       <Grid container justify='center' component={Container}>
@@ -43,12 +46,15 @@ export default function CartItems (props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {itemCart.map((cart,i) => (
+                {itemCart.map((cart) => (
                   <TableRow key={cart._id}>
                     <TableCell component='th' scope='row'>
-                      <IconButton><Edit/></IconButton>&nbsp;&nbsp;<IconButton onClick={()=>deleteCart(cart._id)}><Delete/></IconButton>
+                      <IconButton><Edit /></IconButton>&nbsp;&nbsp;
+                      <IconButton onClick={() => deleteCart(cart._id)}><Delete /></IconButton>
                     </TableCell>
-                    <TableCell align='right'> <Avatar alt={cart.name_item} src={(process.env.REACT_APP_API_URL + '/' + cart.images)} style={{height:'50px',width:'50px'}} /></TableCell>
+                    <TableCell align='right'>
+                      <Avatar alt={cart.name_item} src={(process.env.REACT_APP_API_URL + '/' + cart.images)} style={{ height: '50px', width: '50px' }} />
+                    </TableCell>
                     <TableCell align='right'>{cart.name_item}</TableCell>
                     <TableCell align='right'>
                       <Grid hidden={0}>
@@ -56,14 +62,14 @@ export default function CartItems (props) {
                       </Grid>
                       <Grid hidden={1}>
                         <Formik
-                          initialValues={{total_items:cart.total_items}}
-                          validationSchema={{total_items:Yup.number().required()}}
-                          validate={(value)=>{
+                          initialValues={{ total_items: cart.total_items }}
+                          validationSchema={{ total_items: Yup.number().required() }}
+                          validate={(value) => {
                             console.log(value)
                           }}
                         >
                           <Form>
-                            <CustomTextField size='small' type='number' name='total_items' label='Total Items' variant='outlined' style={{width:'100px'}} component={TextField} />
+                            <CustomTextField size='small' type='number' name='total_items' label='Total Items' variant='outlined' style={{ width: '100px' }} component={TextField} />
                             <Button size='small'>
                               <Check />
                             </Button>
@@ -79,7 +85,7 @@ export default function CartItems (props) {
           </TableContainer>
         </Grid>
       </Grid>
-      <Grid container justify='center' component={Container} style={{marginTop:20}}>
+      <Grid container justify='center' component={Container} style={{ marginTop: 20 }}>
         <Button
           color='secondary'
           variant='contained'

@@ -12,7 +12,7 @@ export default function Home (props) {
   }, [])
   const getDataItems = async (numData) => {
     try {
-      const dataItems = await getData('/browse-items?sort[_id]=1&limit='+numData)
+      const dataItems = await getData('/browse-items?sort[_id]=1&limit=' + numData)
       if (dataItems.data.success && dataItems.data.dataItems) {
         setItem(dataItems.data.dataItems)
       }
@@ -33,8 +33,10 @@ export default function Home (props) {
             ))
           }
           <Grid xs={12} />
-          <Divider style={{ margin:'30px 0' }}/>
-          <Button variant='contained' color='secondary' style={{ marginBottom: '40px' }} to='/items' component={Link}>Show All Avaible Item</Button>
+          <Divider style={{ margin: '30px 0' }} />
+          <Button variant='contained' color='secondary' style={{ marginBottom: '40px' }} to='/items' component={Link}>
+            Show All Avaible Item
+          </Button>
         </Grid>
       </Container>
     </>

@@ -1,11 +1,10 @@
 import React from 'react'
 import { Formik } from 'formik'
-import { Paper, Snackbar,Grid, Typography } from '@material-ui/core'
+import { Paper, Snackbar, Grid, Typography } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import * as Yup from 'yup'
 import FormItem from './components/FormItem'
 import submitData from '../../helpers/submitData'
-import {makeStyles} from '@material-ui/styles'
 import ListItem from './components/ListItem'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
@@ -24,16 +23,7 @@ const validationFormItem = Yup.object({
   images: Yup.mixed().required()
 })
 
-const useStyles = makeStyles({
-  modal:{
-    position:'absolute',
-    top:0,
-    right:-10,
-    transition:'0.5s ease-in'
-  }
-})
 export default function Items (props) {
-  const classes=useStyles()
   const [msg, setMsg] = React.useState({ display: 0, success: false, message: '' })
   const handleClose = () => {
     setMsg({ display: 0, success: false, message: '' })
@@ -60,11 +50,6 @@ export default function Items (props) {
               <Formik
                 initialValues={initialFormItem}
                 validationSchema={validationFormItem}
-                validate={
-                  (values)=>{
-                    console.log(values)
-                  }
-                }
                 onSubmit={async (values, form) => {
                   try {
                     const formData = new FormData()

@@ -1,8 +1,11 @@
 import React from 'react'
-import { Container, Grid, Typography, Card, CardContent, CardActions, Button} from '@material-ui/core'
+import {
+  Container, Grid, Typography, Card,
+  CardContent, CardActions, Button
+} from '@material-ui/core'
 import getData from '../../../helpers/getData'
 export default function CheckoutDetails (props) {
-  const {setMsg} = props
+  const { setMsg } = props
   const handleClick = (step) => (e) => {
     props.setActiveStep(step)
   }
@@ -22,30 +25,32 @@ export default function CheckoutDetails (props) {
   React.useEffect(() => {
     setDetailCheckout(props.data.data)
     console.log(detailCheckout)
-  },[props])
+  }, [props])
   return (
     <>
       <Grid container justify='center' component={Container}>
         <Grid item sm={10} md={8}>
           <Card>
             <CardContent>
-              <Typography variant='h5' align='center' style={{marginBottom:'10px'}}>Details Purchase</Typography>
-              <Typography align='center'>
-                Total Price: { detailCheckout.totalPrice }
+              <Typography variant='h5' align='center' style={{ marginBottom: '10px' }}>
+                Details Purchase
               </Typography>
               <Typography align='center'>
-                Total Type Items: { detailCheckout.totalTypeItems }
+                Total Price: {detailCheckout.totalPrice}
+              </Typography>
+              <Typography align='center'>
+                Total Type Items: {detailCheckout.totalTypeItems}
               </Typography>
             </CardContent>
             <CardActions>
-              <div style={{flexGrow:1}} />
+              <div style={{ flexGrow: 1 }} />
               <Button size='small' variant='outlined' color='secondary' onClick={handleClick(0)}>Back</Button>
               <Button size='small' variant='contained' color='secondary' onClick={handleCheckout}>Checkout</Button>
-              <div style={{flexGrow:1}} />
+              <div style={{ flexGrow: 1 }} />
             </CardActions>
           </Card>
         </Grid>
       </Grid>
     </>
   )
-} 
+}

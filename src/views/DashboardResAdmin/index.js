@@ -13,7 +13,7 @@ export default function DashboardAdmin (props) {
     if (listPage[showPage]) {
       Page = listPage[showPage]
     } else {
-      return (<Redirect to='/404'/>)
+      return (<Redirect to='/404' />)
     }
   }
   return (<Page />)

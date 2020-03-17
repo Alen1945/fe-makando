@@ -1,5 +1,7 @@
 import React from 'react'
-import { Grid, Card, CardHeader, CardContent, CardActions, MenuItem, Button, TextField, Input } from '@material-ui/core'
+import {
+  Grid, Card, CardHeader, CardContent, CardActions, MenuItem, Button, TextField
+} from '@material-ui/core'
 import { Form, Field } from 'formik'
 import CustomTextField from '../../../components/CustomTextField'
 import getData from '../../../helpers/getData'
@@ -34,7 +36,7 @@ export default function FormItem (props) {
   return (
     <Form>
       <Card elevation={0}>
-        <CardHeader title='Adding Item' titleTypographyProps={{variant: 'h5', align: 'center'}}/>
+        <CardHeader title='Adding Item' titleTypographyProps={{ variant: 'h5', align: 'center' }} />
         <CardContent>
           <Grid container justify='center'>
             <Grid container sm={8} item spacing={2}>
@@ -45,7 +47,7 @@ export default function FormItem (props) {
                 >
                   {
                     restaurant.map(v => (
-                      <MenuItem key={v._id} value={v._id} >
+                      <MenuItem key={v._id} value={v._id}>
                         {v.name}
                       </MenuItem>
                     ))
@@ -59,7 +61,7 @@ export default function FormItem (props) {
                 >
                   {
                     category.map(v => (
-                      <MenuItem key={v._id} value={v._id} >
+                      <MenuItem key={v._id} value={v._id}>
                         {v.name}
                       </MenuItem>
                     ))
@@ -108,7 +110,7 @@ export default function FormItem (props) {
         </CardContent>
         <CardActions>
           <Grid container justify='center'>
-            <Button color='primary' variant='contained' type='submit' >
+            <Button color='primary' variant='contained' type='submit'>
               Add Item
             </Button>
           </Grid>

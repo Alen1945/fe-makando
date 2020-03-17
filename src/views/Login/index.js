@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { Grid, TextField, Card, CardHeader, Button, CardMedia, CardActions, Snackbar } from '@material-ui/core'
-import {Alert} from '@material-ui/lab'
+import { Alert } from '@material-ui/lab'
 import { makeStyles } from '@material-ui/styles'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     padding: '20px'
   }
 })
-const initialFormLogin = {username: '', password: ''}
+const initialFormLogin = { username: '', password: '' }
 const msgRequired = 'This is Required'
 const validationFormLogin = Yup.object({
   username: Yup.string().required(msgRequired),

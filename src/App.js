@@ -6,8 +6,8 @@ import AdminRoute from './components/AdminRoute'
 import UserRoute from './components/UsersRoute'
 import MainLayout from './layouts/Main'
 import MinimalLayout from './layouts/Minimal'
-import Dashboard from './layouts/Dashboard'
-import DashboardRes from './layouts/DashboardRes'
+import LayoutAdmin from './layouts/LayoutAdmin'
+import LayoutAdminRestaurant from './layouts/LayoutAdminRestaurant'
 import Home from './views/Home'
 import Login from './views/Login'
 import Profile from './views/Profile'
@@ -121,7 +121,7 @@ class App extends React.Component {
             path='/admin'
             title='DashBoard'
             component={DashboardAdmin}
-            layout={Dashboard}
+            layout={LayoutAdmin}
             isLogin={this.state.isLogin}
           />
           <SuperAdminRoute
@@ -129,18 +129,17 @@ class App extends React.Component {
             path='/admin/:page'
             title='DashBoard'
             component={DashboardAdmin}
-            layout={Dashboard}
+            layout={LayoutAdmin}
             isLogin={this.state.isLogin}
           />
           {/* END SUPER ADMIN */}
-          
           {/* START Admin Restaurant */}
           <AdminRoute
             exact
             path='/restaurant/admin'
             title='DashBoard'
             component={DashboardResAdmin}
-            layout={DashboardRes}
+            layout={LayoutAdminRestaurant}
             isLogin={this.state.isLogin}
           />
           <AdminRoute
@@ -148,7 +147,7 @@ class App extends React.Component {
             path='/restaurant/admin/:page'
             title='DashBoard'
             component={DashboardResAdmin}
-            layout={DashboardRes}
+            layout={LayoutAdminRestaurant}
             isLogin={this.state.isLogin}
           />
           {/* END Admin Restaurant */}

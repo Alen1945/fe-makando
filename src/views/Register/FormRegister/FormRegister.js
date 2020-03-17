@@ -30,7 +30,7 @@ function FormRegister (props) {
         variant='outlined'
         color='secondary'
       >
-        <Grid component='span' hidden={progres === 0} >
+        <Grid component='span' hidden={progres === 0}>
           <CircularProgress size={25} color='primary' />&nbsp;&nbsp;&nbsp;
         </Grid>
         <strong>Registrasi</strong>

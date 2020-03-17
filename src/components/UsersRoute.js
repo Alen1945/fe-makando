@@ -19,10 +19,10 @@ function UserRoute (props) {
         />
       )
     } else {
-      return <Redirect to='/login?'/>
+      return <Redirect to='/login?' />
     }
   }
-  return <Redirect to='/login'/>
+  return <Redirect to='/login' />
 }
 
 export default UserRoute

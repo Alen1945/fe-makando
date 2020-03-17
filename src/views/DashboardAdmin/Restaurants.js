@@ -1,17 +1,17 @@
 import React from 'react'
 import { Formik } from 'formik'
-import { Paper, Snackbar,Grid, Typography } from '@material-ui/core'
+import { Paper, Snackbar, Grid, Typography } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import * as Yup from 'yup'
 import FormRestaurants from './components/FormRestaurants'
 import submitData from '../../helpers/submitData'
-import {makeStyles} from '@material-ui/styles'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ListRestarants from './components/ListRestaurants'
-const initialFormItem = { id_owner: '', name: '', logo: null, address: '', description: ''}
+
+const initialFormItem = { id_owner: '', name: '', logo: null, address: '', description: '' }
 const msgRequired = 'This is Required'
 const validationFormItem = Yup.object({
   id_owner: Yup.number().required(msgRequired),
@@ -45,14 +45,9 @@ export default function Items (props) {
               <Formik
                 initialValues={initialFormItem}
                 validationSchema={validationFormItem}
-                validate={
-                  (values)=>{
-                    console.log(values)
-                  }
-                }
                 onSubmit={async (values, form) => {
                   try {
-                    const formData = new FormData()
+                    const formData = new FormData ()
                     Object.keys(values).forEach(v => {
                       formData.append(v, values[v])
                     })
@@ -75,7 +70,7 @@ export default function Items (props) {
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Grid>
-      <ListRestarants setMsg={setMsg} msg={msg}/>
+      <ListRestarants setMsg={setMsg} msg={msg} />
     </>
   )
 }

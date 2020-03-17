@@ -16,8 +16,8 @@ const useStyles = makeStyles({
   }
 })
 
-const initialFormRegistrasi = {username: '', password: '', confirm_password: ''}
-const msgRequired ='This is Required'
+const initialFormRegistrasi = { username: '', password: '', confirm_password: '' }
+const msgRequired = 'This is Required'
 const validationFormRegistrasi = Yup.object({
   username: Yup.string().min(6, 'Username have 6 character or more')
     .required(msgRequired),
@@ -59,10 +59,10 @@ function LayoutRegister (props) {
                 }
               }}
             >
-              <FormRegister progres={progres}/>
+              <FormRegister progres={progres} />
             </Formik>
           </CardMedia>
-          <CardActions style={{marginTop:'30px'}}>
+          <CardActions style={{ marginTop: '30px' }}>
             <Typography variant='p' color='textSecondary'>Already have Account?</Typography>
             <Button size='medium' variant='outlined' color='primary' to='/login' component={Link}>
               Login

@@ -1,7 +1,10 @@
 import React from 'react'
-import { Container, Grid, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, Avatar, IconButton ,Button, TextField } from '@material-ui/core'
+import {
+  Container, Grid, Table, TableContainer, TableHead, TableRow,
+  TableBody, TableCell, Avatar, IconButton
+} from '@material-ui/core'
 import getData from '../../../helpers/getData'
-import {Edit, Delete} from '@material-ui/icons'
+import { Edit, Delete } from '@material-ui/icons'
 import deleteData from '../../../helpers/deleteData'
 
 export default function ListItem (props) {
@@ -27,7 +30,7 @@ export default function ListItem (props) {
   }
   React.useEffect(() => {
     getrestaurant()
-  },[props])
+  }, [props])
   return (
     <>
       <Grid container justify='center' component={Container}>
@@ -46,12 +49,17 @@ export default function ListItem (props) {
               </TableHead>
               <TableBody>
                 {console.log(restaurant)}
-                {restaurant.length >0 && restaurant.map((resto) => (
+                {restaurant.length > 0 && restaurant.map((resto) => (
                   <TableRow key={resto._id}>
                     <TableCell component='th' scope='row'>
-                      <IconButton><Edit/></IconButton>&nbsp;&nbsp;<IconButton onClick={()=>deleteRestaurant(resto._id)}><Delete/></IconButton>
+                      <IconButton>
+                        <Edit />
+                      </IconButton>&nbsp;&nbsp;
+                      <IconButton onClick={() => deleteRestaurant(resto._id)}>
+                        <Delete />
+                      </IconButton>
                     </TableCell>
-                    <TableCell align='right'> <Avatar alt={resto.name} src={(process.env.REACT_APP_API_URL + '/' + resto.logo)} style={{height:'50px',width:'50px'}} /></TableCell>
+                    <TableCell align='right'> <Avatar alt={resto.name} src={(process.env.REACT_APP_API_URL + '/' + resto.logo)} style={{ height: '50px', width: '50px' }} /></TableCell>
                     <TableCell align='right'>{resto.name}</TableCell>
                     <TableCell align='right'>{resto.owner}</TableCell>
                     <TableCell align='right'>{resto.address}</TableCell>

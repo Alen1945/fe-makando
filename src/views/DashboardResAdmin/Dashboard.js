@@ -1,13 +1,13 @@
 import React from 'react'
 import Container from '@material-ui/core/Container'
 import { Grid, Card, CardContent, Typography, Avatar } from '@material-ui/core'
-import { Store, Fastfood, MonetizationOn, PeopleAlt } from '@material-ui/icons'
-import {makeStyles} from '@material-ui/styles'
+import { Fastfood, MonetizationOn, PeopleAlt } from '@material-ui/icons'
+import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles({
   avatar: {
-    backgroundColor:'red',
-    height:'56',
+    backgroundColor: 'red',
+    height: '56',
     width: '56'
   }
 })

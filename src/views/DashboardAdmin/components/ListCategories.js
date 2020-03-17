@@ -1,11 +1,11 @@
 import React from 'react'
 import {
   Container, Grid, Table, TableContainer, TableHead, TableRow,
-  TableBody, TableCell, Avatar, IconButton ,Button, TextField
+  TableBody, TableCell, IconButton
 } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 import getData from '../../../helpers/getData'
-import {Edit, Delete} from '@material-ui/icons'
+import { Edit, Delete } from '@material-ui/icons'
 import deleteData from '../../../helpers/deleteData'
 
 export default function ListItem (props) {
@@ -13,11 +13,11 @@ export default function ListItem (props) {
   const [page, setPage] = React.useState(1)
 
   const handleChange = (event, value) => {
-    setPage(value);
+    setPage(value)
   }
   const getCategories = async () => {
     try {
-      const response = await getData('/browse-categories?sort[name]&page='+page)
+      const response = await getData('/browse-categories?sort[name]&page=' + page)
       console.log(response)
       setCategories(response.data)
     } catch (e) {
@@ -51,8 +51,9 @@ export default function ListItem (props) {
                 {categories.data && categories.data.length > 0 && categories.data.map((item) => (
                   <TableRow key={item._id}>
                     <TableCell align='center' component='th' scope='row'>
-                      <IconButton><Edit/></IconButton>&nbsp;&nbsp;<IconButton onClick={()=>deleteCategories(item._id)}><Delete/></IconButton>
-                    </TableCell >
+                      <IconButton><Edit /></IconButton>&nbsp;&nbsp;
+                      <IconButton onClick={() => deleteCategories(item._id)}><Delete /></IconButton>
+                    </TableCell>
                     <TableCell align='center'>{item.name}</TableCell>
                   </TableRow>
                 ))}
@@ -62,7 +63,7 @@ export default function ListItem (props) {
         </Grid>
         {
           categories.pagination && categories.pagination.totalPages > 1 && (
-            <Grid container justify='center' style={{marginTop:'50px'}}>
+            <Grid container justify='center' style={{ marginTop: '50px' }}>
               <Pagination page={page} onChange={handleChange} count={categories.pagination.totalPages} color='secondary' />
             </Grid>
           )

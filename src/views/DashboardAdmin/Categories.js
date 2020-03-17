@@ -1,13 +1,13 @@
 import React from 'react'
-import {Formik} from 'formik'
+import { Formik } from 'formik'
 import * as Yup from 'yup'
 import FormCategories from './components/FormCategories'
 import { Snackbar } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import submitData from '../../helpers/submitData'
 import ListCategories from './components/ListCategories'
-const initialFormItem = { name: ''}
-const msgRequired ='This is Required'
+const initialFormItem = { name: '' }
+const msgRequired = 'This is Required'
 const validationFormItem = Yup.object({
   name: Yup.string().required(msgRequired)
 })
@@ -26,11 +26,6 @@ export default function Categories (props) {
       <Formik
         initialValues={initialFormItem}
         validationSchema={validationFormItem}
-        validate={
-          (values)=>{
-            console.log(values)
-          }
-        }
         onSubmit={async (values, form) => {
           try {
             const response = await submitData('/categories', values)
@@ -48,7 +43,7 @@ export default function Categories (props) {
       >
         <FormCategories />
       </Formik>
-      <ListCategories a={'a'} setMsg={setMsg}/>
+      <ListCategories setMsg={setMsg} />
     </>
   )
 }

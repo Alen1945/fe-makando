@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {
-  CardContent, Card, CardMedia, Avatar,
+  CardContent, Card, Avatar,
   Grid, CardActions,
   Typography, Button
 } from '@material-ui/core'
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 export default function RelatedItem (props) {
   const classes = useStyles()
   return (
-    <Card align='center' elevation={2} style={{paddingTop:'20px'}}>
+    <Card align='center' elevation={2} style={{ paddingTop: '20px' }}>
       <Avatar alt={props.name} src={(process.env.REACT_APP_API_URL + '/' + props.images)} className={classes.avatar} />
       <CardContent>
         <Typography gutterBottom variant='subtite1' color='textSecondary'>
@@ -27,7 +27,7 @@ export default function RelatedItem (props) {
           Rp. {parseFloat(props.price).toFixed(2)}
         </Typography>
       </CardContent>
-      <CardActions style={{ marginTop: '-15px'}}>
+      <CardActions style={{ marginTop: '-15px' }}>
         <Grid container justify='center'>
           <Button size='small' color='primary' variant='outlined' to={`/items/${props._id}`} component={Link}>
             Details

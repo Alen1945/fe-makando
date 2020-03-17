@@ -1,21 +1,24 @@
 import React from 'react'
-import { Container, Stepper, Step, StepLabel, Button, Typography,Snackbar } from '@material-ui/core'
+import {
+  Container, Stepper, Step, StepLabel,
+  Typography, Snackbar
+} from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import CartItems from './components/CartItems'
 import CheckoutDetails from './components/CheckoutDetails'
 import CheckoutDone from './components/CheckoutDone'
 import getData from '../../helpers/getData'
 
-function getStepContent (page, setActiveStep, data,setMsg) {
+function getStepContent (page, setActiveStep, data, setMsg) {
   switch (page) {
     case 0:
-      return (<CartItems setActiveStep={setActiveStep} data={data} style={{marginBotton:'40px'}} setMsg={setMsg} />)
+      return (<CartItems setActiveStep={setActiveStep} data={data} style={{ marginBotton: '40px' }} setMsg={setMsg} />)
     case 1:
-      return (<CheckoutDetails setActiveStep={setActiveStep} data={data} style={{marginBotton:'40px'}} setMsg={setMsg} />)
+      return (<CheckoutDetails setActiveStep={setActiveStep} data={data} style={{ marginBotton: '40px' }} setMsg={setMsg} />)
     case 2:
-      return (<CheckoutDone setActiveStep={setActiveStep} status={0}  style={{marginBotton:'40px'}} setMsg={setMsg} />)
+      return (<CheckoutDone setActiveStep={setActiveStep} status={0} style={{ marginBotton: '40px' }} setMsg={setMsg} />)
     case 3:
-      return (<CheckoutDone setActiveStep={setActiveStep} status={1}  style={{marginBotton:'40px'}} setMsg={setMsg} />)
+      return (<CheckoutDone setActiveStep={setActiveStep} status={1} style={{ marginBotton: '40px' }} setMsg={setMsg} />)
     default:
       return 'Unknown Page'
   }
@@ -66,7 +69,7 @@ function ShowCarts (props) {
           </Stepper>
         </Container>
       </div>
-      {getStepContent(activeStep, setActiveStep, dataCart,setMsg)}
+      {getStepContent(activeStep, setActiveStep, dataCart, setMsg)}
     </>
   )
 }

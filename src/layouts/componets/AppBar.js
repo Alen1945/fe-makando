@@ -3,13 +3,10 @@ import { Link as RouterLink } from 'react-router-dom'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/styles'
 import { AppBar, Container, Toolbar, IconButton, Link } from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
-import { Close } from '@material-ui/icons'
 import logo from '../../assets/logo.png'
-import DashboardSideRes from './DashboardSideRes'
 const useStyles = makeStyles(() => ({
   appBar: {
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   ButtonCategories: {
     margin: 2,
@@ -17,32 +14,22 @@ const useStyles = makeStyles(() => ({
     fontWeight: 800
   },
   expandPanelIcon: {
-    postion:'absolute',
+    postion: 'absolute',
     top: 0,
-    right:0
+    right: 0
   },
   flexGrow: {
     flexGrow: 1
   }
 }))
-function DashboardNavRes (props) {
+function DashboardNav (props) {
   const classes = useStyles()
-  const [toolbarExpand, setToolbarExpand] = React.useState(0)
-  const expandedIcon = () => {
-    if (toolbarExpand) {
-      return (<Close />)
-    } else {
-      return (<MenuIcon />)
-    }
-  }
-  const handleExpand = () => {
-    setToolbarExpand(!toolbarExpand)
-  }
+  const {handleExpand, expandedIcon} = props
   return (
     <>
-      <AppBar className={classes.appBar} style={{zIndex:'9999'}} position='sticky'>
+      <AppBar className={classes.appBar} style={{ zIndex: '9999' }} position='sticky'>
         <Container>
-          <Toolbar style={{position:'relative'}}>
+          <Toolbar style={{ position: 'relative' }}>
             <IconButton onClick={handleExpand} className={clsx(classes.ButtonCategories, classes.expandPanelIcon)}>{expandedIcon()}</IconButton>
             <div className={classes.flexGrow} />
             <Link to='/' component={RouterLink}>
@@ -52,9 +39,8 @@ function DashboardNavRes (props) {
           </Toolbar>
         </Container>
       </AppBar>
-      <DashboardSideRes setOpen={setToolbarExpand} open={toolbarExpand} />
     </>
   )
 }
 
-export default DashboardNavRes
+export default DashboardNav
