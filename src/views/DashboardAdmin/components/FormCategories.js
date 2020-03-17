@@ -29,6 +29,8 @@ export default function FormCategories (props) {
             form.resetForm()
             setInitialValueUpdate({ id: 0, name: '' })
             handleCloseFormUpdate()
+          } else {
+            setMsg({ display: 1, success: response.data.success, message: response.data.msg })
           }
         } catch (e) {
           console.log(e)

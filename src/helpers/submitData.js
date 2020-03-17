@@ -3,7 +3,6 @@ import cookie from 'js-cookie'
 function submitData (dataUrl, dataForm) {
   const config = {}
   if (cookie.get('tokenm4k4nd0')) {
-    console.log(cookie.get('tokenm4k4nd0'))
     config.headers = { Authorization: `Bearer ${cookie.get('tokenm4k4nd0')}` }
   }
   return new Promise((resolve, reject) => {
