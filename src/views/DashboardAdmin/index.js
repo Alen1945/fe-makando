@@ -4,12 +4,13 @@ import Dashboard from './Dashboard'
 import User from './User'
 import Categories from './Categories'
 import Restaurants from './Restaurants'
-
+import Items from './Items'
 const listPage = {
   dashboard: Dashboard,
   users: User,
   categories: Categories,
-  restaurants: Restaurants
+  restaurants: Restaurants,
+  items: Items
 }
 export default function DashboardAdmin (props) {
   const showPage = props.match.params.page
