@@ -25,10 +25,10 @@ const useStyles = makeStyles({
   },
   iconEditPic: {
     position: 'absolute',
-    top: '16%',
-    bottom: '16%',
-    left: '41%',
-    right: '41%'
+    top: '25%',
+    bottom: '25%',
+    left: '43%',
+    right: '43%'
   }
 })
 export default function CardProfile (props) {
@@ -40,7 +40,7 @@ export default function CardProfile (props) {
       <Grid container justify='center' style={{ position: 'relative' }}>
         <Avatar alt={userData.username} src={userPic ? userPic : `${process.env.REACT_APP_API_URL}/${userData.picture}`} className={classes.avatar} />
         <Box className={classes.iconEditPic} hidden={!statusEdit.profile}>
-          <IconButton component='label' for='userProfileField' style={{ backgroundColor: '#888' }}><Image style={{ height: '60px', width: '60px', color: 'white' }} /></IconButton>
+          <IconButton component='label' for='userProfileField' style={{ backgroundColor: 'rgba(0,0,0,.7)' }}><Image style={{ height: '40px', width: '40px', color: 'white' }} /></IconButton>
         </Box>
       </Grid>
       <Typography gutterBottom variant='h6' color='textSecondary' align='center' style={{ marginTop: '15px' }}>
