@@ -8,7 +8,8 @@ import * as Yup from 'yup'
 import CustomTextField from '../../components/CustomTextField'
 import submitData from '../../helpers/submitData'
 import logo from '../../assets/logo.png'
-import Cookies from 'js-cookie'
+import { connect } from 'react-redux'
+import { setUserLogin } from '../../store/actions/actionsUserData'
 const useStyles = makeStyles({
   content: {
     marginTop: '80px'
@@ -27,7 +28,7 @@ const validationFormLogin = Yup.object({
 function Login (props) {
   const classes = useStyles()
   const history = useHistory()
-  const { setIsLogin } = props
+  const { setIsLogin, setUserLogin } = props
   const [msg, setMsg] = React.useState({ display: 0, success: false, message: '' })
   const handleClose = () => {
     setMsg({ display: 0 })
@@ -51,8 +52,8 @@ function Login (props) {
                   try {
                     const response = await submitData('/login', values)
                     if (response && response.data.success) {
-                      Cookies.set('tokenm4k4nd0', response.data.data.token, { expires: (1 / 24) })
-                      setIsLogin(1)
+                      setUserLogin(response.data.data.token, response.data.data.dataUser)
+                      // Cookies.set('tokenm4k4nd0', response.data.data.token, { expires: (1 / 24) })
                       history.push('/')
                     }
                     setMsg({ display: 1, success: response.data.success, message: response.data.msg })
@@ -91,4 +92,8 @@ function Login (props) {
     </>
   )
 }
-export default Login
+
+const mapDispatchtoProps = {
+  setUserLogin
+}
+export default connect(null, mapDispatchtoProps)(Login)
