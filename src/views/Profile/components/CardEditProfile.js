@@ -10,10 +10,11 @@ import pacthData from '../../../helpers/patchData'
 const useStyles = makeStyles({
   editProfile: {
     position: 'absolute',
+    paddingTop: '20px',
     left: '20px',
     top: '42%',
     right: '20px',
-    bottom: '90px'
+    bottom: '80px'
   }
 })
 
