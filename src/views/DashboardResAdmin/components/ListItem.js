@@ -78,17 +78,17 @@ export default function ListItem (props) {
       />
       <Grid container justify='center' component={Container}>
         <Grid item sm={12} md={10}>
-          <TableContainer>
+          <TableContainer align='center'>
             <Table>
               <TableHead>
                 <TableRow>
                   <TableCell>Action</TableCell>
-                  <TableCell align='right'>Image</TableCell>
-                  <TableCell align='right'>Name</TableCell>
-                  <TableCell align='right'>Category</TableCell>
-                  <TableCell align='right'>Restaurant</TableCell>
-                  <TableCell align='right'>Price</TableCell>
-                  <TableCell align='right'>Quantity</TableCell>
+                  <TableCell>Image</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Category</TableCell>
+                  <TableCell>Restaurant</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>Quantity</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -100,17 +100,17 @@ export default function ListItem (props) {
                         <Delete />
                       </IconButton>
                     </TableCell>
-                    <TableCell align='right'>
+                    <TableCell>
                       <Avatar
                         alt={item.name_item ? item.name_item : 'item' + item._id} src={(process.env.REACT_APP_API_URL + '/' + item.images)}
                         style={{ height: '50px', width: '50px' }}
                       />
                     </TableCell>
-                    <TableCell align='right'>{item.name}</TableCell>
-                    <TableCell align='right'>{item.name_category}</TableCell>
-                    <TableCell align='right'>{item.name_restaurant}</TableCell>
-                    <TableCell align='right'>{item.price}</TableCell>
-                    <TableCell align='right'>{item.quantity}</TableCell>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.name_category}</TableCell>
+                    <TableCell>{item.name_restaurant}</TableCell>
+                    <TableCell>{item.price}</TableCell>
+                    <TableCell>{item.quantity}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

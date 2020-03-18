@@ -70,22 +70,22 @@ export default function ListItem (props) {
       />
       <Grid container justify='center' component={Container}>
         <Grid item sm={8} md={6}>
-          <TableContainer>
+          <TableContainer align='center'>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell align='center'>Action</TableCell>
-                  <TableCell align='center'>Name</TableCell>
+                  <TableCell>Action</TableCell>
+                  <TableCell>Name</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {categories.data && categories.data.length > 0 && categories.data.map((item) => (
                   <TableRow key={item._id}>
-                    <TableCell align='center' component='th' scope='row'>
+                    <TableCell component='th' scope='row'>
                       <IconButton onClick={() => handeClickUpdate(item._id)}><Edit /></IconButton>&nbsp;&nbsp;
                       <IconButton onClick={() => handleOpenDialogDelete(item._id)}><Delete /></IconButton>
                     </TableCell>
-                    <TableCell align='center'>{item.name}</TableCell>
+                    <TableCell>{item.name}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
