@@ -1,30 +1,31 @@
 import React from 'react'
-import { Formik } from 'formik'
-import { Paper, Snackbar, Grid, Typography } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
-import * as Yup from 'yup'
+import {
+  Slide, Snackbar, Dialog, Grid, Typography, IconButton
+} from '@material-ui/core'
+import { Close as CloseIcon, Edit as EditIcon } from '@material-ui/icons'
+import { Alert, SpeedDial, SpeedDialIcon } from '@material-ui/lab'
 import FormItem from './components/FormItem'
-import submitData from '../../helpers/submitData'
 import ListItem from './components/ListItem'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-const initialFormItem = { id_restaurant: '', id_category: '', name: '', quantity: 0, price: 0, description: '', images: null }
-const msgRequired = 'This is Required'
-const validationFormItem = Yup.object({
-  id_restaurant: Yup.number().required(msgRequired),
-  id_category: Yup.number().required(msgRequired),
-  name: Yup.string().required(msgRequired),
-  quantity: Yup.number().required(msgRequired),
-  price: Yup.number().required(msgRequired),
-  description: Yup.string(),
-  images: Yup.mixed().required()
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction='right' ref={ref} {...props} />;
 })
-
 export default function Items (props) {
   const [msg, setMsg] = React.useState({ display: 0, success: false, message: '' })
+  const [initialValue, setInitialValue] = React.useState({
+    id: 0, id_restaurant: '', id_category: '', name: '', quantity: 0, price: 0, description: '', images: null 
+  })
+  const [hiddenBtnAdd, setHiddenBtnAdd] = React.useState(false)
+  const [openForm, setOpenForm] = React.useState(false)
+
+  const handleClickOpenForm = () => {
+    setOpenForm(true);
+  }
+
+  const handleCloseForm = () => {
+    setOpenForm(false);
+  }
+
   const handleClose = () => {
     setMsg({ display: 0, success: false, message: '' })
   }
@@ -38,44 +39,33 @@ export default function Items (props) {
           {msg.message}
         </Alert>
       </Snackbar>
-      <Grid>
-        <ExpansionPanel>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-          >
-            <Typography variant='h6' align='center'>Add Item</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Paper elevation={5}>
-              <Formik
-                initialValues={initialFormItem}
-                validationSchema={validationFormItem}
-                onSubmit={async (values, form) => {
-                  try {
-                    const formData = new FormData()
-                    Object.keys(values).forEach(v => {
-                      formData.append(v, values[v])
-                    })
-                    const response = await submitData('/items', formData)
-                    if (response.data.success) {
-                      showMessage(response.data)
-                      form.setSubmitting(false)
-                      form.resetForm()
-                    }
-                    showMessage(response.data)
-                  } catch (e) {
-                    console.log(e)
-                    showMessage(e.response.data)
-                  }
-                }}
-              >
-                <FormItem />
-              </Formik>
-            </Paper>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      </Grid>
-      <ListItem showMessage={showMessage} />
+      <Dialog fullScreen open={openForm} onClose={handleCloseForm} TransitionComponent={Transition}>
+        <Grid container style={{ marginTop: '80px', paddingRight: '60px' }} justify='flex-end'>
+          <IconButton onClick={handleCloseForm}>
+            <CloseIcon style={{ height: '30px', width: '30px'}} color='secondary'/>
+          </IconButton>
+        </Grid>
+        <Grid container alignItems='center' justify='center'>
+          <Typography variant='h5'>
+            {!initialValue.id ? 'Adding Item' : 'Update Item'}
+          </Typography>
+        </Grid>
+        <FormItem
+          initialValue={initialValue}
+          update={initialValue.id}
+          showMessage={showMessage}
+          setInitialValue={setInitialValue}
+          handleCloseForm={handleCloseForm}
+        />
+      </Dialog>
+      <ListItem showMessage={showMessage} handleClickOpenForm={handleClickOpenForm} setInitialValue={setInitialValue} />
+      <SpeedDial
+        style={{ position: 'fixed', bottom: '80px', right: '40px' }}
+        ariaLabel='new Item'
+        icon={<SpeedDialIcon />}
+        onClick={handleClickOpenForm}
+        open={hiddenBtnAdd}
+      />
     </>
   )
 }

@@ -6,9 +6,10 @@ import {
 } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 import getData from '../../../helpers/getData'
-import { Edit, Delete, Warning } from '@material-ui/icons'
+import { Edit, Delete } from '@material-ui/icons'
 import deleteData from '../../../helpers/deleteData'
 import AlertDelete from '../../../components/AlertDelete'
+
 export default function ListItem (props) {
   const { handleOpenFormUpdate, setInitialValueUpdate } = props
   const [categories, setCategories] = React.useState([])
