@@ -1,8 +1,7 @@
 import React from 'react'
 import {
   Container, Grid, Table, TableContainer, TableHead, TableRow,
-  TableBody, TableCell, IconButton, Dialog, DialogContent, DialogActions,
-  Button, Typography, Avatar
+  TableBody, TableCell, IconButton
 } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 import getData from '../../../helpers/getData'
@@ -17,7 +16,7 @@ export default function ListItem (props) {
   const [openDialogDelete, setOpenDialogDelete] = React.useState(0)
   const [deleteId, setDeleteId] = React.useState(0)
 
-  const handleChange = (event, value) => {
+  const handleChangePage = (event, value) => {
     setPage(value)
   }
   const handeClickUpdate = async (id) => {
@@ -96,7 +95,7 @@ export default function ListItem (props) {
         {
           categories.pagination && (
             <Grid container justify='center' style={{ marginTop: '50px' }}>
-              <Pagination page={page} onChange={handleChange} count={categories.pagination.totalPages} color='secondary' />
+              <Pagination page={page} onChange={handleChangePage} count={categories.pagination.totalPages} color='secondary' />
             </Grid>
           )
         }

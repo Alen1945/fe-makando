@@ -3,6 +3,7 @@ import {
   Container, Grid, Table, TableContainer, TableHead, TableRow, TableBody, TableCell,
   Avatar, IconButton
 } from '@material-ui/core'
+import { Pagination } from '@material-ui/lab'
 import getData from '../../../helpers/getData'
 import { Edit, Delete } from '@material-ui/icons'
 import deleteData from '../../../helpers/deleteData'
@@ -11,8 +12,12 @@ import AlertDelete from '../../../components/AlertDelete'
 export default function ListItem (props) {
   const { setInitialValue, handleClickOpenForm } = props
   const [Items, setItems] = React.useState([])
+  const [page, setPage] = React.useState(1)
   const [openDialogDelete, setOpenDialogDelete] = React.useState(0)
   const [deleteId, setDeleteId] = React.useState(0)
+  const handleChangePage = (event, value) => {
+    setPage(value)
+  }
   const handleOpenDialogDelete = (id) => {
     setDeleteId(id)
     setOpenDialogDelete(1)
@@ -21,10 +26,10 @@ export default function ListItem (props) {
     await getitem(id)
     handleClickOpenForm()
   }
-  const getItems = async () => {
+  const getItems = async (id) => {
     try {
-      const response = await getData('/browse-items?sort[_id]=1&limit=100000')
-      setItems(response.data.dataItems)
+      const response = await getData('/browse-items?sort[_id]=1&page=' + page)
+      setItems(response.data)
     } catch (e) {
       console.log(e)
     }
@@ -52,8 +57,8 @@ export default function ListItem (props) {
     }
   }
   React.useEffect(() => {
-    getItems()
-  }, [props])
+    getItems(page)
+  }, [props, page])
   return (
     <>
       <AlertDelete
@@ -80,7 +85,7 @@ export default function ListItem (props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Items && Items.length > 0 && Items.map((item) => (
+                {Items.dataItems && Items.dataItems.length > 0 && Items.dataItems.map((item) => (
                   <TableRow key={item._id}>
                     <TableCell component='th' scope='row'>
                       <IconButton onClick={() => handeClickUpdate(item._id)}><Edit /></IconButton>&nbsp;&nbsp;
@@ -106,6 +111,13 @@ export default function ListItem (props) {
           </TableContainer>
         </Grid>
       </Grid>
+      {
+        Items.pagination && (
+          <Grid container justify='center' style={{ marginTop: '50px' }}>
+            <Pagination page={page} onChange={handleChangePage} count={Items.pagination.totalPages} color='secondary' />
+          </Grid>
+        )
+      }
     </>
   )
 }
