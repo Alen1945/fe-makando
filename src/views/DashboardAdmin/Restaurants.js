@@ -16,7 +16,7 @@ const msgRequired = 'This is Required'
 const validationFormItem = Yup.object({
   id_owner: Yup.number().required(msgRequired),
   name: Yup.string().required(msgRequired),
-  logo: Yup.mixed().required(),
+  logo: Yup.mixed(),
   address: Yup.string().required(msgRequired),
   description: Yup.string()
 })
