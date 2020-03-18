@@ -1,10 +1,12 @@
 import axios from 'axios'
-import cookie from 'js-cookie'
+import storage from '../store'
+
 function getData (dataUrl, dataForm) {
   return new Promise((resolve, reject) => {
     const config = {}
-    if (cookie.get('tokenm4k4nd0')) {
-      config.headers = { Authorization: `Bearer ${cookie.get('tokenm4k4nd0')}` }
+    const token = storage.store.getState().dataUser.token
+    if (token) {
+      config.headers = { Authorization: `Bearer ${token}` }
     }
     const url = process.env.REACT_APP_API_URL + dataUrl
     axios.get(url, config).then(result => {
