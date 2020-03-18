@@ -1,20 +1,20 @@
 import React from 'react'
 import { Route as RouterLink, Redirect } from 'react-router-dom'
-import cookie from 'js-cookie'
+import { connect } from 'react-redux'
 import jwt from 'jsonwebtoken'
 
 function SuperAdminRoute (props) {
   document.title = props.title
-  const { layout: Layout, component: Component, isLogin, setIsLogin, ...anotherProps } = props
-  if (cookie.get('tokenm4k4nd0')) {
-    const role = jwt.decode(cookie.get('tokenm4k4nd0')).role
+  const { layout: Layout, component: Component, token, ...anotherProps } = props
+  if (token) {
+    const role = jwt.decode(token).role
     if (role && role === 3) {
       return (
         <RouterLink
           {...anotherProps}
           render={(matchProps) => (
-            <Layout isLogin={isLogin}>
-              <Component {...matchProps} isLogin={isLogin} setIsLogin={setIsLogin} />
+            <Layout>
+              <Component {...matchProps} />
             </Layout>
           )}
         />
@@ -25,5 +25,7 @@ function SuperAdminRoute (props) {
   }
   return <Redirect to='/login' />
 }
-
-export default SuperAdminRoute
+const mapStateToProps = (state) => ({
+  token: state.dataUser.token
+})
+export default connect(mapStateToProps)(SuperAdminRoute)
