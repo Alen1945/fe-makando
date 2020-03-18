@@ -10,6 +10,7 @@ import deleteData from '../../../helpers/deleteData'
 import AlertDelete from '../../../components/AlertDelete'
 
 export default function ListItem (props) {
+  const { handleOpenForm, setInitialValues } = props
   const [restaurant, setRestaurant] = React.useState([])
   const [page, setPage] = React.useState(1)
   const [openDialogDelete, setOpenDialogDelete] = React.useState(0)
@@ -18,11 +19,15 @@ export default function ListItem (props) {
   const handleChangePage = (event, value) => {
     setPage(value)
   }
+  const handeClickUpdate = async (id) => {
+    await getrestaurant(id)
+    handleOpenForm()
+  }
   const handleOpenDialogDelete = (id) => {
     setDeleteId(id)
     setOpenDialogDelete(1)
   }
-  const getrestaurant = async (page) => {
+  const getrestaurants = async (page) => {
     try {
       const response = await getData('/restaurants?sort[_id]=1&page=' + page)
       if (response.data.success && response.data.data) {
@@ -31,6 +36,16 @@ export default function ListItem (props) {
       }
     } catch (e) {
       console.log(e)
+    }
+  }
+  const getrestaurant = async (id) => {
+    try {
+      const response = await getData(`/browse-restaurants/${id}`)
+      const { _id, ...updateValue } = response.data.data
+      setInitialValues({ id: _id, ...updateValue })
+    } catch (e) {
+      console.log(e)
+      console.log(e.response)
     }
   }
   const deleteRestaurant = async (id) => {
@@ -43,7 +58,7 @@ export default function ListItem (props) {
     }
   }
   React.useEffect(() => {
-    getrestaurant(page)
+    getrestaurants(page)
   }, [props, page])
   return (
     <>
@@ -62,29 +77,29 @@ export default function ListItem (props) {
               <TableHead>
                 <TableRow>
                   <TableCell>Action</TableCell>
-                  <TableCell align='right'>Image</TableCell>
-                  <TableCell align='right'>Name</TableCell>
-                  <TableCell align='right'>Owner</TableCell>
-                  <TableCell align='right'>Address</TableCell>
-                  <TableCell align='right'>Description</TableCell>
+                  <TableCell>Image</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Owner</TableCell>
+                  <TableCell>Address</TableCell>
+                  <TableCell>Description</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {restaurant.data && restaurant.data.length > 0 && restaurant.data.map((resto) => (
                   <TableRow key={resto._id}>
                     <TableCell component='th' scope='row'>
-                      <IconButton>
+                      <IconButton onClick={() => handeClickUpdate(resto._id)}>
                         <Edit />
-                      </IconButton>&nbsp;&nbsp;
+                      </IconButton>&nbsp;
                       <IconButton onClick={() => handleOpenDialogDelete(resto._id)}>
                         <Delete />
                       </IconButton>
                     </TableCell>
-                    <TableCell align='right'> <Avatar alt={resto.name ? resto.name : 'Res' + resto._id} src={(process.env.REACT_APP_API_URL + '/' + resto.logo)} style={{ height: '50px', width: '50px' }} /></TableCell>
-                    <TableCell align='right'>{resto.name}</TableCell>
-                    <TableCell align='right'>{resto.owner}</TableCell>
-                    <TableCell align='right'>{resto.address}</TableCell>
-                    <TableCell align='right'>{resto.description}</TableCell>
+                    <TableCell> <Avatar alt={resto.name ? resto.name : 'Res' + resto._id} src={(process.env.REACT_APP_API_URL + '/' + resto.logo)} style={{ height: '50px', width: '50px' }} /></TableCell>
+                    <TableCell>{resto.name}</TableCell>
+                    <TableCell>{resto.owner}</TableCell>
+                    <TableCell>{resto.address}</TableCell>
+                    <TableCell>{resto.description}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
