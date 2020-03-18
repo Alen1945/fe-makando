@@ -8,7 +8,7 @@ import { Pagination } from '@material-ui/lab'
 import getData from '../../../helpers/getData'
 import { Edit, Delete, Warning } from '@material-ui/icons'
 import deleteData from '../../../helpers/deleteData'
-
+import AlertDelete from '../../../components/AlertDelete'
 export default function ListItem (props) {
   const { handleOpenFormUpdate, setInitialValueUpdate } = props
   const [categories, setCategories] = React.useState([])
@@ -29,7 +29,7 @@ export default function ListItem (props) {
   }
   const getCategories = async () => {
     try {
-      const response = await getData('/browse-categories?sort[name]&page=' + page)
+      const response = await getData('/browse-categories?sort[_id]=1&page=' + page)
       console.log(response)
       setCategories(response.data)
     } catch (e) {
@@ -60,26 +60,14 @@ export default function ListItem (props) {
 
   return (
     <>
-      <Dialog
+      <AlertDelete
         open={openDialogDelete}
         maxWidth='sm'
         fullWidth='md'
         onClose={() => setOpenDialogDelete(0)}
-      >
-        <DialogContent align='center'>
-          <Warning style={{ height: '100px', width: '100px' }} color='secondary'/>
-          <Typography variant='h6' color='secondary'> Are You Sure?</Typography>
-          <Typography variant='subtite2' color='textSecondary'> You will not be able to recover this data</Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button color='primary' onClick={() => setOpenDialogDelete(0)}>
-            Cancel
-          </Button>
-          <Button color='primary' variant='contained' color='secondary' onClick={() => deleteCategories(deleteId)}>
-            Yes, Delete it
-          </Button>
-        </DialogActions>
-      </Dialog>
+        onCancel={() => setOpenDialogDelete(0)}
+        onDelete={() => deleteCategories(deleteId)}
+      />
       <Grid container justify='center' component={Container}>
         <Grid item sm={8} md={6}>
           <TableContainer>
@@ -105,7 +93,7 @@ export default function ListItem (props) {
           </TableContainer>
         </Grid>
         {
-          categories.pagination && categories.pagination.totalPages > 1 && (
+          categories.pagination && (
             <Grid container justify='center' style={{ marginTop: '50px' }}>
               <Pagination page={page} onChange={handleChange} count={categories.pagination.totalPages} color='secondary' />
             </Grid>
