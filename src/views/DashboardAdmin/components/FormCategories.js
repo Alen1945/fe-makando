@@ -44,7 +44,7 @@ export default function FormCategories (props) {
           <CardHeader title={!update ? 'Adding Categories' : 'Update Category'} titleTypographyProps={{ variant: 'h5', align: 'center' }} />
           <CardContent>
             <Grid container justify='center'>
-              <Grid item md={4} xs={6}>
+              <Grid item md={8} sm={10}>
                 <CustomTextField
                   component={TextField}
                   fullWidth label='Name' margin='dense' name='name' type='text' required variant='outlined'
