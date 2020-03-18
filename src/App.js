@@ -20,155 +20,114 @@ import DashboardAdmin from './views/DashboardAdmin'
 import DashboardResAdmin from './views/DashboardResAdmin'
 import Page404 from './views/Page404'
 import Page403 from './views/Page403'
-import cookie from 'js-cookie'
-class App extends React.Component {
-  constructor (props) {
-    super(props)
-    document.title = 'MakanDo'
-    this.state = {
-      isLogin: 0
-    }
-    this.setIsLogin = this.setIsLogin.bind(this)
-  }
 
-  setIsLogin (setTO) {
-    this.setState({
-      isLogin: setTO
-    })
-  }
-
-  componentDidMount () {
-    if (cookie.get('tokenm4k4nd0')) {
-      this.setState({
-        isLogin: 1
-      })
-    }
-  }
-
-  render () {
-    return (
-      <Router>
-        <Switch>
-          <GuestRoute
-            exact
-            path='/'
-            component={Home}
-            title='Home'
-            layout={MainLayout}
-            isLogin={this.state.isLogin}
-          />
-          <GuestRoute
-            exact
-            path='/login'
-            title='Login'
-            component={Login}
-            layout={MinimalLayout}
-            isLogin={this.state.isLogin}
-            setIsLogin={this.setIsLogin}
-          />
-          <GuestRoute
-            exact
-            path='/logout'
-            title='Logout'
-            component={Logout}
-            layout={MinimalLayout}
-            isLogin={this.state.isLogin}
-            setIsLogin={this.setIsLogin}
-          />
-          <GuestRoute
-            exact
-            path='/register'
-            title='Registrasi'
-            component={Register}
-            layout={MinimalLayout}
-            isLogin={this.state.isLogin}
-          />
-          <GuestRoute
-            exact
-            path='/items'
-            title='Items'
-            component={ShowItems}
-            layout={MainLayout}
-            isLogin={this.state.isLogin}
-          />
-          <GuestRoute
-            exact
-            path='/items/:id'
-            title='Items'
-            component={DetailItem}
-            layout={MainLayout}
-            isLogin={this.state.isLogin}
-          />
-          <UserRoute
-            exact
-            path='/carts'
-            title='Cart'
-            component={ShowCarts}
-            layout={MainLayout}
-            isLogin={this.state.isLogin}
-          />
-          <UserRoute
-            exact
-            path='/profile'
-            title='Profile'
-            component={Profile}
-            layout={MainLayout}
-            isLogin={this.state.isLogin}
-          />
-          {/* START SUPER ADMIN */}
-          <SuperAdminRoute
-            exact
-            path='/admin'
-            title='DashBoard'
-            component={DashboardAdmin}
-            layout={LayoutAdmin}
-            isLogin={this.state.isLogin}
-          />
-          <SuperAdminRoute
-            exact
-            path='/admin/:page'
-            title='DashBoard'
-            component={DashboardAdmin}
-            layout={LayoutAdmin}
-            isLogin={this.state.isLogin}
-          />
-          {/* END SUPER ADMIN */}
-          {/* START Admin Restaurant */}
-          <AdminRoute
-            exact
-            path='/restaurant/admin'
-            title='DashBoard'
-            component={DashboardResAdmin}
-            layout={LayoutAdminRestaurant}
-            isLogin={this.state.isLogin}
-          />
-          <AdminRoute
-            exact
-            path='/restaurant/admin/:page'
-            title='DashBoard'
-            component={DashboardResAdmin}
-            layout={LayoutAdminRestaurant}
-            isLogin={this.state.isLogin}
-          />
-          {/* END Admin Restaurant */}
-          <GuestRoute
-            title='403 Forbidden'
-            exact
-            path='/403'
-            component={Page403}
-            layout={MainLayout}
-            isLogin={this.state.isLogin}
-          />
-          <GuestRoute
-            title='404 Not Found'
-            component={Page404}
-            layout={MainLayout}
-            isLogin={this.state.isLogin}
-          />
-        </Switch>
-      </Router>
-    )
-  }
+function App (props) {
+  return (
+    <Router>
+      <Switch>
+        <GuestRoute
+          exact
+          path='/'
+          component={Home}
+          title='Home'
+          layout={MainLayout}
+        />
+        <GuestRoute
+          exact
+          path='/login'
+          title='Login'
+          component={Login}
+          layout={MinimalLayout}
+        />
+        <GuestRoute
+          exact
+          path='/logout'
+          title='Logout'
+          component={Logout}
+          layout={MinimalLayout}
+        />
+        <GuestRoute
+          exact
+          path='/register'
+          title='Registrasi'
+          component={Register}
+          layout={MinimalLayout}
+        />
+        <GuestRoute
+          exact
+          path='/items'
+          title='Items'
+          component={ShowItems}
+          layout={MainLayout}
+        />
+        <GuestRoute
+          exact
+          path='/items/:id'
+          title='Items'
+          component={DetailItem}
+          layout={MainLayout}
+        />
+        <UserRoute
+          exact
+          path='/carts'
+          title='Cart'
+          component={ShowCarts}
+          layout={MainLayout}
+        />
+        <UserRoute
+          exact
+          path='/profile'
+          title='Profile'
+          component={Profile}
+          layout={MainLayout}
+        />
+        {/* START SUPER ADMIN */}
+        <SuperAdminRoute
+          exact
+          path='/admin'
+          title='DashBoard'
+          component={DashboardAdmin}
+          layout={LayoutAdmin}
+        />
+        <SuperAdminRoute
+          exact
+          path='/admin/:page'
+          title='DashBoard'
+          component={DashboardAdmin}
+          layout={LayoutAdmin}
+        />
+        {/* END SUPER ADMIN */}
+        {/* START Admin Restaurant */}
+        <AdminRoute
+          exact
+          path='/restaurant/admin'
+          title='DashBoard'
+          component={DashboardResAdmin}
+          layout={LayoutAdminRestaurant}
+        />
+        <AdminRoute
+          exact
+          path='/restaurant/admin/:page'
+          title='DashBoard'
+          component={DashboardResAdmin}
+          layout={LayoutAdminRestaurant}
+        />
+        {/* END Admin Restaurant */}
+        <GuestRoute
+          title='403 Forbidden'
+          exact
+          path='/403'
+          component={Page403}
+          layout={MainLayout}
+        />
+        <GuestRoute
+          title='404 Not Found'
+          component={Page404}
+          layout={MainLayout}
+        />
+      </Switch>
+    </Router>
+  )
 }
 
 export default App

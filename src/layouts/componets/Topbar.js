@@ -6,6 +6,7 @@ import { AppBar, Container, Toolbar, ExpansionPanel, ExpansionPanelDetails, Butt
 import MenuIcon from '@material-ui/icons/Menu'
 import { ShoppingCart, Close, Input } from '@material-ui/icons'
 import logo from '../../assets/logo.png'
+import { connect } from 'react-redux'
 const useStyles = makeStyles(() => ({
   appBar: {
     backgroundColor: 'white',
@@ -82,4 +83,7 @@ function Topbar (props) {
   )
 }
 
-export default Topbar
+const mapStateToProps = (state) => ({
+  isLogin: state.dataUser.isLogin
+})
+export default connect(mapStateToProps)(Topbar)

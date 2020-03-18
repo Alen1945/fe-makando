@@ -19,7 +19,7 @@ function LayoutAdmin (props) {
   }
   return (
     <>
-      <AppBar isLogin={isLogin} expandedIcon={expandedIcon} handleExpand={handleExpand}/>
+      <AppBar expandedIcon={expandedIcon} handleExpand={handleExpand}/>
       <SideBarAdmin setOpen={setToolbarExpand} open={toolbarExpand} />
       <div style={{ marginTop: 50 }}>
         {children}

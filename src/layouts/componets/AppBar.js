@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
 }))
 function DashboardNav (props) {
   const classes = useStyles()
-  const {handleExpand, expandedIcon} = props
+  const { handleExpand, expandedIcon } = props
   return (
     <>
       <AppBar className={classes.appBar} style={{ zIndex: '9999' }} position='sticky'>
