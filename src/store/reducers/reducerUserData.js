@@ -1,4 +1,4 @@
-import { SET_USER_LOGIN, SET_USER_PROFILE } from '../actions/actionTypes'
+import { SET_USER_LOGIN, SET_USER_PROFILE, REMOVE_USER_LOGIN } from '../actions/actionTypes'
 const initialState = {
   token: '',
   dataProfile: {},
@@ -18,6 +18,10 @@ const dataUser = (state = initialState, action) => {
       return {
         ...state,
         dataProfile: action.payload
+      }
+    case REMOVE_USER_LOGIN:
+      return {
+        initialState
       }
     default:
       return state
