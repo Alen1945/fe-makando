@@ -11,7 +11,8 @@ import { Alert } from '@material-ui/lab'
 import { Work } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 import getData from '../../helpers/getData'
-
+import { connect } from 'react-redux'
+import { setUserProfile } from '../../store/actions/actionsUserData'
 const useStyles = makeStyles({
   expanded: {
     maxHeight: '350px',
@@ -19,9 +20,9 @@ const useStyles = makeStyles({
     overflowY: 'hidden'
   }
 })
-export default function Profile (props) {
+function Profile (props) {
+  const { userData, setUserData } = props
   const classes = useStyles()
-  const [userData, setUserData] = React.useState({})
   const [userPic, setUserPic] = React.useState('')
   const [userReview, setUserReviews] = React.useState([])
   const [expanded, setExpanded] = React.useState('')
@@ -38,7 +39,6 @@ export default function Profile (props) {
   const getUserData = async () => {
     try {
       const response = await getData('/profile')
-      console.log(response)
       setUserData(response.data.data)
     } catch (e) {
       console.log(e)
@@ -140,3 +140,11 @@ export default function Profile (props) {
     </>
   )
 }
+
+const mapStateToProps = (state) => ({
+  userData: state.dataUser.dataProfile
+})
+const mapDispatchToProps = {
+  setUserData: setUserProfile
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)
