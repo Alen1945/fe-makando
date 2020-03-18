@@ -3,21 +3,21 @@ import FormCategories from './components/FormCategories'
 import {
   Snackbar, Button, Dialog, DialogContent, DialogActions
 } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
+import { Alert, SpeedDial, SpeedDialIcon } from '@material-ui/lab'
 import ListCategories from './components/ListCategories'
 
 export default function Categories (props) {
   const [msg, setMsg] = React.useState({ display: 0, success: false, message: '' })
-  const [openFormUpdate, setOpenFormUpdate] = React.useState(0)
-  const [initialValueUpdate, setInitialValueUpdate] = React.useState({
+  const [openForm, setOpenForm] = React.useState(0)
+  const [initialValues, setInitialValues] = React.useState({
     id: 0,
     name: ''
   })
-  const handleOpenFormUpdate = () => {
-    setOpenFormUpdate(1)
+  const handleOpenForm = () => {
+    setOpenForm(1)
   }
-  const handleCloseFormUpdate = () => {
-    setOpenFormUpdate(0)
+  const handleCloseForm = () => {
+    setOpenForm(0)
   }
   const handleClose = () => {
     setMsg({ display: 0 })
@@ -29,33 +29,39 @@ export default function Categories (props) {
           {msg.message}
         </Alert>
       </Snackbar>
-      <FormCategories setMsg={setMsg} initialValues={{ name: '' }} />
       <ListCategories
         setMsg={setMsg}
-        handleOpenFormUpdate={handleOpenFormUpdate} 
-        setInitialValueUpdate={setInitialValueUpdate}
+        handleOpenForm={handleOpenForm}
+        setInitialValues={setInitialValues}
       />
       <Dialog
-        open={openFormUpdate}
+        open={openForm}
         maxWidth='md'
         fullWidth='lg'
-        onClose={handleCloseFormUpdate}
+        onClose={handleCloseForm}
       >
         <DialogContent>
           <FormCategories
             setMsg={setMsg}
-            update={initialValueUpdate.id}
-            initialValues={initialValueUpdate}
-            setInitialValueUpdate={setInitialValueUpdate}
-            handleCloseFormUpdate={handleCloseFormUpdate}
+            update={initialValues.id}
+            initialValues={initialValues}
+            setInitialValues={setInitialValues}
+            handleCloseForm={handleCloseForm}
           />
         </DialogContent>
         <DialogActions>
-          <Button color='primary' onClick={handleCloseFormUpdate}>
+          <Button color='primary' onClick={handleCloseForm}>
             Cancel
           </Button>
         </DialogActions>
       </Dialog>
+      <SpeedDial
+        style={{ position: 'fixed', bottom: '80px', right: '40px' }}
+        ariaLabel='new Item'
+        icon={<SpeedDialIcon />}
+        onClick={handleOpenForm}
+        open={false}
+      />
     </>
   )
 }

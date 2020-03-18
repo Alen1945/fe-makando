@@ -8,7 +8,7 @@ import patchData from '../../../helpers/patchData'
 const msgRequired = 'This is Required'
 
 export default function FormCategories (props) {
-  const { setMsg, update, initialValues, setInitialValueUpdate, handleCloseFormUpdate } = props
+  const { setMsg, update, initialValues, setInitialValues, handleCloseForm } = props
   return (
     <Formik
       initialValues={initialValues}
@@ -27,8 +27,8 @@ export default function FormCategories (props) {
             setMsg({ display: 1, success: response.data.success, message: response.data.msg })
             form.setSubmitting(false)
             form.resetForm()
-            setInitialValueUpdate({ id: 0, name: '' })
-            handleCloseFormUpdate()
+            setInitialValues({ id: 0, name: '' })
+            handleCloseForm()
           } else {
             setMsg({ display: 1, success: response.data.success, message: response.data.msg })
           }

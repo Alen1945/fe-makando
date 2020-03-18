@@ -10,7 +10,7 @@ import deleteData from '../../../helpers/deleteData'
 import AlertDelete from '../../../components/AlertDelete'
 
 export default function ListItem (props) {
-  const { handleOpenFormUpdate, setInitialValueUpdate } = props
+  const { handleOpenForm, setInitialValues } = props
   const [categories, setCategories] = React.useState([])
   const [page, setPage] = React.useState(1)
   const [openDialogDelete, setOpenDialogDelete] = React.useState(0)
@@ -21,7 +21,7 @@ export default function ListItem (props) {
   }
   const handeClickUpdate = async (id) => {
     await getCategory(id)
-    handleOpenFormUpdate()
+    handleOpenForm()
   }
   const handleOpenDialogDelete = (id) => {
     setDeleteId(id)
@@ -39,7 +39,7 @@ export default function ListItem (props) {
   const getCategory = async (id) => {
     try {
       const response = await getData(`/browse-categories/${id}`)
-      setInitialValueUpdate({ id: response.data._id, name: response.data.name })
+      setInitialValues({ id: response.data._id, name: response.data.name })
     } catch (e) {
       console.log(e)
       console.log(e.response)
