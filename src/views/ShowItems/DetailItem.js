@@ -90,7 +90,8 @@ export default function DetailsItem (props) {
               </CardContent>
               <CardActions>
                 <Formik
-                  initialValues={{ total_items: 1, id_item: props.match.params.id }}
+                  enableReinitialize
+                  initialValues={{ total_items: 1, id_item: dataItem._id }}
                   validationSchema={Yup.object({ total_items: Yup.number().required() })}
                   onSubmit={async (values, form) => {
                     try {

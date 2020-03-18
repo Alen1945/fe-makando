@@ -9,6 +9,7 @@ import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import CustomTextField from '../../../components/CustomTextField'
 import deleteData from '../../../helpers/deleteData'
+import AlertDelete from '../../../components/AlertDelete'
 
 export default function CartItems (props) {
   const { setMsg } = props
@@ -16,15 +17,23 @@ export default function CartItems (props) {
     props.setActiveStep(1)
   }
   const [itemCart, setItemCart] = React.useState([])
+  const [openDialogDelete, setOpenDialogDelete] = React.useState(0)
+  const [deleteId, setDeleteId] = React.useState(0)
+
+  const handleOpenDialogDelete = (id) => {
+    setDeleteId(id)
+    setOpenDialogDelete(1)
+  }
   const deleteCart = async (id) => {
     try {
       const response = await deleteData(`/carts/${id}`)
       if (response.data.success) {
+        setOpenDialogDelete(0)
         setMsg({ display: 1, success: response.data.success, message: response.data.msg })
       }
     } catch (e) {
       console.log(e.response)
-      // setMsg({ display: 1, success: e.response.data.success, message: e.response.data.msg })
+      setMsg({ display: 1, success: e.response.data.success, message: e.response.data.msg })
     }
   }
   React.useEffect(() => {
@@ -32,6 +41,14 @@ export default function CartItems (props) {
   }, [props])
   return (
     <>
+      <AlertDelete
+        open={openDialogDelete}
+        maxWidth='sm'
+        fullWidth='md'
+        onClose={() => setOpenDialogDelete(0)}
+        onCancel={() => setOpenDialogDelete(0)}
+        onDelete={() => deleteCart(deleteId)}
+      />
       <Grid container justify='center' component={Container}>
         <Grid item sm={10} md={8}>
           <TableContainer>
@@ -50,7 +67,7 @@ export default function CartItems (props) {
                   <TableRow key={cart._id}>
                     <TableCell component='th' scope='row'>
                       <IconButton><Edit /></IconButton>&nbsp;&nbsp;
-                      <IconButton onClick={() => deleteCart(cart._id)}><Delete /></IconButton>
+                      <IconButton onClick={() => handleOpenDialogDelete(cart._id)}><Delete /></IconButton>
                     </TableCell>
                     <TableCell align='right'>
                       <Avatar alt={cart.name_item} src={(process.env.REACT_APP_API_URL + '/' + cart.images)} style={{ height: '50px', width: '50px' }} />
