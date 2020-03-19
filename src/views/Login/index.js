@@ -9,7 +9,7 @@ import CustomTextField from '../../components/CustomTextField'
 import submitData from '../../helpers/submitData'
 import logo from '../../assets/logo.png'
 import { connect } from 'react-redux'
-import { setUserLogin } from '../../store/actions/actionsUserData'
+import { setUserLogin } from '../../store/actions'
 const useStyles = makeStyles({
   content: {
     marginTop: '80px'
@@ -26,9 +26,9 @@ const validationFormLogin = Yup.object({
 })
 
 function Login (props) {
+  const { setUserLogin } = props
   const classes = useStyles()
   const history = useHistory()
-  const { setIsLogin, setUserLogin } = props
   const [msg, setMsg] = React.useState({ display: 0, success: false, message: '' })
   const handleClose = () => {
     setMsg({ display: 0 })

@@ -12,7 +12,7 @@ import { Work } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 import getData from '../../helpers/getData'
 import { connect } from 'react-redux'
-import { setUserProfile } from '../../store/actions/actionsUserData'
+import { setUserProfile } from '../../store/actions'
 const useStyles = makeStyles({
   expanded: {
     maxHeight: '350px',
