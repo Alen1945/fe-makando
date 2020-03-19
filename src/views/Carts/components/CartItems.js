@@ -49,7 +49,7 @@ export default function CartItems (props) {
     }
   }
   React.useEffect(() => {
-    setItemCart(props.data.data ? props.data.data.itemInCart : [])
+    setItemCart(props.data ? props.data.itemInCart : [])
   }, [props])
   return (
     <>

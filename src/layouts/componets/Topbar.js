@@ -28,7 +28,8 @@ const useStyles = makeStyles(() => ({
 }))
 function Topbar (props) {
   const classes = useStyles()
-  const { isLogin } = props
+  const { isLogin, totalItem } = props
+  console.log(totalItem)
   const [toolbarExpand, setToolbarExpand] = React.useState(false)
   const expandedIcon = () => {
     if (toolbarExpand) {
@@ -57,7 +58,7 @@ function Topbar (props) {
             <ExpansionPanelDetails>
               <div className={classes.flexGrow} />
               <IconButton color='error' to='/carts' component={RouterLink}>
-                <Badge color='error'>
+                <Badge color='error' badgeContent={totalItem}>
                   <ShoppingCart className={classes.ButtonCustom} />
                 </Badge>
               </IconButton>
@@ -84,6 +85,7 @@ function Topbar (props) {
 }
 
 const mapStateToProps = (state) => ({
-  isLogin: state.dataUser.isLogin
+  isLogin: state.dataUser.isLogin,
+  totalItem: state.dataCart.totalTypeItems
 })
 export default connect(mapStateToProps)(Topbar)

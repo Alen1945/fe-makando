@@ -15,6 +15,8 @@ import submitData from '../../helpers/submitData'
 import TabPanel from '../../components/TabPanel'
 import RelatedItem from './components/RelatedItem'
 import LayoutItemReview from './components/ReviewItems'
+import { connect } from 'react-redux'
+import { getCart } from '../../store/actions'
 const useStyles = makeStyles({
   avatar: {
     height: '250px',
@@ -22,8 +24,9 @@ const useStyles = makeStyles({
   }
 })
 
-export default function DetailsItem (props) {
+function DetailsItem (props) {
   const classes = useStyles()
+  const { getCart } = props
   const [dataItem, setDataItem] = React.useState([])
   const [value, setValue] = React.useState(0)
   const [reviewItem, setReviewItem] = React.useState([])
@@ -100,6 +103,7 @@ export default function DetailsItem (props) {
                         setMsg({ display: 1, success: response.data.success, message: response.data.msg })
                         form.setSubmitting(false)
                         form.resetForm()
+                        getCart()
                       }
                       setMsg({ display: 1, success: response.data.success, message: response.data.msg })
                     } catch (e) {
@@ -158,3 +162,6 @@ export default function DetailsItem (props) {
     </>
   )
 }
+
+
+export default connect(null, { getCart })(DetailsItem)
