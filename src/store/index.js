@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import logger from 'redux-logger'
 import promiseMiddleware from 'redux-promise-middleware'
@@ -11,6 +11,6 @@ const configPersistStorage = {
 }
 const store = createStore(
   persistReducer(configPersistStorage, rootReducer),
-  applyMiddleware(logger, promiseMiddleware)
+  compose(applyMiddleware(logger, promiseMiddleware))
 )
 export default { store, persistor: persistStore(store) }

@@ -21,7 +21,7 @@ const dataUser = (state = initialState, action) => {
       }
     case REMOVE_USER_LOGIN:
       return {
-        initialState
+        ...initialState
       }
     default:
       return state
