@@ -23,7 +23,7 @@ export default function CheckoutDetails (props) {
   }
   const [detailCheckout, setDetailCheckout] = React.useState({})
   React.useEffect(() => {
-    setDetailCheckout(props.data.data)
+    setDetailCheckout(props.data)
     console.log(detailCheckout)
   }, [props])
   return (

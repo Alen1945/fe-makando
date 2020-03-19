@@ -7,7 +7,13 @@ function SuperAdminRoute (props) {
   document.title = props.title
   const { layout: Layout, component: Component, token, ...anotherProps } = props
   if (token) {
-    const role = jwt.decode(token).role
+    const payload = jwt.decode(token)
+    if ((new Date(payload.exp * 1000).getTime() - new Date().getTime()) <= 0) {
+      return (
+        <Redirect to='/logout' />
+      )
+    }
+    const role = payload.role
     if (role && role === 3) {
       return (
         <RouterLink
