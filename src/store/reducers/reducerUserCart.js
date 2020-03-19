@@ -23,11 +23,17 @@ const dataCart = (state = initialState, action) => {
         isError: action.payload.cata
       }
     case GET_CART + '_FULFILLED':
-      return {
-        ...state,
-        ...action.payload.data.data,
-        isLoading: false,
-        isError: false
+      if (action.payload.data.data) {
+        return {
+          ...state,
+          ...action.payload.data.data,
+          isLoading: false,
+          isError: false
+        }
+      } else {
+        return {
+          ...initialState
+        }
       }
     case CLEAR_CART:
       return {
