@@ -33,7 +33,7 @@ export default function Home (props) {
             ))
           }
           <Grid xs={12} />
-          <Divider style={{ margin: '30px 0' }} />
+          <Divider style={{ margin: '10px 0' }} />
           <Button variant='contained' color='secondary' style={{ marginBottom: '40px' }} to='/items' component={Link}>
             Show All Avaible Item
           </Button>
