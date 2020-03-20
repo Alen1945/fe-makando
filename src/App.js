@@ -30,6 +30,7 @@ function App (props) {
           path='/'
           component={Home}
           title='Home'
+          isHome={1}
           layout={MainLayout}
         />
         <GuestRoute
