@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 import getData from '../../helpers/getData'
+import qs from 'query-string'
 const useStyles = makeStyles({
   listCategories: {
     borderBottom: '1px solid #ccc',
@@ -32,6 +33,7 @@ const useStyles = makeStyles({
 })
 
 function ShowItems (props) {
+  const search = qs.parse(props.location.search)
   const classes = useStyles()
   const [activeCategory, setActiveCategory] = React.useState(0)
   const [dataItems, setData] = React.useState({})
@@ -57,6 +59,10 @@ function ShowItems (props) {
         console.log(category)
         url = `/browse-categories/${category}?${condition}`
       }
+      if (search.s && search.s.trim()) {
+        console.log(search.s)
+        url += `&search[name]=${search.s}`
+      }
       const response = await getData(url)
       console.log(response.data)
       setData(response.data)
@@ -76,7 +82,7 @@ function ShowItems (props) {
             <Button size='small' variant={parseInt(activeCategory) === 0 ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(0); setPage(1) }} color='secondary' className={classes.buttonCategories}> Show All </Button>
             {
               dataCategory.length > 0 && dataCategory.map((cat) => (
-                <Button key={cat._id} size='small' variant={parseInt(activeCategory) === parseInt(cat._id) ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(`${cat._id}`); setPage(1) }} color='secondary' className={classes.buttonCategories}> {cat.name} </Button>
+                <Button key={cat._id} size='small' style={{ textTransform: 'capitalize', fontSize: '15px', minWidth: '120px' }} variant={parseInt(activeCategory) === parseInt(cat._id) ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(`${cat._id}`); setPage(1) }} color='secondary' className={classes.buttonCategories}> {cat.name} </Button>
               ))
             }
           </Grid>

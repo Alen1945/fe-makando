@@ -13,6 +13,7 @@
     "clsx": "^1.1.0",
     "formik": "^2.1.4",
     "jsonwebtoken": "^8.5.1",
+    "query-string": "^6.11.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-material-ui-carousel": "^1.1.1",
