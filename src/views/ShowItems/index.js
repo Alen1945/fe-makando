@@ -90,6 +90,10 @@ function ShowItems (props) {
       </div>
       <div className={classes.listItems}>
         <Container>
+          {search.s &&
+          <Typography  style={{marginBottom: '20px'}} variant='h5'>
+            Search For : {search.s}
+          </Typography>}
           <Grid container justify='center' spacing={2}>
             {
               dataItems.dataItems ? dataItems.dataItems.map((item) => (
