@@ -29,6 +29,10 @@ const useStyles = makeStyles(() => ({
 
 const Header = (props) => {
   const classes = useStyles()
+  const [searchKey, setSearchKey] = React.useState('')
+  const handleSearchInput = (e) => {
+    setSearchKey(e.target.value)
+  }
   const items = [
     {
       img: img1
@@ -52,8 +56,8 @@ const Header = (props) => {
         <Grid style={{ position: 'relative' }}>
           <Typography variant='h2'><span style={{ color: 'white', background: '#f64957', padding: '5px', fontWeight: 600 }}>Makan</span>Do</Typography>
           <Typography variant='h5' style={{ margin: '10px' }}>Mau Makan Apa Kali Ini</Typography>
-          <TextField label='Search Item...' variant='outlined' margin='dense' style={{ marginBottom: '10px' }} />
-          <Button color='secondary' variant='contained' to='/items' component={Link}>Search</Button>
+          <TextField value={searchKey} onChange={handleSearchInput} label='Search Item...' variant='outlined' margin='dense' style={{ marginBottom: '10px' }} />
+          <Button color='secondary' variant='contained' to={!searchKey ? '/items' : `/items?s=${searchKey}`} component={Link}>Search</Button>
         </Grid>
       </Grid>
     </div>
