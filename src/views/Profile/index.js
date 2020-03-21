@@ -3,33 +3,38 @@ import CardProfile from './components/CardProfile'
 import CardEditProfile from './components/CardEditProfile'
 import { Link } from 'react-router-dom'
 import {
-  Grid, Container, Paper, Typography, Button,
-  Tabs, Tab, Card, CardContent, CardActions, Snackbar, Hidden, Avatar
+  Grid, Container, Paper, Typography, Button, Dialog, DialogContent, TextField, MenuItem,
+  Tabs, Tab, Card, CardContent, CardHeader, CardActions, Snackbar, Hidden, Avatar, DialogActions, IconButton
 } from '@material-ui/core'
+import { Edit, Delete } from '@material-ui/icons'
+import { Formik, Form } from 'formik'
+import * as Yup from 'yup'
+import CustomTextField from '../../components/CustomTextField'
+import getData from '../../helpers/getData'
+import submitData from '../../helpers/submitData'
+import patchData from '../../helpers/patchData'
+import deleteData from '../../helpers/deleteData'
 import { Alert } from '@material-ui/lab'
 import TabPanel from '../../components/TabPanel'
 import { CalendarToday } from '@material-ui/icons'
-import { makeStyles } from '@material-ui/styles'
 import backgroundProfile from '../../assets/BackProfile.png'
-import getData from '../../helpers/getData'
 import { connect } from 'react-redux'
 import { setUserProfile } from '../../store/actions'
-const useStyles = makeStyles({
-  expanded: {
-    maxHeight: '350px',
-    overflowX: 'scroll',
-    overflowY: 'hidden'
-  }
-})
+
 function Profile (props) {
-  console.log(backgroundProfile)
   const { userData, setUserData } = props
-  const classes = useStyles()
+  const [initialValuesR, setInitialValuesR] = React.useState({
+    id_item: 0,
+    rating: '',
+    review: ''
+  })
+  const [updateId, setUpdateId] = React.useState(0)
   const [userPic, setUserPic] = React.useState('')
   const [userReview, setUserReviews] = React.useState([])
   const [userTransaction, setUserTransaction] = React.useState([])
   const [value, setValue] = React.useState(0)
   const [msg, setMsg] = React.useState({ display: 0, success: false, message: '' })
+  const [openForm, setOpenForm] = React.useState(0)
   const [statusEdit, setStatusEdit] = React.useState({
     profile: false,
     balance: false
@@ -38,7 +43,7 @@ function Profile (props) {
     setValue(newValue)
   }
   const handleClose = () => {
-    setMsg({ display: 0 })
+    setMsg(prevMsg =>({ ...prevMsg, display: 0 }))
   }
 
   const getUserData = async () => {
@@ -53,8 +58,7 @@ function Profile (props) {
 
   const getReviews = async () => {
     try {
-      const response = await getData('/reviews?sort[created_at]=1')
-      console.log(response)
+      const response = await getData('/reviews?sort[created_at]=1&limit=100')
       setUserReviews(response.data.data)
     } catch (e) {
       console.log(e)
@@ -64,19 +68,32 @@ function Profile (props) {
   const getHistory = async () => {
     try {
       const response = await getData('/history?sort[created_at]=1')
-      console.log(response)
       setUserTransaction(response.data.data)
     } catch (e) {
       console.log(e)
       console.log(e.response)
     }
   }
-
+  const createReview = (id) => {
+    setInitialValuesR(prevState => ({ ...prevState, id_item: id }))
+    setOpenForm(1)
+  }
+  const updateReview = async (id) => {
+    try {
+      const response = await getData('/reviews/'+id)
+      console.log(response.data)
+      setInitialValuesR(response.data.data)
+      setUpdateId(id)
+      setOpenForm(1)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   React.useEffect(() => {
     getUserData()
     getReviews()
     getHistory()
-  }, [statusEdit, userPic])
+  }, [statusEdit, userPic, openForm])
   return (
     <>
       <Snackbar open={msg.display} autoHideDuration={1000 * 5 * 60} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={handleClose}>
@@ -91,10 +108,10 @@ function Profile (props) {
             <CardEditProfile setUserPic={setUserPic} userData={userData} setUserData={setUserData} statusEdit={statusEdit} setStatusEdit={setStatusEdit} setMsg={setMsg} />
           </Grid>
           <Hidden smDown>
-            <Grid style={{paddingLeft:'60px'}}>
+            <Grid style={{ paddingLeft: '60px'}}>
               <Typography variant='h5' align='right' color='textSecondary'> We Try to</Typography>
-              <Typography variant='h4' align='right' color='textSecondary' style={{marginBottom:'20px'}}> Make You Life Easier</Typography>
-              <img alt='img' src={backgroundProfile} style={{width:'350px'}}/>
+              <Typography variant='h4' align='right' color='textSecondary' style={{ marginBottom: '20px' }}> Make You Life Easier</Typography>
+              <img alt='img' src={backgroundProfile} style={{ width: '350px' }} />
             </Grid>
           </Hidden>
         </Grid>
@@ -113,7 +130,7 @@ function Profile (props) {
         <Grid>
           <TabPanel value={value} index={0}>
             {userTransaction && userTransaction.map((histransaction) => (
-              <div key={histransaction}>
+              <div key={histransaction._id}>
                 <Paper style={{marginBottom:'10px', padding:'5px', paddingLeft:'20px'}}>
                   <Typography color='primary' component='p'>
                     <CalendarToday /> At {new Date(histransaction.created_at).toDateString()}
@@ -125,9 +142,9 @@ function Profile (props) {
                 <Grid item container justify='center' spacing={2}>
                   {
                     histransaction.listItem.map(v => (
-                      <Grid key={v.id} item xs={3}>
+                      <Grid key={v.id+'his'} item xs={3}>
                         <Card align='center' elevation={1} style={{paddingTop:'20px'}}>
-                          <Avatar style={{height:'100px', width:'100px'}} alt={v.name} src={(process.env.REACT_APP_API_URL + '/' + v.images)}/>
+                          <Avatar style={{ height: '100px', width: '100px'}} alt={v.name} src={(process.env.REACT_APP_API_URL + '/' + v.images)}/>
                           <CardContent>
                             <Typography gutterBottom variant='h6' color='textSecondary'>
                               {v.name}
@@ -138,7 +155,7 @@ function Profile (props) {
                               <Button size='small' color='primary' variant='contained' to={`/items/${v.id}`} component={Link}>
                                 Order Again
                               </Button>&nbsp;&nbsp;
-                              <Button size='small' color='primary' variant='outlined'>
+                              <Button size='small' color='primary' variant='outlined' onClick={() => createReview(v.id)}>
                                 Create Review
                               </Button>
                             </Grid>
@@ -152,29 +169,119 @@ function Profile (props) {
             ))}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <Grid align='center' justify='center' sytle={{ marginTop: '10px' }}>
+            <Grid container justify='center' sytle={{ marginTop: '10px' }}>
               {userReview && userReview.map((review) => (
-                <Card key={review._id} style={{ margin: '5px' }}>
-                  <CardContent>
-                    <Typography variant='body1' component='h2'>
-                      Review on <strong>{review.name}</strong>
-                    </Typography>
-                    <Typography color='textSecondary' varianat='p' gutterBottom>
-                      at {new Date(review.created_at).toDateString()}
-                    </Typography>
-                    <Typography className={classes.pos} component='p' color='textSecondary'>
-                      Rating {review.rating}
-                    </Typography>
-                    <Typography variant='body2' component='p'>
-                      {review.review}
-                    </Typography>
-                  </CardContent>
-                </Card>
+                <Grid item xs={6} sm={3} md={4} key={review._id}>
+                  <Card style={{ margin: '5px' }}>
+                    <CardContent>
+                      <Typography variant='body1' component='h2'>
+                        Review on <strong>{review.name}</strong>
+                      </Typography>
+                      <Typography color='textSecondary' varianat='p' gutterBottom>
+                        at {new Date(review.created_at).toDateString()}
+                      </Typography>
+                      <Typography component='p' color='textSecondary'>
+                        Rating {review.rating}
+                      </Typography>
+                      <Typography variant='body2' component='p'>
+                        {review.review}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Grid container item justify='center'>
+                        <IconButton onClick={ () => updateReview(review._id)}>
+                          <Edit />
+                        </IconButton>
+                        <IconButton>
+                          <Delete />
+                        </IconButton>
+                      </Grid>
+                    </CardActions>
+                  </Card>
+                </Grid>
               ))}
             </Grid>
           </TabPanel>
         </Grid>
       </Container>
+      <Dialog
+        open={openForm}
+        maxWidth='md'
+        fullWidth='lg'
+        onClose={() => setOpenForm(0)}
+      >
+        <DialogContent>
+          <Formik
+            enableReinitialize
+            initialValues={initialValuesR}
+            validationSchema={Yup.object({
+              id_item: Yup.number().required('Field Required'),
+              rating: Yup.number().oneOf([1, 2, 3, 4, 5], 'Rating Must in interval 1 -5 ').required('Field Required'),
+              review: Yup.string().required('Field Required')
+            })}
+            onSubmit={async (values, form) => {
+              try {
+                let response
+                if (!updateId) {
+                  response = await submitData('/reviews', values)
+                } else {
+                  response = await patchData('/reviews/' + updateId, values)
+                }
+                if (response && response.data.success) {
+                  setMsg({ display: 1, success: response.data.success, message: response.data.msg })
+                  form.setSubmitting(false)
+                  form.resetForm()
+                  setOpenForm(0)
+                  setInitialValuesR(prevState => ({ ...prevState, id_item: 0 }))
+                  setUpdateId(0)
+                } else {
+                  setMsg({ display: 1, success: response.data.success, message: response.data.msg })
+                }
+              } catch (e) {
+                console.log(e)
+                console.log('err', e.response)
+                setMsg({ display: 1, success: e.response.data.success, message: e.response.data.msg })
+              }
+            }}
+          >
+            <Form>
+              <Card elevation={0}>
+                <CardHeader title={!updateId ? 'Adding Review' : 'Update Review'} titleTypographyProps={{ variant: 'h5', align: 'center' }} />
+                <CardContent>
+                  <Grid container justify='center'>
+                    <Grid item md={8} sm={10}>
+                      <CustomTextField component={TextField} fullWidth label='Rating' margin='dense' name='rating' select variant='outlined'>
+                        {
+                          [1, 2, 3, 4, 5].map(option => (<MenuItem key={option} value={option}>{option}</MenuItem>
+                          ))
+                        }
+                      </CustomTextField>
+                      <CustomTextField
+                        component={TextField}
+                        multiline
+                        rows={4}
+                        fullWidth label='Review' margin='dense' name='review' type='text' variant='outlined'
+                      />
+                    </Grid>
+                  </Grid>
+                </CardContent>
+                <CardActions>
+                  <Grid container justify='center'>
+                    <Button color='primary' variant='contained' type='submit'>
+                      {!updateId ? 'Add Review' : 'Update Review'}
+                    </Button>
+                  </Grid>
+                </CardActions>
+              </Card>
+            </Form>
+          </Formik>
+        </DialogContent>
+        <DialogActions>
+          <Button color='primary' onClick={() => setOpenForm(0)}>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }
