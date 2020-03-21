@@ -1,6 +1,6 @@
 import React from 'react'
 import { Drawer, Grid, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
-import { Category, Dashboard, PeopleAlt, Store, Fastfood, Input, AccountCircle } from '@material-ui/icons'
+import { Category, Dashboard, PeopleAlt, Store, Fastfood, Input, AccountCircle, Home } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
 
@@ -19,6 +19,10 @@ export default function DashboardSide (props) {
     <Drawer open={props.open} onClose={handleClose}>
       <Grid justify='center' maxWidht='xl' container className={closses.sideNav}>
         <List>
+          <ListItem button to='/' component={Link}>
+            <ListItemIcon><Home /></ListItemIcon>
+            <ListItemText primary='Home' />
+          </ListItem>
           <ListItem button to='/admin' component={Link}>
             <ListItemIcon><Dashboard /></ListItemIcon>
             <ListItemText primary='Dashboard' />

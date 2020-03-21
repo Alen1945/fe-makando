@@ -38,14 +38,13 @@ const useStyles = makeStyles(() => ({
 }))
 function Topbar (props) {
   const classes = useStyles()
-  const { isLogin, totalItem } = props
+  const { isLogin, totalItem, dataProfile } = props
   const [toolbarExpand, setToolbarExpand] = React.useState(false)
   const [isTop, setIsTop] = React.useState(1) 
   const handleExpand = () => {
     setToolbarExpand(!toolbarExpand)
   }
   document.addEventListener('scroll', () => {
-    console.log('alen')
     if (window.scrollY < 100) {
       setIsTop(1)
     } else {
@@ -78,7 +77,13 @@ function Topbar (props) {
             {
               isLogin ? (
                 <>
-                  <Button size='small' variant='outlined' color='primary' to='/profile' component={RouterLink} sizeSmall>Profile</Button>
+                  <Button size='small' variant='outlined' color='primary' to='/profile' component={RouterLink} sizeSmall>Profile</Button>&nbsp;
+                  {
+                    dataProfile.is_admin &&  <><Button size='small' variant='outlined' color='primary' to='/restaurant/admin' component={RouterLink} sizeSmall>Dashboard Admin</Button>&nbsp;</>
+                  }
+                  {
+                    dataProfile.is_superadmin &&  <><Button size='small' variant='outlined' color='primary' to='/admin' component={RouterLink} sizeSmall>Dashboard SuperAdmin</Button>&nbsp;</>
+                  }
                   <IconButton className={clsx(classes.ButtonCustom, classes.BtnGray)} to='/logout' component={RouterLink}>
                     <Input />
                   </IconButton>
@@ -99,6 +104,7 @@ function Topbar (props) {
 
 const mapStateToProps = (state) => ({
   isLogin: state.dataUser.isLogin,
+  dataProfile: state.dataUser.dataProfile,
   totalItem: state.dataCart.totalTypeItems
 })
 export default connect(mapStateToProps)(Topbar)

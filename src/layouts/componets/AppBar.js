@@ -33,7 +33,7 @@ function DashboardNav (props) {
             <IconButton onClick={handleExpand} className={clsx(classes.ButtonCategories, classes.expandPanelIcon)}>{expandedIcon()}</IconButton>
             <div className={classes.flexGrow} />
             <Link to='/' component={RouterLink}>
-              <img alt='logo' src={logo} />
+              <img alt='logo' height='48px' src={logo} />
             </Link>
             <div className={classes.flexGrow} />
           </Toolbar>
