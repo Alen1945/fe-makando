@@ -64,7 +64,7 @@ function Profile (props) {
 
   const getReviews = async () => {
     try {
-      const response = await getData('/reviews?sort[created_at]=1&limit=100')
+      const response = await getData('/reviews?sort[_id]=1&limit=100')
       setUserReviews(response.data.data)
     } catch (e) {
       console.log(e)
@@ -73,8 +73,8 @@ function Profile (props) {
   }
   const getHistory = async () => {
     try {
-      const response = await getData('/history?sort[created_at]=1')
-      setUserTransaction(response.data.data)
+      const response = await getData('/history?limit=100')
+      setUserTransaction(response.data.data.reverse())
     } catch (e) {
       console.log(e)
       console.log(e.response)
@@ -169,7 +169,7 @@ function Profile (props) {
                 <Grid item container justify='center' spacing={2}>
                   {
                     histransaction.listItem.map(v => (
-                      <Grid key={v.id+'his'} item xs={3}>
+                      <Grid key={v.id+'his'} item xs={6} sm={4} md={3}>
                         <Card align='center' elevation={1} style={{paddingTop:'20px'}}>
                           <Avatar style={{ height: '100px', width: '100px'}} alt={v.name} src={(process.env.REACT_APP_API_URL + '/' + v.images)}/>
                           <CardContent>
@@ -256,11 +256,11 @@ function Profile (props) {
                 }
                 if (response && response.data.success) {
                   setMsg({ display: 1, success: response.data.success, message: response.data.msg })
+                  setInitialValuesR({ id_item: 0, rating: '', review: '' })
+                  setUpdateId(0)
                   form.setSubmitting(false)
                   form.resetForm()
                   setOpenForm(0)
-                  setInitialValuesR(prevState => ({ ...prevState, id_item: 0 }))
-                  setUpdateId(0)
                 } else {
                   setMsg({ display: 1, success: response.data.success, message: response.data.msg })
                 }

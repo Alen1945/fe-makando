@@ -162,6 +162,4 @@ function DetailsItem (props) {
     </>
   )
 }
-
-
 export default connect(null, { getCart })(DetailsItem)

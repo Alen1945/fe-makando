@@ -79,10 +79,10 @@ function Topbar (props) {
                 <>
                   <Button size='small' variant='outlined' color='primary' to='/profile' component={RouterLink} sizeSmall>Profile</Button>&nbsp;
                   {
-                    dataProfile.is_admin &&  <><Button size='small' variant='outlined' color='primary' to='/restaurant/admin' component={RouterLink} sizeSmall>Admin</Button>&nbsp;</>
+                    dataProfile.is_admin ?  (<><Button size='small' variant='outlined' color='primary' to='/restaurant/admin' component={RouterLink} sizeSmall>Admin</Button>&nbsp;</>) : ''
                   }
                   {
-                    dataProfile.is_superadmin &&  <><Button size='small' variant='outlined' color='primary' to='/admin' component={RouterLink} sizeSmall>SuperAdmin</Button>&nbsp;</>
+                    dataProfile.is_superadmin ? (<><Button size='small' variant='outlined' color='primary' to='/admin' component={RouterLink} sizeSmall>SuperAdmin</Button>&nbsp;</>) : ''
                   }
                   <IconButton className={clsx(classes.ButtonCustom, classes.BtnGray)} to='/logout' component={RouterLink}>
                     <Input />
