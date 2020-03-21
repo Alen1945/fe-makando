@@ -3,13 +3,14 @@ import CardProfile from './components/CardProfile'
 import CardEditProfile from './components/CardEditProfile'
 import { Link } from 'react-router-dom'
 import {
-  Grid, Container, Avatar, Typography, Button,
-  List, ListItem, ListItemAvatar, ListItemText, ExpansionPanel, ExpansionPanelSummary,
-  ExpansionPanelDetails, Card, CardContent, Snackbar
+  Grid, Container, Paper, Typography, Button,
+  Tabs, Tab, Card, CardContent, CardActions, Snackbar, Hidden, Avatar
 } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
-import { Work } from '@material-ui/icons'
+import TabPanel from '../../components/TabPanel'
+import { CalendarToday } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
+import backgroundProfile from '../../assets/BackProfile.png'
 import getData from '../../helpers/getData'
 import { connect } from 'react-redux'
 import { setUserProfile } from '../../store/actions'
@@ -21,17 +22,21 @@ const useStyles = makeStyles({
   }
 })
 function Profile (props) {
+  console.log(backgroundProfile)
   const { userData, setUserData } = props
   const classes = useStyles()
   const [userPic, setUserPic] = React.useState('')
   const [userReview, setUserReviews] = React.useState([])
-  const [expanded, setExpanded] = React.useState('')
+  const [userTransaction, setUserTransaction] = React.useState([])
+  const [value, setValue] = React.useState(0)
   const [msg, setMsg] = React.useState({ display: 0, success: false, message: '' })
   const [statusEdit, setStatusEdit] = React.useState({
     profile: false,
     balance: false
   })
-
+  const handleChange = (event, newValue) => {
+    setValue(newValue)
+  }
   const handleClose = () => {
     setMsg({ display: 0 })
   }
@@ -56,13 +61,21 @@ function Profile (props) {
       console.log(e.response)
     }
   }
-
-  const handleChange = panel => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false)
+  const getHistory = async () => {
+    try {
+      const response = await getData('/history?sort[created_at]=1')
+      console.log(response)
+      setUserTransaction(response.data.data)
+    } catch (e) {
+      console.log(e)
+      console.log(e.response)
+    }
   }
 
   React.useEffect(() => {
     getUserData()
+    getReviews()
+    getHistory()
   }, [statusEdit, userPic])
   return (
     <>
@@ -72,69 +85,94 @@ function Profile (props) {
         </Alert>
       </Snackbar>
       <Container style={{ marginTop: '50px' }}>
-        <Grid container justify='space-between' spacing={2}>
-          <Grid item xs={12} sm={6} md={5} style={{ position: 'relative', overflow: 'hidden' }}>
+        <Grid container justify='center' alignItems='center'>
+          <Grid item xs={12} sm={9} md={5} component={Card} elevation={2} style={{ position: 'relative', overflow: 'hidden' }} >
             <CardProfile userPic={userPic} userData={userData} statusEdit={statusEdit} setStatusEdit={setStatusEdit} setMsg={setMsg} />
             <CardEditProfile setUserPic={setUserPic} userData={userData} setUserData={setUserData} statusEdit={statusEdit} setStatusEdit={setStatusEdit} setMsg={setMsg} />
           </Grid>
-          <Grid item sm={6} md={6} elevation={3}>
-            <Typography gutterBottom variant='h6' color='textPrimary' align='center' style={{ marginTop: '30px', marginBottom: '20px' }}>
-              Special Application
-            </Typography>
-            <Grid container justify='center'>
-              <Button size='small' color='secondary' variant='contained' to='/carts' component={Link} style={{ margin: '2px' }}>
-                See Cart
-              </Button>
-              {
-                userData.is_admin ? (
-                  <Button size='small' color='secondary' variant='contained' to='/restaurant/admin' component={Link} style={{ margin: '2px' }}>
-                    Dashboard Admin Restaurant
-                  </Button>
-                ) : ''
-              }
-              {
-                userData.is_superadmin ? (
-                  <Button size='small' color='secondary' variant='contained' to='/admin' component={Link} style={{ margin: '2px' }}>
-                    Dashboard Super Admin
-                  </Button>
-                ) : ''
-              }
+          <Hidden smDown>
+            <Grid style={{paddingLeft:'60px'}}>
+              <Typography variant='h5' align='right' color='textSecondary'> We Try to</Typography>
+              <Typography variant='h4' align='right' color='textSecondary' style={{marginBottom:'20px'}}> Make You Life Easier</Typography>
+              <img alt='img' src={backgroundProfile} style={{width:'350px'}}/>
             </Grid>
-            <List>
-              <ExpansionPanel expanded={expanded === 'reviewItem'} onChange={handleChange('reviewItem')} onClick={getReviews}>
-                <ExpansionPanelSummary>
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar>
-                        <Work />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary='Recently Review Item' />
-                  </ListItem>
-                </ExpansionPanelSummary>
-                <ExpansionPanelDetails className={classes.expanded}>
-                  {userReview && userReview.map((review) => (
-                    <Card key={review._id} style={{ margin: '5px' }}>
-                      <CardContent>
-                        <Typography variant='body1' component='h2'>
-                          Review on <strong>{review.name}</strong>
-                        </Typography>
-                        <Typography color='textSecondary' varianat='p' gutterBottom>
-                          at {new Date(review.created_at).toDateString()}
-                        </Typography>
-                        <Typography className={classes.pos} component='p' color='textSecondary'>
-                          Rating {review.rating}
-                        </Typography>
-                        <Typography variant='body2' component='p'>
-                          {review.review}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </ExpansionPanelDetails>
-              </ExpansionPanel>
-            </List>
-          </Grid>
+          </Hidden>
+        </Grid>
+        <Paper style={{ marginTop: '40px' }}>
+          <Tabs
+            indicatorColor='secondary'
+            value={value}
+            textColor='primary'
+            onChange={handleChange}
+            aria-label='disabled tabs example'
+          >
+            <Tab label='History Transaction' />
+            <Tab label='Recently added Reviews' />
+          </Tabs>
+        </Paper>
+        <Grid>
+          <TabPanel value={value} index={0}>
+            {userTransaction && userTransaction.map((histransaction) => (
+              <div key={histransaction}>
+                <Paper style={{marginBottom:'10px', padding:'5px', paddingLeft:'20px'}}>
+                  <Typography color='primary' component='p'>
+                    <CalendarToday /> At {new Date(histransaction.created_at).toDateString()}
+                  </Typography>
+                  <Typography component='body1' color='textSecondary'>
+                    Total Prices Rp. {histransaction.total_price}
+                  </Typography>
+                </Paper>
+                <Grid item container justify='center' spacing={2}>
+                  {
+                    histransaction.listItem.map(v => (
+                      <Grid key={v.id} item xs={3}>
+                        <Card align='center' elevation={1} style={{paddingTop:'20px'}}>
+                          <Avatar style={{height:'100px', width:'100px'}} alt={v.name} src={(process.env.REACT_APP_API_URL + '/' + v.images)}/>
+                          <CardContent>
+                            <Typography gutterBottom variant='h6' color='textSecondary'>
+                              {v.name}
+                            </Typography>
+                          </CardContent>
+                          <CardActions style={{ marginTop: '-15px' }}>
+                            <Grid container justify='center'>
+                              <Button size='small' color='primary' variant='contained' to={`/items/${v.id}`} component={Link}>
+                                Order Again
+                              </Button>&nbsp;&nbsp;
+                              <Button size='small' color='primary' variant='outlined'>
+                                Create Review
+                              </Button>
+                            </Grid>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+                    ))
+                  }
+                </Grid>
+              </div>
+            ))}
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <Grid align='center' justify='center' sytle={{ marginTop: '10px' }}>
+              {userReview && userReview.map((review) => (
+                <Card key={review._id} style={{ margin: '5px' }}>
+                  <CardContent>
+                    <Typography variant='body1' component='h2'>
+                      Review on <strong>{review.name}</strong>
+                    </Typography>
+                    <Typography color='textSecondary' varianat='p' gutterBottom>
+                      at {new Date(review.created_at).toDateString()}
+                    </Typography>
+                    <Typography className={classes.pos} component='p' color='textSecondary'>
+                      Rating {review.rating}
+                    </Typography>
+                    <Typography variant='body2' component='p'>
+                      {review.review}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              ))}
+            </Grid>
+          </TabPanel>
         </Grid>
       </Container>
     </>

@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
     background: 'linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%)',
     top: '120px',
     left: '50px',
-    color: '#f64957'
+    color: '#f50057'
   }
 }))
 
@@ -54,7 +54,7 @@ const Header = (props) => {
       </Box>
       <Grid container alignItems='center' className={classes.itemDescription} justify='center'>
         <Grid style={{ position: 'relative' }}>
-          <Typography variant='h2'><span style={{ color: 'white', background: '#f64957', padding: '5px', fontWeight: 600 }}>Makan</span>Do</Typography>
+          <Typography variant='h2'><span style={{ color: 'white', background: '#f50057', padding: '5px', fontWeight: 600 }}>Makan</span>Do</Typography>
           <Typography variant='h5' style={{ margin: '10px' }}>Mau Makan Apa Kali Ini</Typography>
           <TextField value={searchKey} onChange={handleSearchInput} label='Search Item...' variant='outlined' margin='dense' style={{ marginBottom: '10px' }} />
           <Button color='secondary' variant='contained' to={!searchKey ? '/items' : `/items?s=${searchKey}`} component={Link}>Search</Button>
