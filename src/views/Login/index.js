@@ -80,8 +80,8 @@ function Login (props) {
               </Formik>
             </CardMedia>
             <CardActions>
-              <Button size='small' color='primary'>
-                Forget Passowrd?
+              <Button size='small' color='primary' to='/forgot-password' component={Link}>
+                Forget Passoword?
               </Button>
               <Button size='small' color='primary' to='/register' component={Link}>
                 SignUp
