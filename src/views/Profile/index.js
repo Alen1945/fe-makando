@@ -154,7 +154,7 @@ function Profile (props) {
             <Tab label='Recently added Reviews' />
           </Tabs>
         </Paper>
-        <Grid>
+        <Container>
           <TabPanel value={value} index={0}>
             {userTransaction && userTransaction.map((histransaction) => (
               <div key={histransaction._id}>
@@ -229,7 +229,7 @@ function Profile (props) {
               ))}
             </Grid>
           </TabPanel>
-        </Grid>
+        </Container>
       </Container>
       <Dialog
         open={openForm}

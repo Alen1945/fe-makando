@@ -27,14 +27,6 @@ export default function DashboardSide (props) {
             <ListItemIcon><Dashboard /></ListItemIcon>
             <ListItemText primary='Dashboard' />
           </ListItem>
-          <ListItem button to='/restaurant/admin/items' component={Link}>
-            <ListItemIcon><Fastfood /></ListItemIcon>
-            <ListItemText primary='Items' />
-          </ListItem>
-          <ListItem button to='/restaurant/admin/Customer' component={Link}>
-            <ListItemIcon><PeopleAlt /></ListItemIcon>
-            <ListItemText primary='Customer' />
-          </ListItem>
           <ListItem button to='/profile' component={Link}>
             <ListItemIcon><AccountCircle /></ListItemIcon>
             <ListItemText primary='Profile' />
