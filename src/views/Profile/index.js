@@ -14,6 +14,7 @@ import getData from '../../helpers/getData'
 import submitData from '../../helpers/submitData'
 import patchData from '../../helpers/patchData'
 import deleteData from '../../helpers/deleteData'
+import AlertDelete from '../../components/AlertDelete'
 import { Alert } from '@material-ui/lab'
 import TabPanel from '../../components/TabPanel'
 import { CalendarToday } from '@material-ui/icons'
@@ -35,6 +36,8 @@ function Profile (props) {
   const [value, setValue] = React.useState(0)
   const [msg, setMsg] = React.useState({ display: 0, success: false, message: '' })
   const [openForm, setOpenForm] = React.useState(0)
+  const [openDialogDelete, setOpenDialogDelete] = React.useState(0)
+  const [deleteId, setDeleteId] = React.useState(0)
   const [statusEdit, setStatusEdit] = React.useState({
     profile: false,
     balance: false
@@ -45,7 +48,10 @@ function Profile (props) {
   const handleClose = () => {
     setMsg(prevMsg =>({ ...prevMsg, display: 0 }))
   }
-
+  const handleOpenDialogDelete = (id) => {
+    setDeleteId(id)
+    setOpenDialogDelete(1)
+  }
   const getUserData = async () => {
     try {
       const response = await getData('/profile')
@@ -89,13 +95,34 @@ function Profile (props) {
       console.log(err)
     }
   }
+  const deleteReview = async (id) => {
+    try {
+      console.log('al')
+      const response = await deleteData(`/reviews/${id}`)
+      console.log(response.data)
+      setOpenDialogDelete(0)
+      setMsg({ display: 1, success: response.data.success, message: response.data.msg })
+    } catch (e) {
+      console.log(e)
+      console.log(e.response)
+      setMsg({ display: 1, success: e.response.data.success, message: e.response.data.msg })
+    }
+  }
   React.useEffect(() => {
     getUserData()
     getReviews()
     getHistory()
-  }, [statusEdit, userPic, openForm])
+  }, [statusEdit, userPic, openForm, openDialogDelete])
   return (
     <>
+      <AlertDelete
+        open={openDialogDelete}
+        maxWidth='sm'
+        fullWidth='md'
+        onClose={() => setOpenDialogDelete(0)}
+        onCancel={() => setOpenDialogDelete(0)}
+        onDelete={() => deleteReview(deleteId)}
+      />
       <Snackbar open={msg.display} autoHideDuration={1000 * 5 * 60} anchorOrigin={{ vertical: 'top', horizontal: 'center' }} onClose={handleClose}>
         <Alert onClose={handleClose} variant='filled' elevation={6} severity={msg.success ? 'success' : 'error'}>
           {msg.message}
@@ -192,7 +219,7 @@ function Profile (props) {
                         <IconButton onClick={ () => updateReview(review._id)}>
                           <Edit />
                         </IconButton>
-                        <IconButton>
+                        <IconButton onClick={() => handleOpenDialogDelete(review._id)}>
                           <Delete />
                         </IconButton>
                       </Grid>
