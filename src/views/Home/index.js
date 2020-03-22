@@ -24,18 +24,21 @@ export default function Home (props) {
     <>
       <Header />
       <Container maxWidth='lg'>
-        <Grid container spacing={2} justify='center'>
+        <Grid container spacing={2} justify='center' alignItems='stretch'>
           {
             items.map((v, i) => (
-              <Grid item key={v._id} md={2} sm={3} xs={6} alignItems='stretch'>
-                <CardItem detailItem={v} />
+              <Grid item key={v._id} md={2} sm={3} xs={6}>
+                <CardItem detailItem={v} style={{height:'100%'}} />
               </Grid>
             ))
           }
           <Grid xs={12} />
           <Divider style={{ margin: '10px 0' }} />
-          <Button variant='contained' color='secondary' style={{ marginBottom: '40px' }} to='/items' component={Link}>
-            Show All Avaible Item
+          <Button variant='contained' color='secondary' style={{ marginBottom: '40px', marginRight:'5px' }} to='/items' component={Link}>
+            Show All Avaible Items
+          </Button>
+          <Button variant='contained' color='secondary' style={{ marginBottom: '40px' }} to='/restaurants' component={Link}>
+            Show All Avaible Restaurants
           </Button>
         </Grid>
       </Container>

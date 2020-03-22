@@ -94,11 +94,11 @@ function ShowItems (props) {
           <Typography  style={{marginBottom: '20px'}} variant='h5'>
             Search For : {search.s}
           </Typography>}
-          <Grid container justify='center' spacing={2}>
+          <Grid container justify='center' spacing={2} alignItems='stretch'>
             {
               dataItems.dataItems ? dataItems.dataItems.map((item) => (
-                <Grid item key={item._id} md={2} sm={4} xs={6}>
-                  <Card align='center' style={{ padding: '10px' }}>
+                <Grid item key={item._id} md={2} sm={4} xs={6} style={{marginBottom:'15px'}}>
+                  <Card align='center' style={{ padding: '10px', height:'100%' }}>
                     <Avatar alt={item.name} src={process.env.REACT_APP_API_URL + '/' + item.images} className={classes.avatar} />
                     <CardContent>
                       <Typography gutterBottom variant='subtite1' color='primary'>
