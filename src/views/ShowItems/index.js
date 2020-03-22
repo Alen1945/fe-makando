@@ -1,10 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
 import {
-  Card, CardContent, CardActions,
+  Card, CardContent, CardActions, TextField,
   Typography, Button, Grid, Avatar, Container
 } from '@material-ui/core'
+import {Search} from '@material-ui/icons'
 import { Pagination } from '@material-ui/lab'
 import getData from '../../helpers/getData'
 import qs from 'query-string'
@@ -33,14 +34,25 @@ const useStyles = makeStyles({
 })
 
 function ShowItems (props) {
-  const search = qs.parse(props.location.search)
+  const history = useHistory()
+  const [search, setSearch] = React.useState(qs.parse(props.location.search).s)
   const classes = useStyles()
   const [activeCategory, setActiveCategory] = React.useState(0)
   const [dataItems, setData] = React.useState({})
   const [dataCategory, setDataCategory] = React.useState([])
+  const [searchKey, setSearchKey] = React.useState('')
   const [page, setPage] = React.useState(1)
   const handleChange = (event, value) => {
     setPage(value)
+  }
+  const handleSearchInput = (e) => {
+    setSearchKey(e.target.value)
+  }
+  const handleSubmitSearch = () => {
+    if (searchKey.trim()) {
+      setSearch(searchKey)
+      history.push('/items?s='+searchKey)
+    }
   }
   const getCategory = async () => {
     try {
@@ -59,9 +71,9 @@ function ShowItems (props) {
         console.log(category)
         url = `/browse-categories/${category}?${condition}`
       }
-      if (search.s && search.s.trim()) {
-        console.log(search.s)
-        url += `&search[name]=${search.s}`
+      if (search && search.trim()) {
+        console.log(search)
+        url += `&search[name]=${search}`
       }
       const response = await getData(url)
       console.log(response.data)
@@ -73,13 +85,13 @@ function ShowItems (props) {
   React.useEffect(() => {
     getCategory()
     getItems(page, activeCategory)
-  }, [activeCategory, page])
+  }, [activeCategory, page, search])
   return (
     <>
       <div className={classes.listCategories}>
         <Container>
           <Grid container className={classes.grid}>
-            <Button size='small' variant={parseInt(activeCategory) === 0 ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(0); setPage(1) }} color='secondary' className={classes.buttonCategories}> Show All </Button>
+            <Button size='small' variant={parseInt(activeCategory) === 0 ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(0); setPage(1); setSearch('');history.push('/items')}} color='secondary' className={classes.buttonCategories}> Show All </Button>
             {
               dataCategory.length > 0 && dataCategory.map((cat) => (
                 <Button key={cat._id} size='small' style={{ textTransform: 'capitalize', fontSize: '15px', minWidth: '120px' }} variant={parseInt(activeCategory) === parseInt(cat._id) ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(`${cat._id}`); setPage(1) }} color='secondary' className={classes.buttonCategories}> {cat.name} </Button>
@@ -90,10 +102,14 @@ function ShowItems (props) {
       </div>
       <div className={classes.listItems}>
         <Container>
-          {search.s &&
-          <Typography  style={{marginBottom: '20px'}} variant='h5'>
-            Search For : {search.s}
-          </Typography>}
+          <Grid container alignItems='center' justify='center' spacing={2} style={{marginBottom:'10px'}}>
+            <TextField onChange={handleSearchInput} label='Search Item...' variant='outlined' margin='dense' style={{ marginBottom: '10px', marginRight:'5px'}} />
+            <Button color='secondary' onClick={handleSubmitSearch} variant='contained'><Search/></Button>
+          </Grid>
+          {search &&
+            <Typography  style={{marginBottom: '20px'}} variant='h5'>
+              Search For : {search}
+            </Typography>}
           <Grid container justify='center' spacing={2} alignItems='stretch'>
             {
               dataItems.dataItems ? dataItems.dataItems.map((item) => (
