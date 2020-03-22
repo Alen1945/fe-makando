@@ -7,7 +7,7 @@ export default function Page403 (props) {
       {console.log(props)}
       <Typography variant='h3'>
         {
-          props.isLogin ? <><strong>403</strong> You Login But Don't Have Access to This</> : <h1>heh</h1>
+          props.isLogin ? <><strong>403</strong> You Login But Don't Have Access to This</> : ''
         }
       </Typography>
     </Grid>

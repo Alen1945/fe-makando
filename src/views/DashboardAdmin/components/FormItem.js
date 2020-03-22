@@ -31,8 +31,6 @@ const validateUpdate = Yup.object({
 })
 export default function FormItem (props) {
   const { update, setInitialValue, handleCloseForm, initialValue, showMessage } = props
-  console.log(initialValue)
-  console.log('idupdate', update)
   const [category, setCategory] = React.useState([])
   const [restaurant, setRestaurant] = React.useState([])
   const getrestaurant = async () => {
