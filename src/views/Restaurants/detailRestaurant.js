@@ -7,13 +7,7 @@ import {
 } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 import getData from '../../helpers/getData'
-import qs from 'query-string'
 const useStyles = makeStyles({
-  listCategories: {
-    borderBottom: '1px solid #ccc',
-    minHeight: '100px',
-    marginBottom: '50px'
-  },
   buttonCategories: {
     marginLeft: '10px',
     width: '120px',
@@ -24,6 +18,7 @@ const useStyles = makeStyles({
     padding: '50px'
   },
   listItems: {
+    marginTop:'20px',
     minHeight: '200px'
   },
   avatar: {
@@ -32,37 +27,18 @@ const useStyles = makeStyles({
   }
 })
 
-function ShowItems (props) {
-  const search = qs.parse(props.location.search)
+export default function DetailRestaurants (props) {
   const classes = useStyles()
-  const [activeCategory, setActiveCategory] = React.useState(0)
   const [dataItems, setData] = React.useState({})
-  const [dataCategory, setDataCategory] = React.useState([])
   const [page, setPage] = React.useState(1)
   const handleChange = (event, value) => {
     setPage(value)
   }
-  const getCategory = async () => {
-    try {
-      const response = await getData('/browse-categories')
-      console.log(response)
-      setDataCategory(response.data.data)
-    } catch (e) {
-      console.log(e)
-    }
-  }
+
   const getItems = async (page, category) => {
     try {
       const condition = `limit=5&sort[created_at]=1&page=${page}`
-      let url = `/browse-items?${condition}`
-      if (category) {
-        console.log(category)
-        url = `/browse-categories/${category}?${condition}`
-      }
-      if (search.s && search.s.trim()) {
-        console.log(search.s)
-        url += `&search[name]=${search.s}`
-      }
+      let url = `/browse-restaurants/${props.match.params.id}/items?${condition}`
       const response = await getData(url)
       console.log(response.data)
       setData(response.data)
@@ -71,29 +47,12 @@ function ShowItems (props) {
     }
   }
   React.useEffect(() => {
-    getCategory()
-    getItems(page, activeCategory)
-  }, [activeCategory, page])
+    getItems(page)
+  },[page])
   return (
     <>
-      <div className={classes.listCategories}>
-        <Container>
-          <Grid container className={classes.grid}>
-            <Button size='small' variant={parseInt(activeCategory) === 0 ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(0); setPage(1) }} color='secondary' className={classes.buttonCategories}> Show All </Button>
-            {
-              dataCategory.length > 0 && dataCategory.map((cat) => (
-                <Button key={cat._id} size='small' style={{ textTransform: 'capitalize', fontSize: '15px', minWidth: '120px' }} variant={parseInt(activeCategory) === parseInt(cat._id) ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(`${cat._id}`); setPage(1) }} color='secondary' className={classes.buttonCategories}> {cat.name} </Button>
-              ))
-            }
-          </Grid>
-        </Container>
-      </div>
       <div className={classes.listItems}>
         <Container>
-          {search.s &&
-          <Typography  style={{marginBottom: '20px'}} variant='h5'>
-            Search For : {search.s}
-          </Typography>}
           <Grid container justify='center' spacing={2} alignItems='stretch'>
             {
               dataItems.dataItems ? dataItems.dataItems.map((item) => (
@@ -132,28 +91,8 @@ function ShowItems (props) {
               </Grid>
             )
           }
-          {/* <Dialog
-            fullScreen={fullScreen}
-            open={open}
-            onClose={handleClose}
-            aria-labelledby='responsive-dialog-title'
-          >
-            <DialogTitle id='responsive-dialog-title'>How Many Item</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-              <TextField id='outlined-basic' fullWidth margin='normal' label='Total Item' variant='outlined' />
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button autoFocus onClick={handleClose} color='primary'>
-                Submit
-              </Button>
-            </DialogActions>
-          </Dialog> */}
         </Container>
       </div>
     </>
   )
 }
-
-export default ShowItems

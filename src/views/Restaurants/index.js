@@ -85,7 +85,6 @@ function ShowRestaurants (props) {
               )
             }
           </Grid>
-          {dataRestaurants.pagination && console.log(dataRestaurants.pagination)}
           {
             dataRestaurants.pagination && dataRestaurants.pagination.totalPages > 1 && (
               <Grid container justify='center' style={{ marginTop: '50px' }}>

@@ -20,6 +20,7 @@ import ShowCarts from './views/Carts'
 import DashboardAdmin from './views/DashboardAdmin'
 import DashboardResAdmin from './views/DashboardResAdmin'
 import Restaurants from './views/Restaurants'
+import DetailRestaurant from './views/Restaurants/detailRestaurant'
 import Page404 from './views/Page404'
 import Page403 from './views/Page403'
 
@@ -128,6 +129,13 @@ function App (props) {
           exact
           path='/restaurants'
           component={Restaurants}
+          layout={MainLayout}
+        />
+        <GuestRoute
+          title='Restaurants'
+          exact
+          path='/restaurants/:id'
+          component={DetailRestaurant}
           layout={MainLayout}
         />
         <GuestRoute
