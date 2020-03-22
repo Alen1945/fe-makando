@@ -19,6 +19,7 @@ import DetailItem from './views/ShowItems/DetailItem'
 import ShowCarts from './views/Carts'
 import DashboardAdmin from './views/DashboardAdmin'
 import DashboardResAdmin from './views/DashboardResAdmin'
+import Restaurants from './views/Restaurants'
 import Page404 from './views/Page404'
 import Page403 from './views/Page403'
 
@@ -122,6 +123,13 @@ function App (props) {
           layout={LayoutAdminRestaurant}
         />
         {/* END Admin Restaurant */}
+        <GuestRoute
+          title='Restaurants'
+          exact
+          path='/restaurants'
+          component={Restaurants}
+          layout={MainLayout}
+        />
         <GuestRoute
           title='403 Forbidden'
           exact
