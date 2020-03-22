@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
 import {Store} from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 
@@ -45,9 +46,11 @@ export default function CardItem (props) {
         {/* <Button size='small' color='secondary' variant='contained'>
           <AddShoppingCart />
         </Button> */}
-        <Button size='small' color='secondary' variant='contained' to={`/items/${props.detailItem._id}`} component={Link}>
-        Details
-        </Button>
+        <Grid container justify='center'>
+          <Button size='small' color='secondary' variant='contained' to={`/items/${props.detailItem._id}`} component={Link}>
+          Details
+          </Button>
+        </Grid>
       </CardActions>
     </Card>
   )

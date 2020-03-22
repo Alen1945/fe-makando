@@ -78,9 +78,11 @@ export default function DetailRestaurants (props) {
                       {/* <Button size='small' color='secondary' variant='contained'>
                         <AddShoppingCart />
                       </Button> */}
-                      <Button size='small' color='secondary' variant='contained' to={`/items/${item._id}`} component={Link}>
-                      Details
-                      </Button>
+                      <Grid container justify='center'>
+                        <Button size='small' color='secondary' variant='contained' to={`/items/${item._id}`} component={Link}>
+                        Details
+                        </Button>
+                      </Grid>
                     </CardActions>
                   </Card>
                 </Grid>
