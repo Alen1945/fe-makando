@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import {Store} from '@material-ui/icons'
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles({
@@ -33,12 +34,18 @@ export default function CardItem (props) {
         <Typography gutterBottom variant='h6'>
           Rp. {parseFloat(props.detailItem.price).toFixed(2)}
         </Typography>
+        <Typography gutterBottom variant='subtite2' style={{display:'block', textDecoration:'none'}} color='primary' to={'/restaurants/'+props.detailItem.id_restaurant} component={Link}>
+          <Store style={{ display: 'inline-flex',verticalAlign: 'bottom'}}/> {props.detailItem.name_restaurant}
+        </Typography>
+        <Typography gutterBottom variant='p' color='textSecondary'>
+          {props.detailItem.name_category}
+        </Typography>
       </CardContent>
       <CardActions>
         {/* <Button size='small' color='secondary' variant='contained'>
           <AddShoppingCart />
         </Button> */}
-        <Button size='small' color='primary' variant='contained' to={`/items/${props.detailItem._id}`} component={Link}>
+        <Button size='small' color='secondary' variant='contained' to={`/items/${props.detailItem._id}`} component={Link}>
         Details
         </Button>
       </CardActions>

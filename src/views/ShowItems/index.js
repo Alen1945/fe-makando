@@ -5,7 +5,7 @@ import {
   Card, CardContent, CardActions, TextField,
   Typography, Button, Grid, Avatar, Container
 } from '@material-ui/core'
-import {Search} from '@material-ui/icons'
+import { Search, Store, Category } from '@material-ui/icons'
 import { Pagination } from '@material-ui/lab'
 import getData from '../../helpers/getData'
 import qs from 'query-string'
@@ -91,7 +91,7 @@ function ShowItems (props) {
       <div className={classes.listCategories}>
         <Container>
           <Grid container className={classes.grid}>
-            <Button size='small' variant={parseInt(activeCategory) === 0 ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(0); setPage(1); setSearch('');history.push('/items')}} color='secondary' className={classes.buttonCategories}> Show All </Button>
+            <Button size='small' variant={parseInt(activeCategory) === 0 ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(0); setPage(1); setSearch('');setSearchKey('');history.push('/items')}} color='secondary' className={classes.buttonCategories}> Show All </Button>
             {
               dataCategory.length > 0 && dataCategory.map((cat) => (
                 <Button key={cat._id} size='small' style={{ textTransform: 'capitalize', fontSize: '15px', minWidth: '120px' }} variant={parseInt(activeCategory) === parseInt(cat._id) ? 'contained' : 'outlined'} onClick={() => { setActiveCategory(`${cat._id}`); setPage(1) }} color='secondary' className={classes.buttonCategories}> {cat.name} </Button>
@@ -103,11 +103,11 @@ function ShowItems (props) {
       <div className={classes.listItems}>
         <Container>
           <Grid container alignItems='center' justify='center' spacing={2} style={{marginBottom:'10px'}}>
-            <TextField onChange={handleSearchInput} label='Search Item...' variant='outlined' margin='dense' style={{ marginBottom: '10px', marginRight:'5px'}} />
+            <TextField value={searchKey} onChange={handleSearchInput} label='Search Item...' variant='outlined' margin='dense' style={{ marginBottom: '10px', marginRight:'5px'}} />
             <Button color='secondary' onClick={handleSubmitSearch} variant='contained'><Search/></Button>
           </Grid>
           {search &&
-            <Typography  style={{marginBottom: '20px'}} variant='h5'>
+            <Typography align='center' style={{marginBottom: '20px'}} variant='h6'>
               Search For : {search}
             </Typography>}
           <Grid container justify='center' spacing={2} alignItems='stretch'>
@@ -123,12 +123,18 @@ function ShowItems (props) {
                       <Typography gutterBottom variant='h6'>
                         Rp. {parseFloat(item.price).toFixed(2)}
                       </Typography>
+                      <Typography gutterBottom variant='subtite2' style={{display:'block', textDecoration:'none'}} color='primary' to={'/restaurants/'+item.id_restaurant} component={Link}>
+                        <Store style={{ display: 'inline-flex',verticalAlign: 'bottom'}}/> {item.name_restaurant}
+                      </Typography>
+                      <Typography gutterBottom variant='p' color='textSecondary'>
+                        {item.name_category}
+                      </Typography>
                     </CardContent>
                     <CardActions>
                       {/* <Button size='small' color='secondary' variant='contained'>
                         <AddShoppingCart />
                       </Button> */}
-                      <Button size='small' color='primary' variant='contained' to={`/items/${item._id}`} component={Link}>
+                      <Button size='small' color='secondary' variant='contained' to={`/items/${item._id}`} component={Link}>
                       Details
                       </Button>
                     </CardActions>

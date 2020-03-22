@@ -6,6 +6,7 @@ import {
   Typography, Button, Grid, Avatar, Container
 } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
+import {Store} from '@material-ui/icons'
 import getData from '../../helpers/getData'
 const useStyles = makeStyles({
   buttonCategories: {
@@ -66,12 +67,18 @@ export default function DetailRestaurants (props) {
                       <Typography gutterBottom variant='h6'>
                         Rp. {parseFloat(item.price).toFixed(2)}
                       </Typography>
+                      <Typography gutterBottom variant='subtite2' style={{display:'block', textDecoration:'none'}} color='primary' to={'/restaurants/'+item.id_restaurant} component={Link}>
+                        <Store style={{ display: 'inline-flex',verticalAlign: 'bottom'}}/> {item.name_restaurant}
+                      </Typography>
+                      <Typography gutterBottom variant='p' color='textSecondary'>
+                        {item.name_category}
+                      </Typography>
                     </CardContent>
                     <CardActions>
                       {/* <Button size='small' color='secondary' variant='contained'>
                         <AddShoppingCart />
                       </Button> */}
-                      <Button size='small' color='primary' variant='contained' to={`/items/${item._id}`} component={Link}>
+                      <Button size='small' color='secondary' variant='contained' to={`/items/${item._id}`} component={Link}>
                       Details
                       </Button>
                     </CardActions>

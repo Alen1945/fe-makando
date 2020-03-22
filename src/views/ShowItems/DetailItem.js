@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import getData from '../../helpers/getData'
 import {
   Container, Grid, Card, CardContent,
@@ -15,6 +16,7 @@ import submitData from '../../helpers/submitData'
 import TabPanel from '../../components/TabPanel'
 import RelatedItem from './components/RelatedItem'
 import LayoutItemReview from './components/ReviewItems'
+import { Store } from '@material-ui/icons'
 import { connect } from 'react-redux'
 import { getCart } from '../../store/actions'
 const useStyles = makeStyles({
@@ -84,11 +86,17 @@ function DetailsItem (props) {
                 <Typography gutterBottom variant='h5'>
                   Rp. {parseFloat(dataItem.price).toFixed(2)}
                 </Typography>
-                <Typography gutterBottom variant='subtitle1' color='textSecondary' lineHeight={10}>
+                <Typography gutterBottom variant='subtitle1' color='textSecondary' lineHeight={10} style={{display:'block'}}>
                   Stock {dataItem.quantity} pcs
                 </Typography>
-                <Typography gutterBottom variant='p' color='textprimary'>
+                <Typography gutterBottom variant='p' color='textprimary' style={{display:'block'}}>
                   {dataItem.description}
+                </Typography>
+                <Typography gutterBottom variant='subtite2' style={{display:'block', textDecoration:'none'}} color='primary' to={'/restaurants/'+dataItem.id_restaurant} component={Link}>
+                  <Store style={{ display: 'inline-flex',verticalAlign: 'bottom'}}/> {dataItem.name_restoran}
+                </Typography>
+                <Typography gutterBottom variant='p' color='textSecondary'>
+                  {dataItem.name_category}
                 </Typography>
               </CardContent>
               <CardActions>
