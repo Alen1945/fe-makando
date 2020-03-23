@@ -160,10 +160,8 @@ function DetailsItem (props) {
                 ))}
             </Grid>
           </TabPanel>
-          <TabPanel value={value} index={1}>
-            <Grid align='center' justify='center' sytle={{ marginTop: '10px' }}>
-              {reviewItem ? <LayoutItemReview dataReview={reviewItem} /> : <Typography variant='h6' color='textSecondary'>Has Not Review For This Item</Typography>}
-            </Grid>
+          <TabPanel value={value} index={1} sytle={{ marginTop: '10px' }}>
+            {reviewItem ? <LayoutItemReview dataReview={reviewItem} /> : <Typography variant='h6' color='textSecondary'>Has Not Review For This Item</Typography>}
           </TabPanel>
         </Grid>
       </Container>
