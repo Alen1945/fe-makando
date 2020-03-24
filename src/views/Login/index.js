@@ -81,7 +81,7 @@ function Login (props) {
             </CardMedia>
             <CardActions>
               <Button size='small' color='primary' to='/forgot-password' component={Link}>
-                Forget Passoword?
+                Forget Password?
               </Button>
               <Button size='small' color='primary' to='/register' component={Link}>
                 SignUp
