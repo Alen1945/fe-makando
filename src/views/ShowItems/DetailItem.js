@@ -93,7 +93,7 @@ function DetailsItem (props) {
                   {dataItem.description}
                 </Typography>
                 <Typography gutterBottom variant='subtite2' style={{display:'block', textDecoration:'none'}} color='primary' to={'/restaurants/'+dataItem.id_restaurant} component={Link}>
-                  <Store style={{ display: 'inline-flex',verticalAlign: 'bottom'}}/> {dataItem.name_restoran}
+                  <Store style={{ display: 'inline-flex',verticalAlign: 'bottom'}}/> {dataItem.name_restaurant}
                 </Typography>
                 <Typography gutterBottom variant='p' color='textSecondary'>
                   {dataItem.name_category}

@@ -112,7 +112,7 @@ function Profile (props) {
     getUserData()
     getReviews()
     getHistory()
-  }, [statusEdit, userPic, openForm, openDialogDelete])
+  }, [statusEdit, userPic, openForm, openDialogDelete, getUserData])
   return (
     <>
       <AlertDelete
@@ -137,7 +137,7 @@ function Profile (props) {
           <Hidden smDown>
             <Grid style={{ paddingLeft: '60px'}}>
               <Typography variant='h5' align='right' color='textSecondary'> We Try to</Typography>
-              <Typography variant='h4' align='right' color='textSecondary' style={{ marginBottom: '20px' }}> Make You Life Easier</Typography>
+              <Typography variant='h4' align='right' color='textSecondary' style={{ marginBottom: '20px' }}> Make Your Life Easier</Typography>
               <img alt='img' src={backgroundProfile} style={{ width: '350px' }} />
             </Grid>
           </Hidden>
